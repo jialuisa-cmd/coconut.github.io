@@ -25,15 +25,15 @@
             padding: 12px 0;
             display: flex;
             justify-content: space-between;
-            cursor: default;
+            cursor: pointer;
             transition: background 0.2s;
         }
-        .thread.locked { opacity: 0.5; cursor: not-allowed; }
-        .thread.locked .title::after { content: ' 🔒'; color: #5a2a1a; font-size: 12px; }
-        .thread.unlocked { cursor: pointer; }
-        .thread.unlocked:hover { background: #1a1410; }
+        .thread:hover { background: #1a1410; }
         .thread .title { color: #8a7a6a; }
         .thread .meta { font-size: 11px; color: #4a3a2a; }
+        .thread.locked { opacity: 0.5; cursor: not-allowed; }
+        .thread.locked .title::after { content: ' 🔒'; color: #5a2a1a; font-size: 12px; }
+        .thread.locked:hover { background: transparent; }
         .footer { margin-top: 20px; border-top: 1px solid #1a120e; padding-top: 12px; font-size: 11px; color: #2a221a; text-align: center; }
 
         .progress-wrapper { margin: 10px 0 15px 0; background: #0a0806; border: 1px solid #1a120e; padding: 10px 14px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
@@ -165,48 +165,48 @@
 
     <div style="margin-top:10px;" id="threadList">
 
-        <!-- 三个完全开放的帖子（藏 X、J、7） -->
-        <div class="thread unlocked" data-char="X" onclick="openThread('posts/1.html')">
+        <!-- ===== 全部开放（无需登录） ===== -->
+        <!-- 密码帖 -->
+        <div class="thread" data-char="X" onclick="openThread('posts/1.html')">
             <span class="title">【求助】有人认识这个符号吗？</span>
             <span class="meta">回复: 12 &nbsp;|&nbsp; 2018.11.23</span>
         </div>
-        <div class="thread unlocked" data-char="J" onclick="openThread('posts/2.html')">
+        <div class="thread" data-char="J" onclick="openThread('posts/2.html')">
             <span class="title">【讨论】有没有人做过同样的梦？</span>
             <span class="meta">回复: 7 &nbsp;|&nbsp; 2019.03.11</span>
         </div>
-        <div class="thread unlocked" data-char="7" onclick="openThread('posts/3.html')">
+        <div class="thread" data-char="7" onclick="openThread('posts/3.html')">
             <span class="title">【记录】一些无法解释的事</span>
             <span class="meta">回复: 5 &nbsp;|&nbsp; 2020.08.22</span>
         </div>
 
-        <!-- ===== 恐怖帖（心理恐怖，不突脸） ===== -->
-        <div class="thread unlocked" onclick="openThread('posts/4.html')">
+        <!-- 恐怖帖 -->
+        <div class="thread" onclick="openThread('posts/4.html')">
             <span class="title">【加密】有人一直在跟着我</span>
             <span class="meta">回复: 3 &nbsp;|&nbsp; 2026.06.28</span>
         </div>
-        <div class="thread unlocked" onclick="openThread('posts/5.html')">
+        <div class="thread" onclick="openThread('posts/5.html')">
             <span class="title">【系统日志】异常访问记录</span>
             <span class="meta">回复: 1 &nbsp;|&nbsp; 2026.07.09</span>
         </div>
-        <div class="thread unlocked" onclick="openThread('posts/6.html')">
+        <div class="thread" onclick="openThread('posts/6.html')">
             <span class="title">【加密】我还剩几天？</span>
             <span class="meta">回复: 0 &nbsp;|&nbsp; 2026.07.03</span>
         </div>
 
-        <!-- ===== 玄姬残卷（登录后解锁） ===== -->
+        <!-- ===== 需要登录 ===== -->
         <div class="thread locked" id="xuanjiThread" onclick="openXuanji()">
             <span class="title">【残卷】玄姬 · 南城古卷</span>
-            <span class="meta">需登录查阅 · 2026.07.09</span>
+            <span class="meta">🔒 需登录 · 2026.07.09</span>
         </div>
 
-        <!-- ===== 李慈安加密帖子（登录后解锁） ===== -->
         <div class="thread locked" id="lockedThread" onclick="openLockedThread()">
             <span class="title">【加密】最后的记录 · 李慈安</span>
-            <span class="meta">回复: 0 &nbsp;|&nbsp; 2026.07.08</span>
+            <span class="meta">🔒 需登录 · 2026.07.08</span>
         </div>
 
-        <!-- ===== 外部链接：学校官网 ===== -->
-        <div class="thread unlocked" onclick="window.open('../school/index.html','_blank')">
+        <!-- 外部链接 -->
+        <div class="thread" onclick="window.open('../school/index.html','_blank')">
             <span class="title">【外部链接】南城一中 · 官网</span>
             <span class="meta">来源: 公开网络</span>
         </div>
@@ -225,7 +225,7 @@
         <input type="password" id="modalPassword" placeholder="密码" value="">
         <button class="modal-btn" id="modalLoginBtn" onclick="doModalLogin()">▸ 验证身份 ◂</button>
         <div class="m-feedback" id="modalFeedback"></div>
-        <div class="m-hint">💡 提示：<br>· 用户名随意填写<br>· 密码藏在帖子里，拼起来是3个字符<br>· 进度条会告诉你收集了多少</div>
+        <div class="m-hint">💡 提示：<br>· 用户名随意填写<br>· 密码藏在开放帖子里，拼起来是3个字符<br>· 进度条会告诉你收集了多少</div>
     </div>
 </div>
 
@@ -281,7 +281,6 @@
             // 解锁加密帖子
             if (lockedThread) {
                 lockedThread.classList.remove('locked');
-                lockedThread.classList.add('unlocked');
                 lockedThread.style.opacity = '1';
                 lockedThread.style.cursor = 'pointer';
                 var title = lockedThread.querySelector('.title');
@@ -290,10 +289,8 @@
                 }
                 lockedThread.onclick = function() { window.location.href = 'posts/li.html'; };
             }
-            // 解锁玄姬残卷
             if (xuanjiThread) {
                 xuanjiThread.classList.remove('locked');
-                xuanjiThread.classList.add('unlocked');
                 xuanjiThread.style.opacity = '1';
                 xuanjiThread.style.cursor = 'pointer';
                 var xtitle = xuanjiThread.querySelector('.title');
@@ -303,21 +300,19 @@
                 xuanjiThread.onclick = function() { window.location.href = '玄姬残卷.html'; };
             }
         } else {
-            msg.innerHTML = '⚠️ 您正在以 <span style="color:#3a5a3a;">访客</span> 身份浏览。';
+            msg.innerHTML = '⚠️ 您正在以 <span class="highlight">访客</span> 身份浏览。';
             badge.className = 'status offline';
             badge.textContent = '● 已连接 (匿名)';
             loginBtn.style.display = 'inline-block';
             logoutBtn.style.display = 'none';
             if (lockedThread) {
                 lockedThread.classList.add('locked');
-                lockedThread.classList.remove('unlocked');
                 lockedThread.style.opacity = '0.5';
                 lockedThread.style.cursor = 'not-allowed';
                 lockedThread.onclick = openLockedThread;
             }
             if (xuanjiThread) {
                 xuanjiThread.classList.add('locked');
-                xuanjiThread.classList.remove('unlocked');
                 xuanjiThread.style.opacity = '0.5';
                 xuanjiThread.style.cursor = 'not-allowed';
                 xuanjiThread.onclick = openXuanji;
@@ -350,23 +345,18 @@
         }
     }
 
-    // 打开普通帖子（已登录直接跳转，否则提示）
+    // ===== 开放帖子：直接跳转（不检查登录） =====
     window.openThread = function(url) {
-        if (isLoggedIn) {
-            window.location.href = url;
-        } else {
-            openLoginModal();
-            document.getElementById('modalFeedback').textContent = '⚠️ 请先登录才能查看加密内容。';
-            document.getElementById('modalFeedback').style.color = '#8a3a2a';
-        }
+        window.location.href = url;
     };
 
+    // ===== 需要登录的帖子 =====
     window.openLockedThread = function() {
         if (isLoggedIn) {
             window.location.href = 'posts/li.html';
         } else {
             openLoginModal();
-            document.getElementById('modalFeedback').textContent = '🔒 该帖子需要登录才能查看。\n先去前三个帖子收集密码碎片吧！';
+            document.getElementById('modalFeedback').textContent = '🔒 该帖子需要登录才能查看。\n先去开放帖子里收集密码碎片吧！';
             document.getElementById('modalFeedback').style.color = '#8a3a2a';
         }
     };
@@ -435,7 +425,6 @@
                 document.getElementById('modalLoginBtn').disabled = false;
                 document.getElementById('modalLoginBtn').textContent = '▸ 验证身份 ◂';
                 updateUI();
-                // 登录成功后检查是否集齐密码，若集齐则提示跳转揭示页
                 if (collectedChars.length === 3) {
                     setTimeout(function() {
                         if (confirm('🔓 你已集齐密码并登录。\n是否前往揭示「第七个」？')) {
@@ -455,7 +444,7 @@
         } else if (upperP.includes('X') || upperP.includes('J') || upperP.includes('7')) {
             fb.textContent = '❌ 顺序不对。试试把三个字符按 "X J 7" 的顺序拼起来。';
         } else {
-            fb.textContent = '❌ 密码错误。去前三个帖子里找线索——每个帖子里藏着一个字符。';
+            fb.textContent = '❌ 密码错误。去开放帖子里找线索——每个帖子里藏着一个字符。';
         }
         fb.style.color = '#8a2a1a';
         box.classList.add('shake-modal');
@@ -512,9 +501,9 @@
         });
         loadState();
         console.log('✅ 深网档案已加载');
-        console.log('💡 前三个帖子完全开放，密码藏在里面。');
-        console.log('🔑 集齐三个字符后，在登录框输入密码 XJ7。');
-        console.log('📜 登录后解锁「玄姬残卷」和「李慈安加密帖」。');
+        console.log('📌 前6个帖子完全开放，密码藏在其中。');
+        console.log('🔒 玄姬残卷和弟弟的加密记录需要登录。');
+        console.log('🔑 集齐三个字符后在登录框输入密码 XJ7。');
     });
 
     window.collectChar = collectChar;
