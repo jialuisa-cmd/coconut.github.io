@@ -137,6 +137,18 @@
             font-weight: bold;
             letter-spacing: 1px;
         }
+        .player-hint {
+            color: #141414;
+            font-size: 8px;
+            text-align: center;
+            margin-top: 10px;
+            user-select: none;
+            cursor: default;
+            transition: color 1s;
+        }
+        .player-hint:hover {
+            color: #3a2a1a;
+        }
     </style>
 </head>
 <body>
@@ -169,7 +181,6 @@
 
         <div class="divider"></div>
 
-        <!-- ===== 引导区域 ===== -->
         <div class="step-box">
             <div class="step">▸ 第 1 步</div>
             <div class="target">
@@ -198,7 +209,11 @@
             💡 <span style="color:#5a4a3a;">提示：论坛右上角有搜索框。</span>
         </div>
 
-        <!-- 藏得更深的路径提示 -->
+        <!-- 玩家身份暗示 -->
+        <div class="player-hint" id="playerHint">
+            · 你最近还好吗 · 有人问起过你 ·
+        </div>
+
         <p style="font-size:10px; color:#1a1a1a; margin-top:8px; user-select:none;">
             · 如果你在找深网，试试 Ctrl+Shift+D ·
         </p>
@@ -221,6 +236,10 @@
                 window.location.href = 'forum/index.html';
             }
         }
+    });
+
+    document.getElementById('playerHint').addEventListener('dblclick', function() {
+        alert('🕶️ 你是谁？\n—— 有人记得你。从小学就记得。');
     });
 
     console.log('%c南城·旧事 存档页面', 'color: #4a3a2a; font-size: 16px; font-weight: bold;');
