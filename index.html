@@ -56,20 +56,36 @@
             font-size: 14px;
             color: #7a7a7a;
         }
-        .content .fade {
-            color: #3a3a3a;
-        }
         .content .highlight {
             color: #5a4a3a;
         }
         .content .link-hint {
-            color: #2a2a2a;
+            color: #3a3a3a;
             cursor: pointer;
             transition: color 0.3s;
+            text-decoration: underline;
+            text-decoration-color: #2a2a2a;
         }
         .content .link-hint:hover {
-            color: #6a5a4a;
-            text-decoration: underline;
+            color: #8a7a6a;
+            text-decoration-color: #5a4a3a;
+        }
+        .content .step-box {
+            background: #0a0a0a;
+            border: 1px solid #2a2a2a;
+            padding: 16px 20px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .content .step-box .step {
+            color: #4a3a2a;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+        .content .step-box .target {
+            color: #8a7a6a;
+            font-size: 14px;
+            margin-top: 4px;
         }
         .divider {
             border-top: 1px solid #1a1a1a;
@@ -89,7 +105,6 @@
         .footer .hidden-path:hover {
             color: #4a3a2a;
         }
-        /* 模拟错误信息 */
         .error-block {
             background: #0a0a0a;
             border-left: 3px solid #3a2a1a;
@@ -109,7 +124,6 @@
             0%, 100% { opacity: 1; }
             50% { opacity: 0.1; }
         }
-        /* 隐藏的鼠标悬停彩蛋 */
         .hover-secret {
             color: #141414;
             transition: color 0.5s;
@@ -117,6 +131,11 @@
         }
         .hover-secret:hover {
             color: #5a4a3a;
+        }
+        .guide-highlight {
+            color: #6a5a4a;
+            font-weight: bold;
+            letter-spacing: 1px;
         }
     </style>
 </head>
@@ -132,7 +151,7 @@
     <div class="content">
 
         <p>你正在访问一个已被遗弃的页面。</p>
-        <p>该站点曾用于记录南城地区的<span class="fade">一些琐事</span>。</p>
+        <p>该站点曾用于记录南城地区的<span class="highlight">一些琐事</span>。</p>
 
         <div class="error-block">
             <span class="red">[ 错误 ]</span> 无法加载资源：/archive/main.css<br>
@@ -150,13 +169,34 @@
 
         <div class="divider"></div>
 
+        <!-- ===== 引导区域 ===== -->
+        <div class="step-box">
+            <div class="step">▸ 第 1 步</div>
+            <div class="target">
+                有人在 <span class="guide-highlight">「南城社区」</span> 里留下了一些东西。<br>
+                找到用户 <span class="guide-highlight">「LiCian」</span> 的帖子，了解他的故事。
+            </div>
+        </div>
+
         <p style="font-size:12px; color:#4a4a4a;">
-            有人说他在一个本地论坛里发过帖子。<br>
-            有人把那些帖子存了下来。<br>
             <span class="link-hint" onclick="window.location.href='forum_public/index.html'" title="点击进入">
-                但那个论坛已经没什么人了。
+                → 点击这里进入南城社区
             </span>
         </p>
+
+        <div class="divider"></div>
+
+        <div class="step-box" style="border-color:#3a2a1a;">
+            <div class="step" style="color:#5a3a2a;">▸ 第 2 步</div>
+            <div class="target" style="color:#8a7a6a;">
+                进入论坛后，搜索 <span class="guide-highlight">「李慈安」</span> 或 <span class="guide-highlight">「生日」</span>。<br>
+                关键密码藏在某篇帖子里。
+            </div>
+        </div>
+
+        <div style="font-size:11px; color:#3a3a3a; margin-top:8px;">
+            💡 <span style="color:#5a4a3a;">提示：论坛右上角有搜索框。</span>
+        </div>
 
         <!-- 藏得更深的路径提示 -->
         <p style="font-size:10px; color:#1a1a1a; margin-top:8px; user-select:none;">
@@ -174,7 +214,6 @@
 </div>
 
 <script>
-    // ===== 键盘快捷键：Ctrl+Shift+D 直接跳转深网（但玩家不知道这个快捷键，需要从论坛里获取） =====
     document.addEventListener('keydown', function(e) {
         if (e.ctrlKey && e.shiftKey && e.key === 'D') {
             e.preventDefault();
@@ -184,23 +223,10 @@
         }
     });
 
-    // ===== 控制台彩蛋 =====
     console.log('%c南城·旧事 存档页面', 'color: #4a3a2a; font-size: 16px; font-weight: bold;');
-    console.log('%c如果你在找南城社区，点击页面上发暗的那句话。', 'color: #666; font-size: 13px;');
-    console.log('%c—— 那个论坛已经没什么人了。', 'color: #3a3a3a; font-size: 12px;');
+    console.log('%c🎯 目标：进入「南城社区」，找到用户「LiCian」的帖子。', 'color: #8a7a6a; font-size: 14px;');
+    console.log('%c💡 第二步：搜索「生日」获取登录密码。', 'color: #5a4a3a; font-size: 13px;');
 
-    // ===== 页面加载后，随机出现一个隐藏提示 =====
-    setTimeout(function() {
-        var el = document.querySelector('.hover-secret');
-        if (el) {
-            el.style.color = '#3a2a1a';
-            setTimeout(function() {
-                el.style.color = '#141414';
-            }, 3000);
-        }
-    }, 4000);
-
-    // ===== 鼠标点击页脚隐藏文字触发跳转 =====
     document.querySelector('.footer .hidden-path').addEventListener('dblclick', function() {
         if (confirm('🕶️ 检测到隐藏通道。\n是否前往「深网档案」？')) {
             window.location.href = 'forum/index.html';
