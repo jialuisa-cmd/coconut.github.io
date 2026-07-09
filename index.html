@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>南城一中学生失联 · 有人知道内情吗？</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #e8ecf0;
+            font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+            display: flex;
+            justify-content: center;
+            padding: 30px 15px;
+        }
+        .post-container {
+            max-width: 680px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            padding: 24px 24px 16px;
+        }
+        .post-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #2a5a7a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: bold;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .user-info { flex: 1; }
+        .user-info .name { font-weight: 600; font-size: 15px; color: #1a2a3a; }
+        .user-info .badge { font-size: 11px; background: #e8ecf0; color: #666; padding: 0 6px; border-radius: 4px; margin-left: 4px; }
+        .user-info .time { font-size: 12px; color: #999; margin-top: 2px; }
+        .more-btn { color: #999; font-size: 18px; cursor: default; }
+        .post-body { font-size: 16px; line-height: 1.8; color: #1a1a2a; }
+        .post-body p { margin-bottom: 12px; }
+        .post-body .highlight-link { color: #1a5a8a; text-decoration: underline; cursor: pointer; font-weight: 500; }
+        .post-body .highlight-link:hover { color: #0a3a5a; }
+        .post-body .highlight-red { color: #a03030; font-weight: 500; }
+        .post-body .quote-block {
+            background: #f4f6f9;
+            border-left: 3px solid #2a5a7a;
+            padding: 12px 16px;
+            margin: 12px 0;
+            font-size: 14px;
+            color: #444;
+            border-radius: 0 6px 6px 0;
+        }
+        .post-body .quote-block .source { color: #888; font-size: 12px; margin-top: 6px; }
+        .image-placeholder {
+            background: #dde1e6;
+            border-radius: 10px;
+            padding: 30px 20px;
+            text-align: center;
+            color: #888;
+            font-size: 13px;
+            margin: 12px 0;
+            border: 1px dashed #bbb;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .image-placeholder:hover { background: #d0d5dc; }
+        .image-placeholder .icon { font-size: 28px; display: block; margin-bottom: 6px; }
+        .post-actions {
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid #e8ecf0;
+            padding-top: 14px;
+            margin-top: 14px;
+        }
+        .post-actions span { color: #888; font-size: 14px; cursor: default; display: flex; align-items: center; gap: 6px; }
+        .post-actions span:hover { color: #2a5a7a; }
+        .comment-section { border-top: 1px solid #e8ecf0; margin-top: 16px; padding-top: 16px; }
+        .comment-item {
+            display: flex;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f2f5;
+        }
+        .comment-item:last-child { border-bottom: none; }
+        .comment-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #d0d5dc;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #fff;
+            font-weight: bold;
+        }
+        .comment-body .cname { font-weight: 500; font-size: 13px; color: #1a2a3a; }
+        .comment-body .ctime { font-size: 11px; color: #bbb; margin-left: 8px; }
+        .comment-body .ctext { font-size: 14px; color: #222; margin-top: 3px; line-height: 1.5; }
+        .comment-body .ctext .hint-text { color: #1a5a8a; cursor: pointer; text-decoration: underline; }
+        .comment-body .ctext .hint-text:hover { color: #0a3a5a; }
+        .footer-tip { margin-top: 16px; text-align: center; font-size: 11px; color: #bbb; border-top: 1px solid #f0f2f5; padding-top: 12px; }
+        .ghost-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            color: rgba(26,42,58,0.03);
+            font-size: 12px;
+            pointer-events: none;
+            font-family: "Courier New", monospace;
+            letter-spacing: 2px;
+            transition: color 0.5s;
+        }
+        .ghost-float:hover { color: rgba(26,42,58,0.15); }
+        .hidden-symbol { color: #ffffff; font-size: 8px; user-select: none; }
+        .hidden-text {
+            color: #ffffff;
+            background: #ffffff;
+            font-size: 13px;
+            display: inline;
+        }
+        .hidden-text::selection { background: #ffd; color: #000; }
+    </style>
+</head>
+<body>
+
+<div class="post-container">
+    <div class="post-header">
+        <div class="avatar">南</div>
+        <div class="user-info">
+            <div class="name">南城热心市民 <span class="badge">Lv.3</span></div>
+            <div class="time">2026-07-08 23:14 · 来自 南城 · 浏览 2.3万</div>
+        </div>
+        <div class="more-btn">⋯</div>
+    </div>
+
+    <div class="post-body">
+        <p><b>【求助】南城一中一学生失联，警方已介入，有人知道内情吗？</b></p >
+        <p>今天刷到一条消息，南城一中有个学生已经快一个月没去学校了，班主任报了警。但是学校一直压着消息，我也是听朋友说的。</p >
+        <p>好像是个男生，名字被隐去了，只知道姓李。有知情的吗？这到底怎么回事？</p >
+        <div class="image-placeholder" onclick="alert('📷 图片加载失败 · 拍摄于南城一中后门\n—— 角落似乎有一个人的影子')">
+            <span class="icon">🖼️</span> 点击查看图片描述 · 拍摄于2026年6月
+        </div>
+        <p>学校官网现在还能打开，但是好多页面都显示<span class="highlight-red">“访问受限”</span>。我刚才试着搜了一下那个学生的名字，结果跳出来一个奇怪的页面……</p >
+        <div class="quote-block">
+            “该生档案已加密。若需查询，请前往内部论坛获取权限。”
+            <div class="source">—— 南城一中 · 学生档案系统提示</div>
+        </div>
+        <p>有人知道这个<span class="highlight-link" onclick="window.open('forum/index.html','_blank')">“内部论坛”</span>怎么进吗？我找了半天没找到入口。</p >
+        <p style="font-size:14px; color:#888; margin-top:6px;">
+            <span class="hidden-text">对了，那个论坛好像有个叫“深网档案”的板块……我试了搜“慈安”，什么也没搜到。</span>
+        </p >
+        <p>还有，我听说这个学生家里情况挺复杂的，父母离异，跟着他爸过。他爸……好像经常喝酒。有人认识他家邻居吗？</p >
+        <p style="color:#999; font-size:14px; border-top:1px solid #f0f2f5; padding-top:12px; margin-top:8px;">
+            📌 补充：刚翻到一条旧新闻，2018年南城一中发生过校园霸凌事件。当时被欺负的那个学生好像也姓李……不会是一个人吧？
+        </p >
+        <span class="hidden-symbol">◈</span>
+    </div>
+
+    <div class="post-actions">
+        <span>↩️ 转发 47</span>
+        <span>💬 评论 23</span>
+        <span>❤️ 收藏 16</span>
+        <span>⚑ 举报</span>
+    </div>
+
+    <div class="comment-section">
+        <div class="comment-item">
+            <div class="comment-avatar" style="background:#6a8aaa;">北</div>
+            <div class="comment-body">
+                <span class="cname">北城路人甲</span><span class="ctime">2026-07-08 23:28</span>
+                <div class="ctext">
+                    我有个亲戚在南城一中当老师，说那个学生好像精神有点问题，老是跟别人说他有个<span style="color:#a03030;">哥哥</span>，但明明他是独生子。
+                </div>
+            </div>
+        </div>
+        <div class="comment-item">
+            <div class="comment-avatar" style="background:#8a6a4a;">Z</div>
+            <div class="comment-body">
+                <span class="cname">Zzz_</span><span class="ctime">2026-07-08 23:41</span>
+                <div class="ctext">
+                    我去看了那个学校官网，搜索功能好像有问题。搜“李”跳出来一个<span class="hint-text" onclick="alert('⚠️ 该词条已被管理员隐藏。\n但系统提示：试试在论坛里搜索“符号”')">加密页面</span>，根本打不开。
+                </div>
+            </div>
+        </div>
+        <div class="comment-item">
+            <div class="comment-avatar" style="background:#4a6a4a;">夜</div>
+            <div class="comment-body">
+                <span class="cname">夜行者</span><span class="ctime">2026-07-09 00:03</span>
+                <div class="ctext">
+                    你们都没发现吗？那个学生的名字是<span style="color:#a03030;font-weight:bold;">李慈安</span>。<br>
+                    我翻到了他小学的毕业照，照片背面写着几个字——<span style="color:#1a5a8a;cursor:pointer;" onclick="alert('“他还在。”\n—— 字迹很潦草，像是后来加上去的。')">“他还在。”</span>
+                </div>
+            </div>
+        </div>
+        <div class="comment-item">
+            <div class="comment-avatar" style="background:#5a3a5a;">匿</div>
+            <div class="comment-body">
+                <span class="cname">匿名用户</span><span class="ctime">2026-07-09 00:17</span>
+                <div class="ctext">
+                    别查了。有些事不是你们该管的。<br>
+                    <span style="color:#888;font-size:12px;">—— 一个认识他的人</span>
+                    <div style="color:#f4f6f9;font-size:10px;margin-top:2px;">· 他哥让我带话 · 别再搜了 ·</div>
+                </div>
+            </div>
+        </div>
+        <div class="comment-item" style="border-bottom: none;">
+            <div class="comment-avatar" style="background:#3a3a4a;">M</div>
+            <div class="comment-body">
+                <span class="cname">Mystery</span><span class="ctime">2026-07-09 00:29</span>
+                <div class="ctext">
+                    我在一个帖子里看到有人发了一个符号：<span style="font-size:24px;color:#4a2a1a;">◈</span><br>
+                    下面有人回复说“她来了”。<br>
+                    <span style="color:#888;font-size:12px;">这个符号是不是在哪见过？</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-tip">💡 你刚刷到一条帖子 · 2026年7月9日 · 南城本地</div>
+    <div style="text-align:right; font-size:10px; color:#f0f2f5; margin-top:4px; user-select:none;">· 他让我告诉你 · 你找对人了 ·</div>
+</div>
+
+<div class="ghost-float">· 他 · 在 · 这 · 里 ·</div>
+<div style="position:fixed; bottom:60px; left:20px; color:#ffffff; font-size:6px; user-select:none;">◈</div>
+
+<script>
+    window.onload = function() {
+        var hidden = document.querySelector('.hidden-text');
+        if (hidden) {
+            setTimeout(function() {
+                hidden.style.color = '#a03030';
+                hidden.style.background = 'transparent';
+                setTimeout(function() {
+                    hidden.style.color = '#ffffff';
+                    hidden.style.background = '#ffffff';
+                }, 1200);
+            }, 2000);
+        }
+        console.log('%c◈ 你发现了这个地方。', 'color: #4a2a1a; font-size: 18px; font-weight: bold;');
+        console.log('%c他一直在看着你。', 'color: #888; font-size: 13px;');
+        console.log('%c试试在论坛里搜索"符号"', 'color: #1a5a8a; font-size: 13px;');
+    };
+</script>
+</body>
+</html>
