@@ -21,6 +21,9 @@
         .result-item .meta .highlight { color: #8a2a2a; font-weight: bold; }
         .no-result { color: #999; font-size: 15px; text-align: center; padding: 40px 0; }
         .suggestion { color: #888; font-size: 13px; margin-top: 20px; border-top: 1px solid #eee; padding-top: 16px; }
+        .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+        .tag-cloud .tag { background: #e8ecf0; padding: 4px 12px; border-radius: 12px; font-size: 12px; cursor: pointer; color: #1a5a8a; }
+        .tag-cloud .tag:hover { background: #d0d8e0; }
     </style>
 </head>
 <body>
@@ -31,17 +34,29 @@
         搜索结果：<span class="keyword" id="keywordDisplay">"加载中..."</span>
     </div>
 
-    <div id="resultsContainer">
-        <!-- 由 JavaScript 动态渲染 -->
-    </div>
+    <div id="resultsContainer"></div>
 
     <div class="suggestion">
-        💡 提示：试试搜索 "李慈安"、"哥哥"、"玄姬"
+        💡 试试搜索这些关键词：
+        <div class="tag-cloud">
+            <span class="tag" onclick="location.href='search.html?q=李慈安'">李慈安</span>
+            <span class="tag" onclick="location.href='search.html?q=哥哥'">哥哥</span>
+            <span class="tag" onclick="location.href='search.html?q=玄姬'">玄姬</span>
+            <span class="tag" onclick="location.href='search.html?q=霸凌'">霸凌</span>
+            <span class="tag" onclick="location.href='search.html?q=家暴'">家暴</span>
+            <span class="tag" onclick="location.href='search.html?q=南城一中'">南城一中</span>
+            <span class="tag" onclick="location.href='search.html?q=第七个'">第七个</span>
+            <span class="tag" onclick="location.href='search.html?q=献祭'">献祭</span>
+            <span class="tag" onclick="location.href='search.html?q=符号'">符号</span>
+            <span class="tag" onclick="location.href='search.html?q=人格'">人格</span>
+            <span class="tag" onclick="location.href='search.html?q=分裂'">分裂</span>
+            <span class="tag" onclick="location.href='search.html?q=慈安'">慈安</span>
+        </div>
     </div>
 </div>
 
 <script>
-    // ===== 预设数据 =====
+    // ===== 预设数据（12个关键词） =====
     var searchData = {
         '李慈安': [
             { title: '【求助】有谁知道南城一中的事吗？', url: 'posts/1.html', snippet: '李慈安这个名字你们听说过吗？我好像在哪儿见过……' },
@@ -51,22 +66,53 @@
             { title: '【求助】被欺负了该怎么办？', url: 'posts/5.html', snippet: '李慈安：他们又来了……我真的不知道该怎么办。' },
             { title: '【求助】我哥最近变得很奇怪……', url: 'posts/6.html', snippet: '我是李慈安。我哥最近变得很奇怪，他说他听到了什么。' },
             { title: '【树洞】他是我哥，但我不知道他是谁', url: 'posts/7.html', snippet: '李慈安：他是我哥，但我不知道他到底是谁……' },
-            { title: '【日常】今天爸又喝酒了，哥让我躲起来', url: 'posts/8.html', snippet: '李慈安：爸又喝酒了，哥让我躲起来。他说会好的。' }
+            { title: '【日常】今天爸又喝酒了，哥让我躲起来', url: 'posts/8.html', snippet: '李慈安：爸又喝酒了，哥让我躲起来。他说会好的。' },
+            { title: '【树洞】我哥说"快了"……是什么意思？', url: 'posts/11.html', snippet: '李慈安：我哥说"快了"，我不知道是什么意思……' }
         ],
         '哥哥': [
             { title: '【求助】我哥最近变得很奇怪……', url: 'posts/6.html', snippet: '我是李慈安。我哥最近变得很奇怪，他说他听到了什么。' },
             { title: '【树洞】他是我哥，但我不知道他是谁', url: 'posts/7.html', snippet: '李慈安：他是我哥，但我不知道他到底是谁……' },
-            { title: '【日常】今天爸又喝酒了，哥让我躲起来', url: 'posts/8.html', snippet: '李慈安：爸又喝酒了，哥让我躲起来。他说会好的。' }
+            { title: '【日常】今天爸又喝酒了，哥让我躲起来', url: 'posts/8.html', snippet: '李慈安：爸又喝酒了，哥让我躲起来。他说会好的。' },
+            { title: '【树洞】我哥说"快了"……是什么意思？', url: 'posts/11.html', snippet: '李慈安：我哥说"快了"，我不知道是什么意思……' },
+            { title: '【求助】我好像听到了不该听到的声音', url: 'posts/10.html', snippet: '李慈安：他说他叫"哥哥"，但他好像不是人……' }
         ],
         '玄姬': [
-            { title: '【日常】今天看到一个很奇怪的符号', url: 'posts/3.html', snippet: '有人认识这个符号吗？我总觉得它和一个人有关——那个人好像叫"玄姬"……' }
+            { title: '【日常】今天看到一个很奇怪的符号', url: 'posts/3.html', snippet: '有人认识这个符号吗？我总觉得它和一个人有关——那个人好像叫"玄姬"……' },
+            { title: '【树洞】我哥说"快了"……是什么意思？', url: 'posts/11.html', snippet: '李慈安：我哥提到过一个名字——"玄姬"。他说她快来了。' }
+        ],
+        '霸凌': [
+            { title: '【求助】被欺负了该怎么办？', url: 'posts/5.html', snippet: '李慈安：他们又来了……在学校里，他们叫我"没妈的孩子"。' },
+            { title: '【求助】有人能帮我吗？我快撑不下去了', url: 'posts/4.html', snippet: '李慈安：在学校被欺负，在家里被打……我快撑不下去了。' }
+        ],
+        '家暴': [
+            { title: '【日常】今天爸又喝酒了，哥让我躲起来', url: 'posts/8.html', snippet: '李慈安：爸又喝酒了，打了我一巴掌。哥让我躲起来。' },
+            { title: '【求助】有人能帮我吗？我快撑不下去了', url: 'posts/4.html', snippet: '李慈安：我爸打我的时候，我哥就会出现。' }
+        ],
+        '南城一中': [
+            { title: '【求助】有谁知道南城一中的事吗？', url: 'posts/1.html', snippet: '南城一中最近好像出了什么事，有人知道吗？' },
+            { title: '【日常】今天看到一个很奇怪的符号', url: 'posts/3.html', snippet: '那个符号我在南城一中的墙上见过……' }
+        ],
+        '第七个': [
+            { title: '【树洞】我哥说"快了"……是什么意思？', url: 'posts/11.html', snippet: '李慈安：他说"还差七个"，然后又说"快了"……' },
+            { title: '【求助】我好像听到了不该听到的声音', url: 'posts/10.html', snippet: '李慈安：我听到我哥说"第七个已经来了"……' }
+        ],
+        '献祭': [
+            { title: '【树洞】我哥说"快了"……是什么意思？', url: 'posts/11.html', snippet: '李慈安：我哥说"献祭"这个词的时候，声音变得很怪……' }
+        ],
+        '符号': [
+            { title: '【日常】今天看到一个很奇怪的符号', url: 'posts/3.html', snippet: '有人认识这个符号吗？◈ 我总觉得在哪见过……' }
+        ],
+        '人格': [
+            { title: '【树洞】他是我哥，但我不知道他是谁', url: 'posts/7.html', snippet: '有人说我哥可能是我分裂出来的人格……但我不知道是什么意思。' }
+        ],
+        '分裂': [
+            { title: '【树洞】他是我哥，但我不知道他是谁', url: 'posts/7.html', snippet: '有人说我哥可能是我分裂出来的人格……但他明明就在我身边。' }
+        ],
+        '慈安': [
+            { title: '【求助】有谁知道南城一中的事吗？', url: 'posts/1.html', snippet: '李慈安这个名字你们听说过吗？' },
+            { title: '【树洞】最近总是失眠，有人一样吗？', url: 'posts/2.html', snippet: '我叫李慈安……' },
+            { title: '【求助】有人能帮我吗？我快撑不下去了', url: 'posts/4.html', snippet: '我是李慈安……' }
         ]
-    };
-
-    // 默认空结果
-    var defaultResult = {
-        title: '未找到相关结果',
-        snippet: '试试搜索 "李慈安"、"哥哥"、"玄姬"'
     };
 
     // ===== 渲染 =====
@@ -77,32 +123,25 @@
 
         var results = searchData[keyword];
         if (!results) {
-            // 模糊匹配：如果关键词包含某个预设词，也显示
             var matched = false;
             for (var key in searchData) {
-                if (keyword.includes(key)) {
-                    results = searchData[key];
-                    matched = true;
-                    break;
-                }
-                if (key.includes(keyword)) {
-                    results = searchData[key];
-                    matched = true;
-                    break;
-                }
+                if (keyword.includes(key)) { results = searchData[key]; matched = true; break; }
+                if (key.includes(keyword)) { results = searchData[key]; matched = true; break; }
             }
-            if (!matched) {
-                results = [];
-            }
+            if (!matched) results = [];
         }
 
         if (!results || results.length === 0) {
             container.innerHTML = `
                 <div class="no-result">🔍 未找到与 "<span style="color:#8a2a2a;">${keyword}</span>" 相关的内容</div>
                 <div style="text-align:center; font-size:13px; color:#888; margin-top:10px;">
-                    建议搜索：<span style="color:#1a5a8a;cursor:pointer;" onclick="location.href='search.html?q=李慈安'">李慈安</span> · 
-                    <span style="color:#1a5a8a;cursor:pointer;" onclick="location.href='search.html?q=哥哥'">哥哥</span> · 
-                    <span style="color:#1a5a8a;cursor:pointer;" onclick="location.href='search.html?q=玄姬'">玄姬</span>
+                    试试下面的关键词：
+                    <div class="tag-cloud" style="justify-content:center;">
+                        <span class="tag" onclick="location.href='search.html?q=李慈安'">李慈安</span>
+                        <span class="tag" onclick="location.href='search.html?q=哥哥'">哥哥</span>
+                        <span class="tag" onclick="location.href='search.html?q=玄姬'">玄姬</span>
+                        <span class="tag" onclick="location.href='search.html?q=第七个'">第七个</span>
+                    </div>
                 </div>
             `;
             return;
@@ -118,11 +157,9 @@
                 </div>
             `;
         });
-
         container.innerHTML = html + `<div style="margin-top:16px; color:#999; font-size:12px;">共 ${results.length} 条结果</div>`;
     }
 
-    // ===== 从URL获取关键词 =====
     var params = new URLSearchParams(window.location.search);
     var keyword = params.get('q');
     if (!keyword) {
@@ -130,17 +167,21 @@
         document.getElementById('keywordDisplay').textContent = '"请搜索"';
         document.getElementById('resultsContainer').innerHTML = `
             <div class="no-result">🔍 请输入搜索关键词</div>
-            <div style="text-align:center; font-size:13px; color:#888; margin-top:10px;">
-                建议搜索：<span style="color:#1a5a8a;cursor:pointer;" onclick="location.href='search.html?q=李慈安'">李慈安</span> · 
-                <span style="color:#1a5a8a;cursor:pointer;" onclick="location.href='search.html?q=哥哥'">哥哥</span> · 
-                <span style="color:#1a5a8a;cursor:pointer;" onclick="location.href='search.html?q=玄姬'">玄姬</span>
+            <div class="tag-cloud" style="justify-content:center; margin-top:12px;">
+                <span class="tag" onclick="location.href='search.html?q=李慈安'">李慈安</span>
+                <span class="tag" onclick="location.href='search.html?q=哥哥'">哥哥</span>
+                <span class="tag" onclick="location.href='search.html?q=玄姬'">玄姬</span>
+                <span class="tag" onclick="location.href='search.html?q=第七个'">第七个</span>
+                <span class="tag" onclick="location.href='search.html?q=霸凌'">霸凌</span>
+                <span class="tag" onclick="location.href='search.html?q=家暴'">家暴</span>
+                <span class="tag" onclick="location.href='search.html?q=南城一中'">南城一中</span>
             </div>
         `;
     } else {
         renderResults(decodeURIComponent(keyword));
     }
 
-    console.log('🔍 搜索页面已加载，当前关键词:', keyword);
+    console.log('🔍 搜索页面已加载，关键词:', keyword);
 </script>
 </body>
 </html>
