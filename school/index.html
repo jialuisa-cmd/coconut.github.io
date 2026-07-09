@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta charset="UTF-8"><title>南城一中 · 官方网站</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background: #f0f4f8; font-family: '微软雅黑', 'PingFang SC', sans-serif; color: #222; }
+.top-bar { background: #1a3a5c; color: #fff; padding: 8px 0; font-size: 12px; text-align: center; letter-spacing: 2px; }
+.header { background: #fff; padding: 20px 0; border-bottom: 3px solid #1a3a5c; }
+.container { max-width: 1100px; margin: auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+.logo h1 { color: #1a3a5c; font-size: 28px; letter-spacing: 4px; }
+.logo span { color: #888; font-size: 12px; font-weight: normal; }
+.nav { background: #1a3a5c; }
+.nav .container { display: flex; gap: 30px; padding: 12px 20px; }
+.nav a { color: #fff; text-decoration: none; font-size: 14px; letter-spacing: 1px; }
+.nav a:hover { color: #8ab8d9; }
+.banner { background: #2a5a7a; color: #fff; padding: 40px 20px; text-align: center; margin: 20px 0; }
+.banner h2 { font-size: 22px; font-weight: normal; letter-spacing: 6px; }
+.banner p { font-size: 14px; opacity: 0.7; margin-top: 10px; }
+.grid { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; margin: 30px 0; }
+.news-item { border-bottom: 1px solid #e0e4e8; padding: 15px 0; }
+.news-item .date { color: #888; font-size: 12px; }
+.news-item .title { color: #1a3a5c; font-weight: bold; cursor: pointer; }
+.news-item .title:hover { color: #2a5a7a; text-decoration: underline; }
+.sidebar { background: #fff; padding: 20px; border: 1px solid #e0e4e8; }
+.sidebar h3 { color: #1a3a5c; font-size: 14px; border-bottom: 2px solid #1a3a5c; padding-bottom: 8px; margin-bottom: 15px; }
+.sidebar .link { color: #2a5a7a; text-decoration: none; display: block; padding: 6px 0; font-size: 13px; }
+.sidebar .link:hover { color: #1a3a5c; text-decoration: underline; }
+.search-box { background: #fff; padding: 15px; border: 1px solid #e0e4e8; margin: 20px 0; display: flex; gap: 10px; }
+.search-box input { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+.search-box button { padding: 10px 30px; background: #1a3a5c; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+.search-box button:hover { background: #2a5a7a; }
+.footer { background: #1a2a3a; color: #888; padding: 30px 0; margin-top: 40px; text-align: center; font-size: 12px; }
+.hidden-trace { color: #f0f4f8; font-size: 10px; }
+.ghost-text { position: fixed; bottom: 10px; right: 10px; color: rgba(26,58,92,0.03); font-size: 11px; pointer-events: none; }
+.ghost-text:hover { color: rgba(26,58,92,0.5); }
+</style>
+</head>
+<body>
+<div class="top-bar">■ 南城一中 · 数字化校园平台 v3.2 ■</div>
+<div class="header"><div class="container"><div class="logo"><h1>南城一中 <span>NANCHENG NO.1 HIGH SCHOOL</span></h1></div><div style="font-size:12px;color:#888;">今天是 2026年7月9日 · 星期四</div></div></div>
+<div class="nav"><div class="container"><a href=" ">首页</a ><a href="#">学校概况</a ><a href="#">新闻中心</a ><a href="#">教育教学</a ><a href="#">学生园地</a ><a href="#">招生专栏</a ><a href="#">联系我们</a ></div></div>
+<div class="banner"><h2>◆ 笃学 · 明德 · 求真 · 致远 ◆</h2><p>建校于1978年 · 省级示范性普通高中</p ></div>
+<div class="container">
+    <div class="search-box">
+        <input type="text" id="schoolSearch" placeholder="搜索学生档案、新闻、公告..." onkeydown="if(event.key=='Enter') doSchoolSearch()">
+        <button onclick="doSchoolSearch()">搜索</button>
+    </div>
+    <div class="grid">
+        <div><h3 style="color:#1a3a5c;border-bottom:2px solid #1a3a5c;padding-bottom:8px;">📰 校园新闻</h3>
+            <div class="news-item"><div class="date">2026年6月20日</div><div class="title" onclick="location.href='news/2026-06-20.html'">关于我校学生失联情况的通报</div></div>
+            <div class="news-item"><div class="date">2018年11月15日</div><div class="title" onclick="location.href='news/2018-11-15.html'">校园安全专项整治工作通知</div></div>
+            <div class="news-item"><div class="date">2016年10月7日</div><div class="title" style="color:#8a2a2a;" onclick="location.href='news/2016-10-07.html'">【已归档】学生异常行为观察记录</div></div>
+        </div>
+        <div class="sidebar"><h3>🔍 快速查询</h3>
+            <a class="link" href="#" onclick="alert('⚠️ 该系统仅限校内访问。\n提示：你需要一个查询码')">学生档案查询</a >
+            <a class="link" href="#" onclick="alert('⚠️ 访问被拒绝。')">教职工档案</a >
+            <a class="link" href="#" onclick="alert('📁 该目录为空。')">历年毕业生名册</a >
+            <div style="margin-top:15px;border-top:1px solid #e0e4e8;padding-top:10px;font-size:11px;color:#aaa;">
+                <span class="hidden-trace">哥哥说：他们隐瞒了很多事。去论坛找查询码。</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer"><p>南城一中 · 地址：南城市人民路88号 · 电话：0592-8888xxx</p ><p>© 2026 南城一中 · 信息中心维护</p ></div>
+<div class="ghost-text">· 李慈佑 · 哥哥 · 2016 · 那件事之后 ·</div>
+<script>
+    function doSchoolSearch() {
+        var keyword = document.getElementById('schoolSearch').value.trim();
+        if (!keyword) return;
+        if (keyword === 'LCA-0327' || keyword === 'lca-0327') {
+            window.location.href = 'students/李慈安.html';
+        } else if (keyword === '李慈安' || keyword.includes('慈安')) {
+            alert('⚠️ 该档案需要查询码。请在论坛中查找。');
+        } else if (keyword === '玄姬' || keyword === '玄' || keyword === '献祭') {
+            alert('⚠️ 搜索内容已被系统屏蔽。\n你确定要查这个吗？');
+        } else if (keyword === '李慈佑' || keyword === '哥哥') {
+            alert('⚠️ 该学生档案不存在。\n提示：你确定学校里有这个人吗？');
+        } else {
+            alert('🔍 未找到与 "' + keyword + '" 相关的档案。\n提示：试试输入查询码（格式：LCA-XXXX）');
+        }
+    }
+</script>
+</body>
+</html>
