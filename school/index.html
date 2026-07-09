@@ -37,10 +37,6 @@ body { background: #f0f4f8; font-family: '微软雅黑', 'PingFang SC', sans-ser
 .admin-hover { color: #1a2a3a; cursor: default; transition: color 0.5s; }
 .admin-hover:hover { color: #8a3a2a; }
 .admin-hover:hover::after { content: ' —— 你不是管理员，但你可以是下一个。'; color: #5a3a2a; font-size: 11px; }
-
-/* 新增：互动线索 */
-.clickable-area { cursor: pointer; transition: all 0.3s; }
-.clickable-area:hover { background: #f0f4f8; }
 .hidden-clue { color: #f0f4f8; font-size: 11px; user-select: none; }
 .hidden-clue:hover { color: #888; }
 .clue-banner { background: #f4f0ea; border-left: 4px solid #8a6a4a; padding: 10px 16px; margin: 10px 0; font-size: 13px; color: #5a4a3a; }
@@ -56,7 +52,6 @@ body { background: #f0f4f8; font-family: '微软雅黑', 'PingFang SC', sans-ser
 <div class="banner"><h2>◆ 笃学 · 明德 · 求真 · 致远 ◆</h2><p>建校于1978年 · 省级示范性普通高中</p></div>
 <div class="container">
 
-    <!-- ===== 新增：引导线索 ===== -->
     <div class="clue-banner">
         💡 <span class="highlight">南城一中</span> 有学生失踪了。警方正在调查。<br>
         如果你有线索，请搜索 <span class="highlight">「LCA-0327」</span> 查看完整档案。
@@ -74,7 +69,6 @@ body { background: #f0f4f8; font-family: '微软雅黑', 'PingFang SC', sans-ser
             <div class="news-item"><div class="date">2018年11月15日</div><div class="title" onclick="location.href='news/2018-11-15.html'">校园安全专项整治工作通知</div></div>
             <div class="news-item"><div class="date">2016年10月7日</div><div class="title" style="color:#8a2a2a;" onclick="location.href='news/2016-10-07.html'">【已归档】学生异常行为观察记录</div></div>
 
-            <!-- ===== 新增：隐藏点击线索 ===== -->
             <div class="news-item" style="border-left: 3px solid #8a6a4a; padding-left:12px;">
                 <div class="date" style="color:#8a6a4a;">2026年7月9日 · 内部备忘录</div>
                 <div class="title hidden-clue" onclick="alert('📜 南城渡口 · 旧志记载：\n\n"玄姬"之名，见于明末地方志。\n据传为灾年沉河之双生女，怨气化灵。')">
@@ -91,7 +85,8 @@ body { background: #f0f4f8; font-family: '微软雅黑', 'PingFang SC', sans-ser
             <a class="link" href="#" onclick="alert('⚠️ 该系统仅限校内访问。\n提示：你需要一个查询码\n—— 试试 LCA-0327')">学生档案查询</a>
             <a class="link" href="#" onclick="alert('⚠️ 访问被拒绝。')">教职工档案</a>
             <a class="link" href="#" onclick="alert('📁 该目录为空。')">历年毕业生名册</a>
-            <a class="link" href="#" onclick="alert('📜 南城渡口 · 明末地方志残页\n\n"南城有野，双生女沉河，后岁岁有异响。"')">地方志残页</a>
+            <!-- ===== 南城渡口链接（直接跳转，已修正） ===== -->
+            <a class="link" href="渡口.html" target="_blank">📜 地方志残页 · 南城渡口</a>
             <div style="margin-top:15px;border-top:1px solid #e0e4e8;padding-top:10px;font-size:11px;color:#aaa;">
                 <span class="hidden-trace">💡 提示：搜索 "LCA-0327" 可查看完整档案</span>
             </div>
@@ -128,6 +123,7 @@ body { background: #f0f4f8; font-family: '微软雅黑', 'PingFang SC', sans-ser
             alert('⚠️ 你知道了不该知道的事。\n💡 查看完整档案需要查询码 LCA-0327');
         } else if (keyword === '南城渡口' || keyword === '渡口') {
             alert('📜 南城渡口 · 明末地方志\n\n"南城有野，双生女沉河，后岁岁有异响。"\n—— 更多信息需查阅 "玄姬" 相关档案');
+            window.open('渡口.html', '_blank');
         } else {
             alert('🔍 未找到与 "' + keyword + '" 相关的档案。\n提示：试试输入查询码（格式：LCA-XXXX）\n或搜索 "李慈安"、"南城渡口"');
         }
