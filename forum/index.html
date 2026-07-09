@@ -20,11 +20,21 @@
         .search-bar input { flex: 1; background: #0a0806; border: 1px solid #2a1a12; padding: 8px; color: #b8a8a0; }
         .search-bar button { background: #1a120e; border: 1px solid #2a1a12; color: #7a6a5a; padding: 8px 20px; cursor: pointer; }
         .search-bar button:hover { background: #2a1a12; color: #b8a8a0; }
-        .thread { border-bottom: 1px solid #1a120e; padding: 12px 0; display: flex; justify-content: space-between; cursor: pointer; transition: background 0.2s; }
+        .thread {
+            border-bottom: 1px solid #1a120e;
+            padding: 12px 0;
+            display: flex;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
         .thread:hover { background: #1a1410; }
         .thread .title { color: #8a7a6a; }
         .thread .meta { font-size: 11px; color: #4a3a2a; }
-        .thread.locked { opacity: 0.5; cursor: not-allowed; }
+        .thread.locked {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
         .thread.locked .title::after { content: ' 🔒'; color: #5a2a1a; font-size: 12px; }
         .thread.locked:hover { background: transparent; }
         .footer { margin-top: 20px; border-top: 1px solid #1a120e; padding-top: 12px; font-size: 11px; color: #2a221a; text-align: center; }
@@ -147,7 +157,7 @@
         <span class="label">◈ 密码碎片收集</span>
         <div class="progress-bar"><div class="fill" id="progressFill" style="width:0%;"></div></div>
         <span class="count" id="progressCount">0 / 3</span>
-        <span class="hint-text">💡 点击帖子收集碎片</span>
+        <span class="hint-text" id="progressHint">💡 点击帖子收集碎片</span>
     </div>
 
     <div class="nav">
@@ -163,31 +173,41 @@
     </div>
 
     <div style="margin-top:10px;" id="threadList">
-        <!-- ===== 前三个帖子：默认开放，无需登录 ===== -->
-        <div class="thread unlocked" data-char="X" onclick="openThread('posts/1.html')">
+
+        <!-- ========================================================= -->
+        <!--  这三个帖子完全开放，没有任何锁，点击直接跳转              -->
+        <!--  每个帖子里面都藏着一个密码字符                           -->
+        <!-- ========================================================= -->
+        <div class="thread" onclick="window.location.href='posts/1.html'">
             <span class="title">【求助】有人认识这个符号吗？</span>
             <span class="meta">回复: 12 &nbsp;|&nbsp; 2018.11.23</span>
         </div>
-        <div class="thread unlocked" data-char="J" onclick="openThread('posts/2.html')">
+
+        <div class="thread" onclick="window.location.href='posts/2.html'">
             <span class="title">【讨论】有没有人做过同样的梦？</span>
             <span class="meta">回复: 7 &nbsp;|&nbsp; 2019.03.11</span>
         </div>
-        <div class="thread unlocked" data-char="7" onclick="openThread('posts/3.html')">
+
+        <div class="thread" onclick="window.location.href='posts/3.html'">
             <span class="title">【记录】一些无法解释的事</span>
             <span class="meta">回复: 5 &nbsp;|&nbsp; 2020.08.22</span>
         </div>
 
-        <!-- ===== 第四个帖子：需要登录才能查看 ===== -->
-        <div class="thread locked" data-unlock="true" onclick="openThread('posts/cian.html')">
+        <!-- ========================================================= -->
+        <!--  这个帖子默认锁定，需要登录后才能查看                     -->
+        <!--  里面包含查询码 LCA-0327                                  -->
+        <!-- ========================================================= -->
+        <div class="thread locked" id="lockedThread" onclick="openLockedThread()">
             <span class="title">【加密】最后的记录 · 李慈安</span>
             <span class="meta">回复: 0 &nbsp;|&nbsp; 2026.07.08</span>
         </div>
 
-        <!-- ===== 外部链接：默认开放 ===== -->
-        <div class="thread unlocked" onclick="window.open('../school/index.html','_blank')">
+        <!-- 外部链接：完全开放 -->
+        <div class="thread" onclick="window.open('../school/index.html','_blank')">
             <span class="title">【外部链接】南城一中 · 官网</span>
             <span class="meta">来源: 公开网络</span>
         </div>
+
     </div>
 
     <div class="footer">※ 本论坛为加密存档 · 所有内容仅限内部查阅 ※</div>
@@ -207,7 +227,7 @@
             💡 <strong>提示：</strong><br>
             · 用户名随意填写，它会成为你的代号<br>
             · 密码藏在 <strong>前三个帖子</strong> 里，拼起来是 3 个字符<br>
-            · 点击帖子后，留意页面上的线索
+            · 点开帖子，找到线索，集齐字符
         </div>
     </div>
 </div>
@@ -220,7 +240,6 @@
     var currentUser = '';
     var collectedChars = [];
 
-    // 从 localStorage 加载状态
     function loadState() {
         var savedUser = localStorage.getItem('argPlayerName');
         if (savedUser) {
@@ -249,13 +268,12 @@
         localStorage.setItem('collectedChars', JSON.stringify(collectedChars));
     }
 
-    // 更新界面
     function updateUI() {
         var msg = document.getElementById('loginMsg');
         var badge = document.getElementById('statusBadge');
         var loginBtn = document.getElementById('loginMainBtn');
         var logoutBtn = document.getElementById('logoutBtn');
-        var lockedThreads = document.querySelectorAll('.thread.locked');
+        var lockedThread = document.getElementById('lockedThread');
 
         if (isLoggedIn) {
             msg.innerHTML = '✅ 已登录：<span style="color:#3a7a3a;font-weight:bold;">' + currentUser + '</span>';
@@ -263,26 +281,33 @@
             badge.textContent = '● 已认证 ( ' + currentUser + ' )';
             loginBtn.style.display = 'none';
             logoutBtn.style.display = 'inline-block';
-            // 解锁所有帖子
-            lockedThreads.forEach(function(el) {
-                el.classList.remove('locked');
-                el.classList.add('unlocked');
-                el.style.opacity = '1';
-                el.style.cursor = 'pointer';
-                // 去掉 🔒 标记
-                var title = el.querySelector('.title');
+            // 解锁加密帖子
+            if (lockedThread) {
+                lockedThread.classList.remove('locked');
+                lockedThread.style.opacity = '1';
+                lockedThread.style.cursor = 'pointer';
+                var title = lockedThread.querySelector('.title');
                 if (title) {
                     title.textContent = title.textContent.replace(' 🔒', '');
                 }
-            });
+                // 重写点击事件
+                lockedThread.onclick = function() {
+                    window.location.href = 'posts/cian.html';
+                };
+            }
         } else {
             msg.innerHTML = '⚠️ 您正在以 <span style="color:#3a5a3a;">访客</span> 身份浏览。';
             badge.className = 'status offline';
             badge.textContent = '● 已连接 (匿名)';
             loginBtn.style.display = 'inline-block';
             logoutBtn.style.display = 'none';
-            // 保持锁定状态（但只锁定需要登录的帖子）
-            // 注意：前三个帖子已经是 unlocked 状态，不会受影响
+            // 保持锁定
+            if (lockedThread) {
+                lockedThread.classList.add('locked');
+                lockedThread.style.opacity = '0.5';
+                lockedThread.style.cursor = 'not-allowed';
+                lockedThread.onclick = openLockedThread;
+            }
         }
     }
 
@@ -290,55 +315,42 @@
         var count = collectedChars.length;
         var fill = document.getElementById('progressFill');
         var countEl = document.getElementById('progressCount');
+        var hint = document.getElementById('progressHint');
         fill.style.width = (count / 3 * 100) + '%';
         countEl.textContent = count + ' / 3';
         if (count === 3) {
             fill.style.background = '#3a7a3a';
-            // 提示玩家可以去登录了
-            var hint = document.querySelector('.progress-wrapper .hint-text');
             if (hint) hint.textContent = '🔓 密码已集齐！去登录吧';
         } else {
             fill.style.background = '#5a3a2a';
-            var hint = document.querySelector('.progress-wrapper .hint-text');
-            if (hint) hint.textContent = '💡 点击帖子收集碎片 (' + count + '/3)';
+            if (hint) hint.textContent = '💡 点击前三个帖子收集碎片 (' + count + '/3)';
         }
     }
 
-    // 收集字符
+    // 收集字符（由帖子页面通过 localStorage 或 sessionStorage 触发）
     function collectChar(char) {
         if (!char) return;
         if (!collectedChars.includes(char)) {
             collectedChars.push(char);
             saveChars();
             updateProgress();
-            // 如果集齐了，提示
             if (collectedChars.length === 3) {
                 setTimeout(function() {
                     alert('🔓 你集齐了三个密码字符：' + collectedChars.join(' ') + '\n\n拼起来就是：' + collectedChars.join('') + '\n去登录吧！');
-                }, 300);
+                }, 400);
             }
         }
     }
 
-    // 打开帖子
-    window.openThread = function(url) {
-        var el = document.querySelector('.thread[onclick*="' + url + '"]');
-        var char = el ? el.dataset.char : null;
-
-        // 如果是需要登录的帖子（locked 状态）
-        if (el && el.classList.contains('locked')) {
-            if (isLoggedIn) {
-                window.location.href = url;
-            } else {
-                openLoginModal();
-                document.getElementById('modalFeedback').textContent = '⚠️ 请先登录才能查看加密内容。';
-                document.getElementById('modalFeedback').style.color = '#8a3a2a';
-            }
-            return;
+    // 打开加密帖子（未登录时提示）
+    window.openLockedThread = function() {
+        if (isLoggedIn) {
+            window.location.href = 'posts/cian.html';
+        } else {
+            openLoginModal();
+            document.getElementById('modalFeedback').textContent = '🔒 该帖子需要登录才能查看。\n先去前三个帖子收集密码碎片吧！';
+            document.getElementById('modalFeedback').style.color = '#8a3a2a';
         }
-
-        // 普通帖子直接跳转
-        window.location.href = url;
     };
 
     // 登录模态框
@@ -406,9 +418,8 @@
             return;
         }
 
-        // 错误反馈（更友好的提示）
+        // 错误反馈
         var upperP = p.toUpperCase();
-        var collected = collectedChars.join('');
         if (upperP === 'X' || upperP === 'J' || upperP === '7') {
             fb.textContent = '❌ 只找到一个字符？继续找，还有两个。';
         } else if (upperP === 'XJ' || upperP === 'JX' || upperP === 'X7' || upperP === '7X' || upperP === 'J7' || upperP === '7J') {
@@ -428,6 +439,7 @@
     // 退出登录
     window.doLogout = function() {
         localStorage.removeItem('argPlayerName');
+        // 不删除收集的字符，方便重新登录
         isLoggedIn = false;
         currentUser = '';
         updateUI();
@@ -450,9 +462,8 @@
             msg += '\n点击确定跳转到第一个结果？';
             if (confirm(msg)) {
                 var target = results[0].url;
-                // 如果目标是加密帖子且未登录，提示
                 if (target === 'posts/cian.html' && !isLoggedIn) {
-                    alert('⚠️ 该帖子需要登录才能查看。请先收集密码并登录。');
+                    alert('🔒 该帖子需要登录才能查看。请先收集密码并登录。');
                     openLoginModal();
                     return;
                 }
@@ -463,7 +474,9 @@
         }
     };
 
-    // ---------- 页面加载 ----------
+    // ============================================================
+    // 页面加载
+    // ============================================================
     document.addEventListener('DOMContentLoaded', function() {
         // 模态框回车支持
         document.getElementById('modalPassword').addEventListener('keydown', function(e) {
@@ -487,31 +500,19 @@
         // 加载状态
         loadState();
 
-        console.log('✅ 深网档案已加载');
-        console.log('💡 提示：前三个帖子默认开放，密码藏在里面。');
-        console.log('🔑 集齐三个字符后，在登录框输入密码。');
-    });
-
-    // 如果帖子页面返回时触发收集（通过 URL 参数或 localStorage 通信）
-    // 这里在页面加载时检查是否有新收集的字符
-    window.addEventListener('load', function() {
-        // 检查 URL 参数
-        var params = new URLSearchParams(window.location.search);
-        var char = params.get('collect');
-        if (char) {
-            collectChar(char);
-            // 去掉 URL 参数
-            history.replaceState(null, '', window.location.pathname);
-        }
-        // 检查 sessionStorage 是否有新字符
+        // 检查是否有待收集的字符（从帖子页面通过 sessionStorage 传递）
         var pendingChar = sessionStorage.getItem('pendingChar');
         if (pendingChar) {
             collectChar(pendingChar);
             sessionStorage.removeItem('pendingChar');
         }
+
+        console.log('✅ 深网档案已加载');
+        console.log('💡 前三个帖子完全开放，点击即可查看，密码藏在里面。');
+        console.log('🔑 集齐三个字符后，在登录框输入密码 XJ7。');
     });
 
-    // 暴露收集函数给子页面调用
+    // 暴露收集函数给子页面调用（通过 window 全局）
     window.collectChar = collectChar;
 </script>
 
