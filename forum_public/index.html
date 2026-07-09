@@ -7,7 +7,6 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: #e8ecf0; font-family: "PingFang SC", "Microsoft YaHei", sans-serif; }
-        
         .top-bar { background: #1a3a5c; color: #fff; padding: 6px 0; font-size: 12px; text-align: center; letter-spacing: 1px; }
         .header { background: #fff; padding: 15px 0; border-bottom: 2px solid #1a3a5c; }
         .header .container { max-width: 1100px; margin: auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
@@ -44,8 +43,6 @@
         .sidebar .item .highlight { color: #8a2a2a; }
         .footer { background: #1a2a3a; color: #888; padding: 20px 0; text-align: center; font-size: 12px; margin-top: 30px; }
         .footer a { color: #6a8aaa; text-decoration: none; }
-        
-        /* 登录后的专属区域 */
         .diary-entry {
             background: #1a0e0a;
             border: 2px solid #4a2a1a;
@@ -60,12 +57,8 @@
         .diary-entry .title { color: #8a6a5a; font-size: 16px; letter-spacing: 2px; font-weight: bold; }
         .diary-entry .sub { color: #5a4a3a; font-size: 12px; margin-top: 4px; }
         .diary-entry .icon { font-size: 20px; margin-right: 10px; }
-        
-        /* 隐藏入口（深网链接） */
         .hidden-deep-link { color: #e8ecf0; font-size: 10px; user-select: none; cursor: pointer; }
         .hidden-deep-link:hover { color: #666; text-decoration: underline; }
-        
-        /* 模态框 */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -129,15 +122,14 @@
         <button onclick="doSearch()">🔍 搜索</button>
     </div>
 
-    <!-- 登录后显示：加密日记入口 -->
-    <div class="diary-entry" id="diaryEntry" onclick="window.location.href='../forum/index.html'">
+    <!-- 加密日记入口（登录后显示，点击跳转 diary.html） -->
+    <div class="diary-entry" id="diaryEntry" onclick="window.location.href='diary.html'">
         <span class="icon">📖</span>
         <span class="title">■ 加密日记 · 李慈佑</span>
         <div class="sub">🔒 点击查看 · 只有你才能看到</div>
     </div>
 
     <div class="two-col">
-        <!-- 左侧 -->
         <div>
             <!-- 南城茶馆 -->
             <div class="section">
@@ -150,13 +142,10 @@
                     <span class="title">【树洞】最近总是失眠，有人一样吗？</span>
                     <span class="meta"><span class="author self">LiCian</span> · 2026-07-07 · 回复 14</span>
                 </div>
-                <div class="thread-item" onclick="location.href='posts/3.html'">
-                    <span class="title"><span class="tag hot">热</span> 【日常】今天看到一个很奇怪的符号</span>
-                    <span class="meta"><span class="author">南城路人</span> · 2026-07-06 · 回复 9</span>
-                </div>
-                <div class="thread-item" onclick="location.href='posts/9.html'">
-                    <span class="title">【日常】你们听说过"深网"吗？</span>
-                    <span class="meta"><span class="author">匿名</span> · 2026-07-05 · 回复 6</span>
+                <!-- 3号帖子被隐藏（符号帖） -->
+                <div class="thread-item" onclick="location.href='posts/12.html'">
+                    <span class="title">【日常】南城一中门口又出事了</span>
+                    <span class="meta"><span class="author">南城路人乙</span> · 2026-07-04 · 回复 8</span>
                 </div>
             </div>
 
@@ -175,27 +164,21 @@
                     <span class="title"><span class="tag new">新</span> 【求助】我哥最近变得很奇怪……</span>
                     <span class="meta"><span class="author self">LiCian</span> · 2026-07-03 · 回复 19</span>
                 </div>
-                <div class="thread-item" onclick="location.href='posts/10.html'">
-                    <span class="title">【求助】我好像听到了不该听到的声音</span>
-                    <span class="meta"><span class="author self">LiCian</span> · 2026-07-02 · 回复 12</span>
-                </div>
             </div>
 
             <!-- 情感树洞 -->
             <div class="section">
                 <div class="section-title">💌 情感树洞</div>
-                <div class="thread-item" onclick="location.href='posts/7.html'">
-                    <span class="title"><span class="tag hot">热</span> 【树洞】他是我哥，但我不知道他是谁</span>
-                    <span class="meta"><span class="author self">LiCian</span> · 2026-07-02 · 回复 36</span>
-                </div>
+                <!-- 7号被隐藏（他是我哥） -->
                 <div class="thread-item" onclick="location.href='posts/8.html'">
                     <span class="title">【日常】今天爸又喝酒了，哥让我躲起来</span>
                     <span class="meta"><span class="author self">LiCian</span> · 2026-07-01 · 回复 42</span>
                 </div>
-                <div class="thread-item" onclick="location.href='posts/11.html'">
-                    <span class="title">【树洞】我哥说"快了"……是什么意思？</span>
-                    <span class="meta"><span class="author self">LiCian</span> · 2026-06-30 · 回复 28</span>
+                <div class="thread-item" onclick="location.href='posts/9.html'">
+                    <span class="title">【日常】你们听说过"深网"吗？</span>
+                    <span class="meta"><span class="author">匿名</span> · 2026-07-05 · 回复 6</span>
                 </div>
+                <!-- 10号、11号被隐藏 -->
             </div>
 
             <!-- 被屏蔽的帖子 -->
@@ -221,8 +204,6 @@
                 <h3>📌 热门话题</h3>
                 <div class="item">🔹 <span class="highlight">李慈安</span> 到底是谁？</div>
                 <div class="item">🔹 南城一中那个学生找到了吗？</div>
-                <div class="item">🔹 有人知道那个符号 ◈ 是什么意思吗？</div>
-                <div class="item">🔹 求助：有人认识一个叫"玄姬"的人吗？</div>
                 <div class="item">🔹 南城最近好多怪事……</div>
                 <div class="item">🔹 "哥哥"到底是什么人？</div>
             </div>
@@ -230,8 +211,8 @@
             <div class="sidebar" style="margin-top:16px;">
                 <h3>👤 活跃用户</h3>
                 <div class="item"><b style="color:#8a2a2a;">LiCian</b> · 最近发帖 9</div>
-                <div class="item"><b>失眠的人</b> · 最近发帖 3</div>
-                <div class="item"><b>南城路人</b> · 最近发帖 2</div>
+                <div class="item"><b>南城路人乙</b> · 最近发帖 1</div>
+                <div class="item"><b>匿名</b> · 最近发帖 2</div>
                 <div class="item" style="color:#8a2a2a; border-bottom:none;"><b>系统管理员</b> · 在线</div>
             </div>
 
@@ -240,7 +221,7 @@
                 <div class="item" style="font-size:12px; color:#888;">"<b>李慈安</b>" · 共 9 条结果</div>
                 <div class="item" style="font-size:12px; color:#888;">"<b>哥哥</b>" · 共 5 条结果</div>
                 <div class="item" style="font-size:12px; color:#888;">"<b>玄姬</b>" · 共 2 条结果</div>
-                <div class="item" style="font-size:12px; color:#888; border-bottom:none;">"<b>第七个</b>" · 共 1 条结果</div>
+                <div class="item" style="font-size:12px; color:#888; border-bottom:none;">"<b>生日</b>" · 共 1 条结果</div>
             </div>
 
             <div class="sidebar" style="margin-top:16px; border:1px dashed #ccc; background:#fcfcfc;">
@@ -248,7 +229,8 @@
                 <div class="item" style="font-size:12px; color:#999; border-bottom:none;">
                     试试搜索 <span style="color:#1a5a8a;cursor:pointer;" onclick="document.getElementById('searchInput').value='李慈安';doSearch();">"李慈安"</span> · 
                     <span style="color:#1a5a8a;cursor:pointer;" onclick="document.getElementById('searchInput').value='哥哥';doSearch();">"哥哥"</span> · 
-                    <span style="color:#1a5a8a;cursor:pointer;" onclick="document.getElementById('searchInput').value='玄姬';doSearch();">"玄姬"</span>
+                    <span style="color:#1a5a8a;cursor:pointer;" onclick="document.getElementById('searchInput').value='玄姬';doSearch();">"玄姬"</span> · 
+                    <span style="color:#1a5a8a;cursor:pointer;" onclick="document.getElementById('searchInput').value='生日';doSearch();">"生日"</span>
                 </div>
             </div>
         </div>
@@ -271,7 +253,7 @@
         <input type="password" id="loginPassword" placeholder="请输入密码" onkeydown="if(event.key=='Enter') doLogin()">
         <button class="btn" onclick="doLogin()">登录</button>
         <div id="loginFeedback" class="error"></div>
-        <div class="hint">💡 提示：试试用 "LiCian" 登录<br>密码是 4 位数字，和"春天"有关</div>
+        <div class="hint">💡 提示：试试用 "LiCian" 登录<br>密码是 4 位数字，<strong>与慈安的生日有关</strong></div>
     </div>
 </div>
 
@@ -296,7 +278,6 @@
             registerLink.style.display = 'none';
             logoutLink.style.display = 'inline-block';
             diaryEntry.style.display = 'block';
-            // 修改页脚提示
             document.querySelector('.footer p:first-child').innerHTML = 
                 '南城社区 · 欢迎回来，<span style="color:#8a2a2a;font-weight:bold;">' + currentUser + '</span> · 你有 1 条未读私信';
         } else {
@@ -311,12 +292,10 @@
         }
     }
 
-    // ===== 登录 =====
     function doLogin() {
         var username = document.getElementById('loginUsername').value.trim();
         var password = document.getElementById('loginPassword').value.trim();
         var feedback = document.getElementById('loginFeedback');
-
         feedback.textContent = '';
         feedback.className = 'error';
 
@@ -325,7 +304,6 @@
             return;
         }
 
-        // 正确账号：LiCian / 0317（弟弟生日3月17日）
         if (username === 'LiCian' && password === '0317') {
             localStorage.setItem('forumLoggedIn', 'true');
             localStorage.setItem('forumUser', 'LiCian');
@@ -334,14 +312,10 @@
             feedback.className = 'success';
             feedback.textContent = '✅ 登录成功！欢迎回来，LiCian。';
             updateUI();
-            // 关闭模态框
             setTimeout(function() {
                 closeLoginModal();
-                // 刷新页面状态
                 updateUI();
-                // 显示加密日记入口
                 document.getElementById('diaryEntry').style.display = 'block';
-                // 提示
                 setTimeout(function() {
                     alert('📖 你发现了一个加密日记入口。\n点击查看李慈佑的日记。');
                 }, 500);
@@ -349,17 +323,15 @@
             return;
         }
 
-        // 错误反馈（分层提示）
         if (username === 'LiCian' && password !== '0317') {
-            feedback.textContent = '❌ 密码错误。提示：密码是 4 位数字，和"春天"有关。';
+            feedback.textContent = '❌ 密码错误。提示：密码是 4 位数字，与慈安的生日有关。';
         } else if (username !== 'LiCian' && password === '0317') {
             feedback.textContent = '❌ 用户名错误。试试 "LiCian"。';
         } else {
-            feedback.textContent = '❌ 用户名或密码错误。\n提示：试试 "LiCian" / "0317"';
+            feedback.textContent = '❌ 用户名或密码错误。\n提示：试试 "LiCian" / 生日四位数字';
         }
     }
 
-    // ===== 退出 =====
     function doLogout() {
         localStorage.removeItem('forumLoggedIn');
         localStorage.removeItem('forumUser');
@@ -369,35 +341,30 @@
         alert('已退出登录。');
     }
 
-    // ===== 模态框 =====
     function openLoginModal() {
         document.getElementById('loginModal').classList.add('active');
         document.getElementById('loginUsername').value = '';
         document.getElementById('loginPassword').value = '';
         document.getElementById('loginFeedback').textContent = '';
         document.getElementById('loginFeedback').className = 'error';
-        setTimeout(function() {
-            document.getElementById('loginUsername').focus();
-        }, 200);
+        setTimeout(function() { document.getElementById('loginUsername').focus(); }, 200);
     }
 
     function closeLoginModal() {
         document.getElementById('loginModal').classList.remove('active');
     }
 
-    // 点击模态框外部关闭
     document.getElementById('loginModal').addEventListener('click', function(e) {
         if (e.target === this) closeLoginModal();
     });
 
-    // ===== 搜索 =====
     function doSearch() {
         var keyword = document.getElementById('searchInput').value.trim();
         if (!keyword) { alert('请输入搜索关键词'); return; }
         window.location.href = 'search.html?q=' + encodeURIComponent(keyword);
     }
 
-    // ===== 深网入口（双击🔒图标） =====
+    // ===== 深网入口（双击🔒） =====
     document.addEventListener('DOMContentLoaded', function() {
         var trigger = document.getElementById('deepLinkTrigger');
         var hint = document.getElementById('deepLinkHint');
@@ -427,7 +394,6 @@
             }
         });
 
-        // 键盘快捷键：Ctrl+Shift+D
         document.addEventListener('keydown', function(e) {
             if (e.ctrlKey && e.shiftKey && e.key === 'D') {
                 e.preventDefault();
@@ -439,19 +405,16 @@
 
         console.log('🕶️ 提示：双击"🔒"图标可访问隐藏论坛。');
         console.log('💡 快捷键：Ctrl+Shift+D 访问深网档案');
-        console.log('🔑 论坛登录：LiCian / 0317');
+        console.log('🔑 论坛登录：LiCian / 0317（慈安生日）');
 
-        // 初始加载UI
         updateUI();
     });
 
-    // 暴露登录函数给HTML调用
     window.doLogin = doLogin;
     window.doLogout = doLogout;
     window.openLoginModal = openLoginModal;
     window.closeLoginModal = closeLoginModal;
     window.doSearch = doSearch;
 </script>
-
 </body>
 </html>
