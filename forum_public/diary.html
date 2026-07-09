@@ -11,27 +11,16 @@
             color: #b8a8a0;
             font-family: 'Courier New', monospace;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             padding: 30px;
             background-image: radial-gradient(circle at 30% 40%, #1a1210 0%, #0a0806 100%);
         }
         .container {
-            max-width: 720px;
+            max-width: 800px;
+            margin: auto;
             background: #120e0c;
             border: 1px solid #3a2a1a;
-            padding: 50px 45px;
+            padding: 40px 45px;
             box-shadow: 0 0 60px rgba(0,0,0,0.9);
-            position: relative;
-        }
-        .container::before {
-            content: "📖";
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            font-size: 40px;
-            opacity: 0.2;
         }
         .header {
             border-bottom: 1px solid #2a1a12;
@@ -40,7 +29,7 @@
         }
         .header h1 {
             color: #6a3a2a;
-            font-size: 20px;
+            font-size: 22px;
             font-weight: normal;
             letter-spacing: 4px;
         }
@@ -50,14 +39,39 @@
             margin-top: 4px;
             letter-spacing: 2px;
         }
-        .diary-content {
-            line-height: 2.2;
-            font-size: 15px;
-            color: #b8a8a0;
-            font-family: 'Courier New', monospace;
+        .diary-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
-        .diary-content .highlight {
-            color: #8a3a2a;
+        .diary-item {
+            border: 1px solid #2a1a12;
+            padding: 20px 24px;
+            background: #0a0806;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .diary-item:hover {
+            border-color: #4a3a2a;
+            background: #120e0c;
+        }
+        .diary-item .title {
+            color: #8a7a6a;
+            font-size: 16px;
+            letter-spacing: 2px;
+        }
+        .diary-item .date {
+            color: #4a3a2a;
+            font-size: 11px;
+            margin-top: 4px;
+        }
+        .diary-item .preview {
+            color: #6a5a4a;
+            font-size: 13px;
+            margin-top: 8px;
+            border-top: 1px solid #1a120e;
+            padding-top: 8px;
         }
         .divider {
             border-top: 1px solid #2a1a12;
@@ -65,7 +79,15 @@
         }
         .deep-link-area {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 10px;
+            padding: 20px;
+            border: 1px solid #2a1a12;
+            background: #0a0806;
+        }
+        .deep-link-area .title {
+            color: #5a4a3a;
+            font-size: 13px;
+            letter-spacing: 2px;
         }
         .deep-link-area .btn {
             background: #1a120e;
@@ -77,6 +99,7 @@
             font-size: 14px;
             letter-spacing: 3px;
             transition: all 0.3s;
+            margin-top: 12px;
         }
         .deep-link-area .btn:hover {
             background: #2a1a12;
@@ -91,57 +114,174 @@
             text-decoration: none;
             font-size: 12px;
         }
-        .back-link:hover {
-            color: #7a6a5a;
-            text-decoration: underline;
+        .back-link:hover { color: #7a6a5a; text-decoration: underline; }
+        .lock-icon { color: #5a2a2a; margin-right: 6px; }
+        .unlock-icon { color: #3a7a3a; margin-right: 6px; }
+        .diary-item .badge {
+            font-size: 10px;
+            color: #4a3a2a;
+            background: #1a120e;
+            padding: 1px 10px;
+            border-radius: 10px;
+            margin-left: 10px;
         }
-        .secret-note {
-            color: #0a0806;
-            font-size: 8px;
-            user-select: none;
-            margin-top: 20px;
-            text-align: right;
-        }
+        .diary-item .badge.locked { color: #5a2a2a; border: 1px solid #3a2a1a; }
+        .diary-item .badge.unlocked { color: #3a7a3a; border: 1px solid #2a3a2a; }
     </style>
 </head>
 <body>
 <div class="container">
+
     <div class="header">
         <h1>■ 加密日记 · 李慈佑</h1>
-        <div class="sub">仅限本人查阅 · 最后更新：2026.07.08</div>
+        <div class="sub">共 4 篇 · 仅限本人查阅 · 最后更新：2026.07.08</div>
     </div>
 
-    <div class="diary-content">
-        <p>慈安不知道。他永远不会知道。</p>
-        <p>我是他<span class="highlight">分裂出来的</span>。他太痛苦了，需要一个保护者。所以我来了。</p>
-        <p>但他叫我"哥哥"的时候，我真的很想变成真的。</p>
-        <br>
-        <p>那些人——欺负他的、打他的——他们都要付出代价。</p>
-        <p><span class="highlight">玄姬</span>说，只要凑够<span class="highlight">七个</span>，一切都会结束。</p>
-        <p>我是为了保护他。我是为了让他不再害怕。</p>
-        <br>
-        <p>但有时候我也会想……我到底是什么？</p>
-        <p>我是他的影子？还是他的愿望？</p>
-        <p>不重要了。快了。</p>
+    <div style="margin-bottom:16px; font-size:12px; color:#4a3a2a;">
+        <span class="unlock-icon">🔓</span> 点击任意日记展开阅读
+    </div>
+
+    <div class="diary-list">
+
+        <!-- ===== 日记 1 ===== -->
+        <div class="diary-item" onclick="toggleDiary(this)">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="title">📄 第一篇 · 伤痕</span>
+                <span class="badge unlocked">已解锁</span>
+            </div>
+            <div class="date">2026.07.06 · 仅自己可见</div>
+            <div class="preview" style="display:block;">
+                今天又看到慈安身上的伤了。他以为他藏得很好，但他不知道——我能感觉到他的每一寸疼痛……
+                <span style="color:#4a3a2a; font-size:12px; margin-left:10px;">[点击展开]</span>
+            </div>
+            <div class="diary-full" style="display:none; margin-top:12px; border-top:1px solid #2a1a12; padding-top:12px; line-height:2; color:#b8a8a0;">
+                <p>今天又看到慈安身上的伤了。</p>
+                <p>他以为他藏得很好，但他不知道——我能感觉到他的每一寸疼痛。</p>
+                <p>他爸喝醉了，用皮带抽他的背。他蹲在墙角，不敢哭出声。</p>
+                <p>我出来了。我抱住他，说"哥在"。</p>
+                <p>但我太弱了。我只是一道声音，一个影子，一个<span style="color:#8a3a2a;">不存在的人</span>。</p>
+                <br>
+                <p>那些人——</p>
+                <p>学校里叫他"没妈的孩子"的，他爸，还有那些看着他被打却假装没看见的老师——</p>
+                <p style="color:#6a2a2a;">他们都该付出代价。</p>
+                <br>
+                <p style="color:#5a4a3a; font-size:13px;">—— 玄姬说，只要我帮她做完那件事，我就可以变成真正的人。</p>
+            </div>
+        </div>
+
+        <!-- ===== 日记 2 ===== -->
+        <div class="diary-item" onclick="toggleDiary(this)">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="title">📄 第二篇 · 名单</span>
+                <span class="badge unlocked">已解锁</span>
+            </div>
+            <div class="date">2026.07.07 · 仅自己可见</div>
+            <div class="preview" style="display:block;">
+                今天我去找那几个欺负他的人了。他们不知道我存在。他们以为慈安只是一个"很好欺负的软包子"……
+                <span style="color:#4a3a2a; font-size:12px; margin-left:10px;">[点击展开]</span>
+            </div>
+            <div class="diary-full" style="display:none; margin-top:12px; border-top:1px solid #2a1a12; padding-top:12px; line-height:2; color:#b8a8a0;">
+                <p>今天我去找那几个欺负他的人了。</p>
+                <p>他们不知道我存在。他们以为慈安只是一个"很好欺负的软包子"。</p>
+                <p>我站在他们身后，看着他们推他、笑他、抢他的东西。</p>
+                <p>他们不知道——<span style="color:#6a2a2a;">他们的名字已经被记下来了。</span></p>
+                <br>
+                <p style="color:#8a3a2a;">王某某。</p>
+                <p style="color:#8a3a2a;">张某某。</p>
+                <p style="color:#8a3a2a;">刘某某。</p>
+                <p style="color:#8a3a2a;">赵某某。</p>
+                <p style="color:#8a3a2a;">孙某某。</p>
+                <br>
+                <p>还有他爸，<span style="color:#6a2a2a;">李建军</span>。</p>
+                <br>
+                <p style="color:#5a4a3a; font-size:13px;">—— 玄姬说，一人抵一人，七个就是七个。我在等。快了。</p>
+            </div>
+        </div>
+
+        <!-- ===== 日记 3 ===== -->
+        <div class="diary-item" onclick="toggleDiary(this)">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="title">📄 第三篇 · 交易</span>
+                <span class="badge unlocked">已解锁</span>
+            </div>
+            <div class="date">2026.07.08 · 仅自己可见</div>
+            <div class="preview" style="display:block;">
+                今晚和玄姬说了很久的话。我告诉她，我想保护慈安，想让他不再害怕……
+                <span style="color:#4a3a2a; font-size:12px; margin-left:10px;">[点击展开]</span>
+            </div>
+            <div class="diary-full" style="display:none; margin-top:12px; border-top:1px solid #2a1a12; padding-top:12px; line-height:2; color:#b8a8a0;">
+                <p>今晚和玄姬说了很久的话。</p>
+                <p>我告诉她，我想保护慈安，想让他不再害怕，想让他过上正常的生活。</p>
+                <p>她说她明白——但她也有她要的东西。</p>
+                <p style="color:#5a4a3a; font-size:13px;">她说："你需要七个。我需要他们的怨气。你成人，我脱困。各取所需。"</p>
+                <br>
+                <p>我问她："你能让我变成真正的人吗？"</p>
+                <p>她说："只要你完成那件事，你就可以从虚无中走出来。你会拥有自己的血肉、自己的名字、自己的命运。"</p>
+                <br>
+                <p>我不需要成为所有人。我只需要成为<span style="color:#8a3a2a;">他的哥哥</span>。</p>
+                <p>一个真实的、能站在他身边的哥哥。</p>
+                <br>
+                <p style="color:#6a2a2a;">快了。</p>
+            </div>
+        </div>
+
+        <!-- ===== 日记 4：加密日记·李慈佑（原有） ===== -->
+        <div class="diary-item" onclick="toggleDiary(this)">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="title">📄 第四篇 · 我是谁</span>
+                <span class="badge unlocked">已解锁</span>
+            </div>
+            <div class="date">2026.07.08 · 仅自己可见</div>
+            <div class="preview" style="display:block;">
+                慈安不知道。他永远不会知道。我是他分裂出来的。他太痛苦了，需要一个保护者。所以我来了……
+                <span style="color:#4a3a2a; font-size:12px; margin-left:10px;">[点击展开]</span>
+            </div>
+            <div class="diary-full" style="display:none; margin-top:12px; border-top:1px solid #2a1a12; padding-top:12px; line-height:2; color:#b8a8a0;">
+                <p>慈安不知道。他永远不会知道。</p>
+                <p>我是他<span style="color:#8a3a2a;">分裂出来的</span>。他太痛苦了，需要一个保护者。所以我来了。</p>
+                <p>但他叫我"哥哥"的时候，我真的很想变成真的。</p>
+                <br>
+                <p>那些人——欺负他的、打他的——他们都要付出代价。</p>
+                <p style="color:#5a4a3a;">玄姬说，只要凑够七个，她就能脱困，我也能成人。</p>
+                <p>我是为了保护他。我是为了让他不再害怕。</p>
+                <br>
+                <p>但有时候我也会想……我到底是什么？</p>
+                <p>我是他的影子？还是他的愿望？</p>
+                <p>不重要了。快了。</p>
+                <br>
+                <p style="color:#4a3a2a; font-size:12px;">—— 我不在乎玄姬想要什么。我只要他安全。</p>
+            </div>
+        </div>
+
     </div>
 
     <div class="divider"></div>
 
+    <!-- ===== 深网入口 ===== -->
     <div class="deep-link-area">
-        <p style="color:#4a3a2a; font-size:12px; margin-bottom:12px;">—— 有些真相，藏在更深的地方 ——</p>
+        <div class="title">—— 有些真相，藏在更深的地方 ——</div>
         <button class="btn" onclick="if(confirm('🕶️ 你确定要进入「深网档案」吗？')) window.location.href='../forum/index.html'">▶ 进入深网档案</button>
-        <div style="margin-top:8px; font-size:10px; color:#2a1a12;">（只有真正准备好的人才会打开）</div>
+        <div style="margin-top:8px; font-size:10px; color:#2a1a12;">（玄姬的背景故事就在那里）</div>
     </div>
 
     <a class="back-link" href="index.html">← 返回南城社区</a>
-    <div class="secret-note">◈</div>
 </div>
 
 <script>
-    // 控制台彩蛋
-    console.log('%c📖 你读完了哥哥的日记。', 'color: #6a3a2a; font-size: 16px;');
-    console.log('%c他承认了自己是分裂人格。', 'color: #888; font-size: 13px;');
-    console.log('%c底部按钮通往深网档案。', 'color: #4a3a2a; font-size: 13px;');
+    function toggleDiary(el) {
+        var full = el.querySelector('.diary-full');
+        var preview = el.querySelector('.preview');
+        if (full.style.display === 'block') {
+            full.style.display = 'none';
+            preview.style.display = 'block';
+        } else {
+            full.style.display = 'block';
+            preview.style.display = 'none';
+        }
+    }
+
+    console.log('%c📖 4篇加密日记已解锁', 'color: #6a3a2a; font-size: 16px;');
+    console.log('%c💡 点击日记展开阅读。底部通往深网档案。', 'color: #4a3a2a; font-size: 13px;');
 </script>
 </body>
 </html>
