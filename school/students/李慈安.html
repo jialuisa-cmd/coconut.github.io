@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta charset="UTF-8"><title>学生档案 · 李慈安</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background: #e8ecef; font-family: '微软雅黑', sans-serif; padding: 30px; }
+.container { max-width: 900px; margin: auto; background: #fff; padding: 40px; box-shadow: 0 0 20px rgba(0,0,0,0.1); border: 1px solid #ccc; }
+.header { border-bottom: 3px solid #1a3a5c; padding-bottom: 15px; margin-bottom: 25px; display: flex; justify-content: space-between; }
+.header h1 { color: #1a3a5c; font-size: 24px; letter-spacing: 2px; }
+.header .status { color: #8a2a2a; font-size: 14px; border: 1px solid #8a2a2a; padding: 4px 12px; }
+.section { margin: 25px 0; border: 1px solid #e0e4e8; padding: 20px; }
+.section h3 { color: #1a3a5c; border-left: 4px solid #1a3a5c; padding-left: 12px; margin-bottom: 15px; font-size: 16px; }
+.row { display: flex; padding: 8px 0; border-bottom: 1px dashed #f0f0f0; }
+.row .label { width: 120px; color: #666; font-size: 14px; }
+.row .value { flex: 1; color: #222; font-size: 14px; }
+.warning { background: #fef0f0; border-left: 4px solid #8a2a2a; padding: 15px; margin: 15px 0; }
+.warning .title { color: #8a2a2a; font-weight: bold; }
+.medical-box { background: #f8fafc; border: 1px solid #d0d8e0; padding: 20px; margin: 15px 0; font-family: '宋体', serif; }
+.signature { text-align: right; color: #888; font-size: 12px; margin-top: 20px; border-top: 1px solid #e0e4e8; padding-top: 15px; }
+.ghost-annotation { color: #f0f4f8; font-size: 11px; }
+.ghost-annotation:hover { color: #1a3a5c; }
+.corner-ghost { position: fixed; bottom: 20px; right: 20px; color: rgba(26,58,92,0.04); font-size: 12px; pointer-events: none; }
+.corner-ghost:hover { color: rgba(26,58,92,0.3); }
+.back-link { display: inline-block; margin-top: 20px; color: #1a3a5c; text-decoration: none; }
+.back-link:hover { text-decoration: underline; }
+.highlight-red { color: #8a2a2a; }
+.note-hidden { color: #fff; background: #fff; }
+.note-hidden:hover { color: #000; background: #f0f0f0; }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="header"><div><h1>■ 学生档案 · 加密级</h1><span style="color:#888;font-size:12px;">档案编号: S-2018-0327 · 有效期: 永久</span></div><div class="status">⚠️ 该档案已被标记为 <span style="color:#8a2a2a;">"异常"</span></div></div>
+    <div class="section"><h3>📋 基本信息</h3>
+        <div class="row"><span class="label">姓名</span><span class="value"><b>李慈安</b> <span style="color:#888;font-size:12px;">(曾用名：无)</span></span></div>
+        <div class="row"><span class="label">性别</span><span class="value">男</span></div>
+        <div class="row"><span class="label">出生日期</span><span class="value">2004年3月17日</span></div>
+        <div class="row"><span class="label">学籍状态</span><span class="value" style="color:#8a2a2a;">◈ 已休学（2026年6月起）</span></div>
+        <div class="row"><span class="label">家庭住址</span><span class="value">南城市建设路阳光花园7栋302</span></div>
+        <div class="row"><span class="label">监护人</span><span class="value">李建军（父亲）</span></div>
+        <div class="row"><span class="label">家庭成员</span><span class="value">父亲 · 李建军<br><span style="color:#888;font-size:12px;">注：该生为独生子，母亲已于2010年离异后迁居外地。</span><br><span style="color:#eee;font-size:11px;">（该生自称有一名"哥哥"，但户籍无记录）</span></span></div>
+    </div>
+    <div class="section"><h3>🏠 家庭情况说明</h3><p style="line-height:1.8;color:#444;font-size:14px;">父母于2010年离异，抚养权归父亲。父亲李建军有酗酒史。该生自初一起多次出现旷课、身上带伤等情况。2018年11月的一次谈话中，该生提到了一个"哥哥"，但校方无法查证此人存在。</p ></div>
+    <div class="section"><h3>🏥 体检报告（2026年5月）</h3><div class="medical-box"><p><b>身高：</b>175cm ｜<b>体重：</b>62kg ｜<b>BMI：</b>20.2</p ><p><b>视力：</b>左眼4.8 右眼4.9</p ><p><b>血压：</b>118/76 mmHg</p ><p style="color:#8a2a2a;margin-top:8px;"><b>⚠️ 异常项：</b></p ><ul style="color:#8a2a2a;padding-left:20px;font-size:14px;"><li>左前臂及背部可见多处陈旧性疤痕</li><li>精神评估：见下方《精神状况报告》</li></ul><div class="signature">体检医师：陈芳 · 2026年5月20日</div></div></div>
+    <div class="section" style="border-color:#8a2a2a;background:#fcf6f6;"><h3 style="border-left-color:#8a2a2a;color:#8a2a2a;">🧠 精神状况评估报告（机密）</h3><div class="warning"><div class="title">■ 诊断结论</div><p style="margin-top:8px;font-size:15px;line-height:1.8;"><b style="color:#8a2a2a;">分离性身份障碍（DID）倾向</b><br>伴随偏执型精神分裂症早期表现。<br><span style="font-size:13px;color:#555;">患者表现出明显的"第二个自我"认同倾向，自称该人格为"哥哥"，并坚称其具有独立记忆和意志。患者无法区分该人格与现实的界限。</span></p ></div><div style="background:#fff;padding:15px;border:1px solid #e0e4e8;margin:10px 0;"><p style="font-size:13px;color:#444;line-height:1.8;"><b>就诊记录摘要：</b><br>2026年3月10日 · 首次就诊<br>患者自述"哥哥从小学就和我在一起"，"他会在爸爸打我之后出现"，"有时候我不想面对的事，他会替我做"。<br><span style="color:#8a2a2a;">⚠️ 患者对"哥哥"的描述存在前后矛盾：</span><br>有时称"哥哥是来保护我的"，有时称"哥哥说要我们一起报仇"。</p ></div><div style="color:#888;font-size:12px;border-top:1px solid #e0e4e8;padding-top:10px;">主治医师：刘志明 · 南城市精神卫生中心 · 2026年5月28日</div><p style="color:#fcf6f6;font-size:11px;margin-top:5px;user-select:none;">· 他说他不止一个人 · 他说需要"七个"才能结束 ·</p ></div>
+    <div style="margin-top:30px;padding:15px;background:#f0f4f8;border:1px dashed #8a8a8a;font-size:13px;color:#555;"><p style="font-style:italic;">📌 校方备注：该生在校期间多次提及"哥哥"，但经查证：</p ><ul style="padding-left:20px;margin-top:8px;color:#888;font-size:12px;"><li>✓ 户籍系统中无"哥哥"此人记录</li><li>✓ 小学及初中校友均表示"从未见过李慈安有哥哥"</li><li style="color:#8a2a2a;">✗ 但在2016年的某次家访记录中，父亲曾随口说了一句"他哥走了"——后改口称"口误"</li></ul></div>
+    <a class="back-link" href=" ">← 返回学校官网</a >
+</div>
+<div class="corner-ghost">· 慈安 · 哥在这里 · 他们看不到我 ·</div>
+</body>
+</html>
