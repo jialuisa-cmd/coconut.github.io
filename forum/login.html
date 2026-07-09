@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>登录 · 加密节点</title>
+    <style>
+        body { background: #0d0a08; color: #b8a8a0; font-family: 'Courier New', monospace; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        .box { border: 1px solid #2a1a12; padding: 40px; background: #120e0c; width: 380px; text-align: center; }
+        .box h2 { color: #6a3a2a; font-weight: normal; letter-spacing: 3px; font-size: 16px; }
+        .box input { display: block; width: 100%; background: #0a0806; border: 1px solid #2a1a12; padding: 10px; margin: 10px 0; color: #b8a8a0; }
+        .box button { background: #1a120e; border: 1px solid #2a1a12; color: #7a6a5a; padding: 10px; width: 100%; cursor: pointer; }
+        .box button:hover { background: #2a1a12; }
+        .feedback { margin-top: 12px; font-size: 12px; min-height: 20px; }
+        .hint { color: #3a2a1a; font-size: 11px; margin-top: 15px; border-top: 1px solid #1a120e; padding-top: 15px; }
+    </style>
+</head>
+<body>
+<div class="box">
+    <h2>■ 深网档案 · 身份验证</h2>
+    <p style="color:#4a3a2a; font-size:12px;">请输入您的凭证以解锁加密内容</p >
+    <input type="text" id="username" placeholder="用户名（任意）">
+    <input type="password" id="password" placeholder="密码">
+    <button onclick="doLogin()">验证身份</button>
+    <div id="feedback" class="feedback"></div>
+    <div class="hint">
+        💡 提示：<br>
+        · 用户名随意填写，它会成为你的代号<br>
+        · 密码藏在五个帖子里，每个帖子给出一个字符<br>
+        · 五个帖子分别是：符号、梦、记录、慈安留言、还有一个在……<br>
+        · 拼起来就是密码（区分大小写）
+    </div>
+</div>
+
+<script>
+    var attempts = [];
+    function doLogin() {
+        var u = document.getElementById('username').value.trim();
+        var p = document.getElementById('password').value.trim();
+        var fb = document.getElementById('feedback');
+        if (u === '') { fb.innerHTML = '❌ 请输入你的代号'; fb.style.color = '#6a2a1a'; return; }
+        attempts.push({ u, p, time: new Date().toLocaleString() });
+        // 正确密码：XJ7（不区分大小写，但建议大写）
+        if (p.toUpperCase() === 'XJ7') {
+            localStorage.setItem('argPlayerName', u);
+            fb.innerHTML = '✅ <span style="color:#3a7a3a;">验证通过。欢迎回来。</span>';
+            fb.style.color = '#3a7a3a';
+            setTimeout(function() { window.location.href = 'revelation.html'; }, 1200);
+            return;
+        }
+        // 错误反馈
+        if (p.length === 1) {
+            fb.innerHTML = '❌ 只找到一个字符？继续找，还有四个。';
+            fb.style.color = '#6a3a2a';
+        } else if (p.length === 2) {
+            fb.innerHTML = '❌ 还差一个。想想数字几？';
+            fb.style.color = '#6a3a2a';
+        } else if (p.toUpperCase().includes('X') || p.toUpperCase().includes('J')) {
+            fb.innerHTML = '❌ 顺序不对，或者缺了数字。重新拼一下。';
+            fb.style.color = '#6a3a2a';
+        } else if (attempts.length >= 5) {
+            fb.innerHTML = '⚠️ 多次尝试失败。你已被记录。';
+            fb.style.color = '#8a2a1a';
+            document.querySelector('.hint').innerHTML += '<br><span style="color:#4a1a0a;">·· 她在看着你 ··</span>';
+        } else {
+            fb.innerHTML = '❌ 密码错误。去帖子列表里找找线索。';
+            fb.style.color = '#6a2a1a';
+        }
+    }
+</script>
+</body>
+</html>
