@@ -1,32 +1,65 @@
 <!DOCTYPE html>
 <html lang="zh">
-<head><meta charset="UTF-8"><title>帖子详情 · 加密存档</title>
-<style>
-body { background: #0d0a08; color: #b8a8a0; font-family: 'Courier New', monospace; padding: 30px; }
-.container { max-width: 800px; margin: auto; border: 1px solid #2a1a12; padding: 30px; background: #120e0c; }
-.post-title { color: #8a7a6a; font-size: 22px; border-bottom: 1px solid #1a120e; padding-bottom: 10px; }
-.post-meta { color: #4a3a2a; font-size: 12px; margin: 10px 0; }
-.post-body { margin: 20px 0; line-height: 1.8; color: #a89890; }
-.post-body .highlight { color: #7a3a2a; }
-.back { margin-top: 30px; }
-.back a { color: #5a4a3a; text-decoration: none; }
-</style>
+<head>
+    <meta charset="UTF-8">
+    <title>帖子详情 · 加密存档</title>
+    <style>
+        body { background: #0d0a08; color: #b8a8a0; font-family: 'Courier New', monospace; padding: 30px; }
+        .container { max-width: 800px; margin: auto; border: 1px solid #2a1a12; padding: 30px; background: #120e0c; }
+        .post-title { color: #8a7a6a; font-size: 22px; border-bottom: 1px solid #1a120e; padding-bottom: 10px; }
+        .post-meta { color: #4a3a2a; font-size: 12px; margin: 10px 0; }
+        .post-body { margin: 20px 0; line-height: 1.8; color: #a89890; }
+        .post-body .highlight { color: #7a3a2a; }
+        .back { margin-top: 30px; }
+        .back a { color: #5a4a3a; text-decoration: none; }
+        .msg-input { background: #0a0806; border: 1px solid #2a1a12; padding: 10px; width: 100%; color: #b8a8a0; font-family: 'Courier New', monospace; margin: 8px 0; }
+        .msg-input:focus { border-color: #4a3a2a; outline: none; }
+        .msg-btn { background: #1a120e; border: 1px solid #2a1a12; color: #7a6a5a; padding: 8px 20px; cursor: pointer; font-family: 'Courier New', monospace; }
+        .msg-btn:hover { background: #2a1a12; color: #b8a8a0; }
+        .msg-feedback { margin-top: 12px; color: #6a3a2a; font-size: 13px; min-height: 24px; border-top: 1px solid #1a120e; padding-top: 12px; }
+    </style>
 </head>
 <body>
 <div class="container">
     <div class="post-title">【加密】最后的记录 · 李慈安</div>
     <div class="post-meta">用户: LiCian &nbsp;|&nbsp; 2026.07.08 00:17</div>
     <div class="post-body">
-        <p>如果你能看到这条消息，说明你已经找到了这里。</p >
-        <p>我不知道你是谁，但我知道你在找什么。</p >
-        <p>她叫<span class="highlight">玄姬</span>。她需要<span class="highlight">七个</span>。密码就藏在她的名字和数字里。</p >
-        <p>我已经做了该做的事。</p >
-        <p style="text-align:right; color:#3a2a1a;">—— 李慈安 · 最后一封</p >
+        <p>如果你能看到这条消息，说明你已经找到了这里。</p>
+        <p>我不知道你是谁，但我知道你在找什么。</p>
+        <p>她叫<span class="highlight">玄姬</span>。她需要<span class="highlight">七个</span>。密码就藏在她的名字和数字里。</p>
+        <p>我已经做了该做的事。</p>
+        <p style="text-align:right; color:#3a2a1a;">—— 李慈安 · 最后一封</p>
         <p style="font-size:12px; color:#2a1a0a; margin-top:20px;">
             [ 笔记：如果你需要查看我校的完整档案，请使用查询码 <span style="color:#b8a8a0; background:#120e0c;">LCA-0327</span> ]
-        </p >
+        </p>
+
+        <!-- 留言互动 -->
+        <div style="margin-top:25px; border-top:1px solid #2a1a12; padding-top:16px;">
+            <p style="font-size:13px; color:#5a4a3a;">📝 给李慈安留言：</p>
+            <input type="text" class="msg-input" id="msgInput" placeholder="你想对他说什么..." value="">
+            <button class="msg-btn" id="msgBtn">发送留言</button>
+            <div class="msg-feedback" id="msgFeedback"></div>
+        </div>
     </div>
-    <div class="back"><a href=" ">← 返回帖子列表</a ></div>
+    <div class="back"><a href="../index.html">← 返回帖子列表</a></div>
 </div>
+<script>
+    document.getElementById('msgBtn').addEventListener('click', function() {
+        var val = document.getElementById('msgInput').value.trim();
+        var fb = document.getElementById('msgFeedback');
+        if (val === '') { fb.textContent = '请写下你想说的话。'; return; }
+        if (val.includes('第七个') || val.includes('第七') || val.includes('我是第') || val.includes('我来找你')) {
+            fb.innerHTML = '<span style="color:#7a2a2a; font-size:15px;">……你知道了。那你知道你也逃不掉吗？</span>';
+            fb.style.color = '#7a2a2a';
+        } else {
+            fb.textContent = '……你的留言已发送。但无人回应。';
+            fb.style.color = '#4a3a2a';
+        }
+        document.getElementById('msgInput').value = '';
+    });
+    document.getElementById('msgInput').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') { document.getElementById('msgBtn').click(); }
+    });
+</script>
 </body>
 </html>
