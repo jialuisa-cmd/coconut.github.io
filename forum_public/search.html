@@ -54,12 +54,15 @@
             <span class="tag" onclick="location.href='search.html?q=生日'">生日</span>
             <span class="tag" onclick="location.href='search.html?q=失眠'">失眠</span>
             <span class="tag" onclick="location.href='search.html?q=深网'">深网</span>
+            <span class="tag" onclick="location.href='search.html?q=哥哥日记'">哥哥日记</span>
+            <span class="tag" onclick="location.href='search.html?q=李慈佑'">李慈佑</span>
+            <span class="tag" onclick="location.href='search.html?q=执念'">执念</span>
         </div>
     </div>
 </div>
 
 <script>
-    // ===== 预设搜索数据（包含所有帖子 1~13） =====
+    // ===== 预设搜索数据（包含所有帖子 1~16） =====
     var searchData = {
         // 李慈安相关
         '李慈安': [
@@ -89,7 +92,10 @@
         ],
         '李慈佑': [
             { title: '【树洞】弟弟，生日快乐', url: 'posts/13.html', snippet: '李慈佑发的帖子。' },
-            { title: '【树洞】他是我哥，但我不知道他是谁', url: 'posts/7.html', snippet: '李慈佑……' }
+            { title: '【树洞】他是我哥，但我不知道他是谁', url: 'posts/7.html', snippet: '李慈佑……' },
+            { title: '【加密日记】· 第一篇', url: 'posts/14.html', snippet: '李慈佑的加密日记' },
+            { title: '【加密日记】· 第二篇', url: 'posts/15.html', snippet: '李慈佑的加密日记' },
+            { title: '【加密日记】· 第三篇', url: 'posts/16.html', snippet: '李慈佑的加密日记' }
         ],
         // 玄姬相关
         '玄姬': [
@@ -154,16 +160,30 @@
         '深网': [
             { title: '【日常】你们听说过"深网"吗？', url: 'posts/9.html', snippet: '我哥提过这个地方……那里面的人知道一些"不该知道的事"。' }
         ],
-        // 路人相关
+        // 路人
         '路人': [
             { title: '【日常】南城一中门口又出事了', url: 'posts/12.html', snippet: '最近南城一中门口总是出事……' }
         ],
-        // 额外：李慈安常用词
+        // 爸爸 / 喝酒
         '爸爸': [
             { title: '【日常】今天爸又喝酒了，哥让我躲起来', url: 'posts/8.html', snippet: '爸又喝酒了……' }
         ],
         '喝酒': [
             { title: '【日常】今天爸又喝酒了，哥让我躲起来', url: 'posts/8.html', snippet: '爸又喝酒了……' }
+        ],
+        // 新增：哥哥日记
+        '哥哥日记': [
+            { title: '【加密日记】· 第一篇', url: 'posts/14.html', snippet: '今天又看到慈安身上的伤了……' },
+            { title: '【加密日记】· 第二篇', url: 'posts/15.html', snippet: '今天我去找那几个欺负他的人了……' },
+            { title: '【加密日记】· 第三篇', url: 'posts/16.html', snippet: '今晚和玄姬说了很久的话……' }
+        ],
+        '加密日记': [
+            { title: '【加密日记】· 第一篇', url: 'posts/14.html', snippet: '仅自己可见……' },
+            { title: '【加密日记】· 第二篇', url: 'posts/15.html', snippet: '仅自己可见……' },
+            { title: '【加密日记】· 第三篇', url: 'posts/16.html', snippet: '仅自己可见……' }
+        ],
+        '执念': [
+            { title: '【加密日记】· 第三篇', url: 'posts/16.html', snippet: '我执念够深，也因为我足够恨。' }
         ]
     };
 
@@ -195,6 +215,7 @@
                         <span class="tag" onclick="location.href='search.html?q=玄姬'">玄姬</span>
                         <span class="tag" onclick="location.href='search.html?q=第七个'">第七个</span>
                         <span class="tag" onclick="location.href='search.html?q=生日'">生日</span>
+                        <span class="tag" onclick="location.href='search.html?q=哥哥日记'">哥哥日记</span>
                     </div>
                 </div>
             `;
@@ -231,6 +252,7 @@
                 <span class="tag" onclick="location.href='search.html?q=家暴'">家暴</span>
                 <span class="tag" onclick="location.href='search.html?q=生日'">生日</span>
                 <span class="tag" onclick="location.href='search.html?q=深网'">深网</span>
+                <span class="tag" onclick="location.href='search.html?q=哥哥日记'">哥哥日记</span>
             </div>
         `;
     } else {
