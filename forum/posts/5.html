@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta charset="UTF-8"><title>深网·系统日志</title>
+<style>
+body { background: #0a0806; color: #b8a8a0; font-family: 'Courier New', monospace; padding: 30px; }
+.container { max-width: 750px; margin: auto; background: #120e0c; padding: 35px; border: 1px solid #2a1a12; border-radius: 6px; }
+h1 { color: #6a3a2a; font-size: 20px; letter-spacing: 2px; }
+.meta { color: #4a3a2a; font-size: 12px; margin: 6px 0 16px 0; }
+.content { line-height: 1.9; font-size: 14px; color: #b8a8a0; font-family: 'Courier New', monospace; }
+.content .red { color: #6a2a2a; }
+.log-line { color: #4a5a4a; font-size: 13px; border-bottom: 1px solid #1a120e; padding: 4px 0; }
+.log-line .warn { color: #6a4a2a; }
+.log-line .error { color: #6a2a2a; }
+.log-line .user { color: #3a7a3a; }
+.back { margin-top: 25px; }
+.back a { color: #5a4a3a; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>【系统日志】异常访问记录</h1>
+    <div class="meta">深网档案 · 自动记录 · 2026.07.09</div>
+    <div class="content">
+        <div class="log-line"><span class="user">[系统]</span> 检测到异常访问: IP 220.173.*.*</div>
+        <div class="log-line"><span class="warn">[警告]</span> 该IP在过去7天内访问了 <span class="red">同一档案</span> 共14次</div>
+        <div class="log-line"><span class="user">[系统]</span> 档案编号: <span class="red">XJ-001</span></div>
+        <div class="log-line"><span class="warn">[警告]</span> 访问者定位: 南城·阳光花园小区</div>
+        <div class="log-line"><span class="error">[错误]</span> 该地址与失踪学生李慈安的家庭住址一致</div>
+        <div class="log-line" style="border-bottom: none; padding-top:10px; color:#5a3a2a;">
+            [ 系统提示 ] 有人正在看这个页面。现在。
+        </div>
+        <br>
+        <p style="color:#2a1a12; font-size:10px; text-align:right;">· 你知道他是谁 ·</p>
+    </div>
+    <div class="back"><a href="../index.html">← 返回深网</a></div>
+</div>
+</body>
+</html>
