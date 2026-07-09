@@ -2,8 +2,7 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>登录 · 加密节点</title>
+    <title>登录 · 深网档案</title>
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
         body {
@@ -34,11 +33,10 @@
             padding-bottom: 15px;
             margin-bottom: 18px;
         }
-        .box .sub-title {
+        .box .sub {
             color: #4a3a2a;
             font-size: 12px;
             margin-bottom: 20px;
-            letter-spacing: 1px;
         }
         .box label {
             display: block;
@@ -46,7 +44,6 @@
             font-size: 11px;
             color: #5a4a3a;
             margin: 12px 0 4px 0;
-            letter-spacing: 1px;
         }
         .box input {
             display: block;
@@ -59,7 +56,6 @@
             font-family: 'Courier New', monospace;
             font-size: 14px;
             outline: none;
-            transition: border-color 0.3s;
         }
         .box input:focus {
             border-color: #5a3a2a;
@@ -103,13 +99,6 @@
         .hint strong {
             color: #5a4a3a;
         }
-        .hidden-ghost {
-            color: #120e0c;
-            font-size: 8px;
-            user-select: none;
-            margin-top: 10px;
-        }
-        /* 错误闪动 */
         .shake {
             animation: shake 0.4s ease-in-out;
         }
@@ -118,13 +107,16 @@
             25% { transform: translateX(-8px); }
             75% { transform: translateX(8px); }
         }
+        .success {
+            color: #3a7a3a !important;
+        }
     </style>
 </head>
 <body>
 
 <div class="box" id="loginBox">
     <h2>■ 深网档案 · 身份验证</h2>
-    <div class="sub-title">请输入凭证以解锁加密内容</div>
+    <div class="sub">请输入凭证以解锁加密内容</div>
 
     <label for="username">代号（任意填写）</label>
     <input type="text" id="username" placeholder="例如：调查者" value="">
@@ -132,147 +124,130 @@
     <label for="password">密码</label>
     <input type="password" id="password" placeholder="请输入密码" value="">
 
-    <button id="loginBtn">▸ 验证身份 ◂</button>
+    <!-- 使用 onclick 直接绑定函数，确保点击立即执行 -->
+    <button id="loginBtn" onclick="doLogin()">▸ 验证身份 ◂</button>
 
     <div id="feedback"></div>
 
     <div class="hint">
         💡 <strong>提示：</strong><br>
         · 用户名随意填写，它会成为你的代号<br>
-        · 密码藏在五个帖子里，每个帖子给出一个字符<br>
-        · 五个帖子分别是：符号、梦、记录、慈安留言、还有……<br>
-        · 拼起来就是密码（区分大小写，共3位）
+        · 密码藏在五个帖子里，拼起来是 <strong>3 个字符</strong><br>
+        · 试试搜索“符号”、“梦”、“记录”找线索
     </div>
-
-    <div class="hidden-ghost">· 他在看着你输入 ·</div>
 </div>
 
 <script>
-    (function() {
-        // 确保 DOM 完全加载后再绑定事件
-        window.addEventListener('DOMContentLoaded', function() {
-            var usernameInput = document.getElementById('username');
-            var passwordInput = document.getElementById('password');
-            var loginBtn = document.getElementById('loginBtn');
-            var feedback = document.getElementById('feedback');
-            var box = document.getElementById('loginBox');
+    // ----- 全局函数，供 onclick 调用 -----
+    function doLogin() {
+        // 获取输入值
+        var u = document.getElementById('username').value.trim();
+        var p = document.getElementById('password').value.trim();
+        var feedback = document.getElementById('feedback');
+        var box = document.getElementById('loginBox');
 
-            // 尝试次数
-            var attempts = [];
+        // 清空旧反馈
+        feedback.textContent = '';
+        feedback.className = '';
 
-            // 核心登录函数
-            function doLogin() {
-                var u = usernameInput.value.trim();
-                var p = passwordInput.value.trim();
-                var fb = feedback;
+        // 校验用户名
+        if (u === '') {
+            feedback.textContent = '❌ 请输入你的代号';
+            feedback.style.color = '#8a3a2a';
+            box.classList.add('shake');
+            setTimeout(function() { box.classList.remove('shake'); }, 400);
+            return;
+        }
 
-                // 清空旧反馈
-                fb.innerHTML = '';
-                fb.style.color = '#6a3a2a';
+        // 校验密码
+        if (p === '') {
+            feedback.textContent = '❌ 请输入密码';
+            feedback.style.color = '#8a3a2a';
+            box.classList.add('shake');
+            setTimeout(function() { box.classList.remove('shake'); }, 400);
+            return;
+        }
 
-                // 用户名不能为空
-                if (u === '') {
-                    fb.innerHTML = '❌ 请输入你的代号';
-                    fb.style.color = '#8a3a2a';
-                    box.classList.add('shake');
-                    setTimeout(function() { box.classList.remove('shake'); }, 400);
-                    usernameInput.focus();
-                    return;
-                }
+        // 验证密码（正确：XJ7，不区分大小写）
+        if (p.toUpperCase() === 'XJ7') {
+            // 存储用户名
+            localStorage.setItem('argPlayerName', u);
+            feedback.textContent = '✅ 验证通过。欢迎回来，' + u + '。';
+            feedback.style.color = '#3a7a3a';
+            feedback.className = 'success';
 
-                // 密码不能为空
-                if (p === '') {
-                    fb.innerHTML = '❌ 请输入密码';
-                    fb.style.color = '#8a3a2a';
-                    box.classList.add('shake');
-                    setTimeout(function() { box.classList.remove('shake'); }, 400);
-                    passwordInput.focus();
-                    return;
-                }
+            // 禁用按钮
+            document.getElementById('loginBtn').disabled = true;
+            document.getElementById('loginBtn').textContent = '⏳ 跳转中...';
 
-                // 记录尝试
-                attempts.push({ u: u, p: p, time: new Date().toLocaleString() });
+            // 跳转
+            setTimeout(function() {
+                window.location.href = 'revelation.html';
+            }, 1500);
+            return;
+        }
 
-                // ------- 正确密码：XJ7（不区分大小写） -------
-                if (p.toUpperCase() === 'XJ7') {
-                    // 存储用户名，用于揭示页
-                    localStorage.setItem('argPlayerName', u);
-                    fb.innerHTML = '✅ 验证通过。欢迎回来，' + u + '。';
-                    fb.style.color = '#3a7a3a';
-                    // 禁用按钮防止重复点击
-                    loginBtn.disabled = true;
-                    loginBtn.style.opacity = '0.5';
-                    // 1.5秒后跳转
-                    setTimeout(function() {
-                        window.location.href = 'revelation.html';
-                    }, 1500);
-                    return;
-                }
+        // 密码错误
+        var upperP = p.toUpperCase();
+        if (upperP === 'X' || upperP === 'J' || upperP === '7') {
+            feedback.textContent = '❌ 只找到一个字符？继续找，还有两个。';
+        } else if (upperP === 'XJ' || upperP === 'JX' || upperP === 'X7' || upperP === '7X' || upperP === 'J7' || upperP === '7J') {
+            feedback.textContent = '❌ 还差一个。想想数字几？顺序对吗？';
+        } else if (upperP.includes('X') || upperP.includes('J')) {
+            feedback.textContent = '❌ 顺序不对，或者缺了数字。重新拼一下。';
+        } else if (p.includes('玄') || p.includes('姬')) {
+            feedback.textContent = '❌ 密码只接受英文字母和数字。试试用拼音。';
+        } else {
+            feedback.textContent = '❌ 密码错误。去帖子列表里找找线索。';
+        }
+        feedback.style.color = '#8a2a1a';
 
-                // ------- 错误反馈（分层提示，不直接给答案） -------
-                var upperP = p.toUpperCase();
+        // 晃动反馈
+        box.classList.add('shake');
+        setTimeout(function() { box.classList.remove('shake'); }, 400);
 
-                if (upperP === 'X' || upperP === 'J' || upperP === '7') {
-                    fb.innerHTML = '❌ 只找到一个字符？继续找，还有两个。';
-                    fb.style.color = '#8a6a2a';
-                } else if (upperP === 'XJ' || upperP === 'JX' || upperP === 'X7' || upperP === '7X' || upperP === 'J7' || upperP === '7J') {
-                    fb.innerHTML = '❌ 还差一个。想想数字几？顺序对吗？';
-                    fb.style.color = '#8a6a2a';
-                } else if (upperP.includes('X') || upperP.includes('J')) {
-                    fb.innerHTML = '❌ 顺序不对，或者缺了数字。重新拼一下。';
-                    fb.style.color = '#8a6a2a';
-                } else if (p.includes('玄') || p.includes('姬')) {
-                    fb.innerHTML = '❌ 密码只接受英文字母和数字。试试用拼音。';
-                    fb.style.color = '#8a6a2a';
-                } else if (attempts.length >= 5) {
-                    fb.innerHTML = '⚠️ 多次尝试失败。你已被记录。';
-                    fb.style.color = '#8a2a1a';
-                    // 额外彩蛋：显示一句隐藏信息
-                    document.querySelector('.hint').innerHTML += '<br><span style="color:#4a1a0a;">·· 她在看着你 ··</span>';
-                } else {
-                    fb.innerHTML = '❌ 密码错误。去帖子列表里找找线索。';
-                    fb.style.color = '#8a2a1a';
-                }
+        // 清空密码框
+        document.getElementById('password').value = '';
+        document.getElementById('password').focus();
 
-                // 晃动反馈
-                box.classList.add('shake');
-                setTimeout(function() { box.classList.remove('shake'); }, 400);
+        // 控制台输出，帮助调试
+        console.log('❌ 登录失败，尝试次数:', window.attempts ? window.attempts.length : 0);
+    }
 
-                // 清空密码框，方便重新输入
-                passwordInput.value = '';
-                passwordInput.focus();
+    // 辅助：记录尝试次数（可选）
+    window.attempts = window.attempts || [];
+
+    // 按回车键触发登录
+    document.addEventListener('DOMContentLoaded', function() {
+        var username = document.getElementById('username');
+        var password = document.getElementById('password');
+
+        // 用户名框按回车跳密码框
+        username.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                password.focus();
             }
-
-            // 绑定按钮点击
-            loginBtn.addEventListener('click', doLogin);
-
-            // 绑定回车键（在密码框按回车触发登录）
-            passwordInput.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    doLogin();
-                }
-            });
-
-            // 用户名框按回车跳到密码框
-            usernameInput.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    passwordInput.focus();
-                }
-            });
-
-            // 如果用户已经登录过，自动填充用户名（方便测试）
-            var savedName = localStorage.getItem('argPlayerName');
-            if (savedName) {
-                usernameInput.value = savedName;
-            }
-
-            // 控制台彩蛋（提示玩家）
-            console.log('%c◈ 你来到了登录节点。', 'color: #4a2a1a; font-size: 16px; font-weight: bold;');
-            console.log('%c密码藏在五个帖子里。拼起来是3个字符。', 'color: #888; font-size: 13px;');
         });
-    })();
+
+        // 密码框按回车触发登录
+        password.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                doLogin();
+            }
+        });
+
+        // 自动填充已保存的用户名
+        var saved = localStorage.getItem('argPlayerName');
+        if (saved) {
+            username.value = saved;
+            password.focus();
+        }
+
+        console.log('✅ 登录页面已加载，点击按钮或按回车即可登录。');
+        console.log('💡 提示：密码是 XJ7（大写）');
+    });
 </script>
 
 </body>
