@@ -170,7 +170,7 @@
 
     <div style="margin-top:10px;" id="threadList">
 
-        <!-- 三个完全开放的帖子 -->
+        <!-- ===== 三个开放帖子（含密码碎片） ===== -->
         <div class="thread" onclick="window.location.href='posts/1.html'">
             <span class="title">【求助】有人认识这个符号吗？</span>
             <span class="meta">回复: 12 &nbsp;|&nbsp; 2018.11.23</span>
@@ -186,7 +186,13 @@
             <span class="meta">回复: 5 &nbsp;|&nbsp; 2020.08.22</span>
         </div>
 
-        <!-- 加密帖子：需要登录（链接已改为 li.html） -->
+        <!-- ===== 玄姬残卷（登录后可见） ===== -->
+        <div class="thread locked" id="xuanjiThread" onclick="openXuanji()">
+            <span class="title">【残卷】玄姬 · 南城古卷</span>
+            <span class="meta">需登录查阅 · 2026.07.09</span>
+        </div>
+
+        <!-- ===== 李慈安留言（登录后可见） ===== -->
         <div class="thread locked" id="lockedThread" onclick="openLockedThread()">
             <span class="title">【加密】最后的记录 · 李慈安</span>
             <span class="meta">回复: 0 &nbsp;|&nbsp; 2026.07.08</span>
@@ -214,7 +220,7 @@
         <button class="modal-btn" id="modalLoginBtn" onclick="doModalLogin()">▸ 验证身份 ◂</button>
         <div class="m-feedback" id="modalFeedback"></div>
         <div class="m-hint">
-            💡 <strong>提示：</strong><br>
+            💡 提示：<br>
             · 用户名随意填写，它会成为你的代号<br>
             · 密码藏在 <strong>前三个帖子</strong> 里，拼起来是 3 个字符<br>
             · 点开帖子，找到线索，集齐字符
@@ -223,6 +229,9 @@
 </div>
 
 <script>
+    // ============================================================
+    // 状态管理
+    // ============================================================
     var isLoggedIn = false;
     var currentUser = '';
     var collectedChars = [];
@@ -261,6 +270,7 @@
         var loginBtn = document.getElementById('loginMainBtn');
         var logoutBtn = document.getElementById('logoutBtn');
         var lockedThread = document.getElementById('lockedThread');
+        var xuanjiThread = document.getElementById('xuanjiThread');
 
         if (isLoggedIn) {
             msg.innerHTML = '✅ 已登录：<span style="color:#3a7a3a;font-weight:bold;">' + currentUser + '</span>';
@@ -268,6 +278,7 @@
             badge.textContent = '● 已认证 ( ' + currentUser + ' )';
             loginBtn.style.display = 'none';
             logoutBtn.style.display = 'inline-block';
+            // 解锁加密帖子
             if (lockedThread) {
                 lockedThread.classList.remove('locked');
                 lockedThread.style.opacity = '1';
@@ -280,17 +291,37 @@
                     window.location.href = 'posts/li.html';
                 };
             }
+            // 解锁玄姬残卷
+            if (xuanjiThread) {
+                xuanjiThread.classList.remove('locked');
+                xuanjiThread.style.opacity = '1';
+                xuanjiThread.style.cursor = 'pointer';
+                var title2 = xuanjiThread.querySelector('.title');
+                if (title2) {
+                    title2.textContent = title2.textContent.replace(' 🔒', '');
+                }
+                xuanjiThread.onclick = function() {
+                    window.location.href = '玄姬残卷.html';
+                };
+            }
         } else {
             msg.innerHTML = '⚠️ 您正在以 <span style="color:#3a5a3a;">访客</span> 身份浏览。';
             badge.className = 'status offline';
             badge.textContent = '● 已连接 (匿名)';
             loginBtn.style.display = 'inline-block';
             logoutBtn.style.display = 'none';
+            // 保持锁定
             if (lockedThread) {
                 lockedThread.classList.add('locked');
                 lockedThread.style.opacity = '0.5';
                 lockedThread.style.cursor = 'not-allowed';
                 lockedThread.onclick = openLockedThread;
+            }
+            if (xuanjiThread) {
+                xuanjiThread.classList.add('locked');
+                xuanjiThread.style.opacity = '0.5';
+                xuanjiThread.style.cursor = 'not-allowed';
+                xuanjiThread.onclick = function() { openXuanji(); };
             }
         }
     }
@@ -325,6 +356,7 @@
         }
     }
 
+    // ===== 打开加密帖子 =====
     window.openLockedThread = function() {
         if (isLoggedIn) {
             window.location.href = 'posts/li.html';
@@ -335,6 +367,17 @@
         }
     };
 
+    window.openXuanji = function() {
+        if (isLoggedIn) {
+            window.location.href = '玄姬残卷.html';
+        } else {
+            openLoginModal();
+            document.getElementById('modalFeedback').textContent = '🔒 该残卷需要登录才能查看。';
+            document.getElementById('modalFeedback').style.color = '#8a3a2a';
+        }
+    };
+
+    // ===== 登录模态框 =====
     window.openLoginModal = function() {
         document.getElementById('loginModal').classList.add('active');
         document.getElementById('modalPassword').value = '';
@@ -355,6 +398,7 @@
         document.getElementById('loginModal').classList.remove('active');
     };
 
+    // ===== 登录逻辑 =====
     window.doModalLogin = function() {
         var u = document.getElementById('modalUsername').value.trim();
         var p = document.getElementById('modalPassword').value.trim();
@@ -414,6 +458,7 @@
         document.getElementById('modalPassword').focus();
     };
 
+    // ===== 退出登录 =====
     window.doLogout = function() {
         localStorage.removeItem('argPlayerName');
         isLoggedIn = false;
@@ -421,6 +466,7 @@
         updateUI();
     };
 
+    // ===== 搜索（深网） =====
     window.doSearch = function() {
         var keyword = document.getElementById('searchInput').value.trim().toLowerCase();
         if (!keyword) return;
@@ -428,6 +474,7 @@
             { title: '【求助】有人认识这个符号吗？', url: 'posts/1.html', keywords: '符号 梦 失眠 那个符号' },
             { title: '【讨论】有没有人做过同样的梦？', url: 'posts/2.html', keywords: '梦 女人 黑夜 走廊' },
             { title: '【记录】一些无法解释的事', url: 'posts/3.html', keywords: '记录 日记 消失 声音' },
+            { title: '【残卷】玄姬 · 南城古卷', url: '玄姬残卷.html', keywords: '玄姬 残卷 背景 故事' },
             { title: '【加密】最后的记录 · 李慈安', url: 'posts/li.html', keywords: '慈安 最后 密码 查询码' }
         ];
         var results = posts.filter(function(p) { return p.keywords.includes(keyword); });
@@ -437,8 +484,9 @@
             msg += '\n点击确定跳转到第一个结果？';
             if (confirm(msg)) {
                 var target = results[0].url;
-                if (target === 'posts/li.html' && !isLoggedIn) {
-                    alert('🔒 该帖子需要登录才能查看。请先收集密码并登录。');
+                // 检查是否需要登录
+                if ((target === '玄姬残卷.html' || target === 'posts/li.html') && !isLoggedIn) {
+                    alert('🔒 该内容需要登录才能查看。请先收集密码并登录。');
                     openLoginModal();
                     return;
                 }
@@ -449,31 +497,32 @@
         }
     };
 
+    // ============================================================
+    // 页面加载
+    // ============================================================
     document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('modalPassword').addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                doModalLogin();
-            }
+            if (e.key === 'Enter') { e.preventDefault(); doModalLogin(); }
         });
         document.getElementById('modalUsername').addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                document.getElementById('modalPassword').focus();
-            }
+            if (e.key === 'Enter') { e.preventDefault(); document.getElementById('modalPassword').focus(); }
         });
         document.getElementById('loginModal').addEventListener('click', function(e) {
             if (e.target === this) closeLoginModal();
         });
         loadState();
+
+        // 检查是否有待收集的字符
         var pendingChar = sessionStorage.getItem('pendingChar');
         if (pendingChar) {
             collectChar(pendingChar);
             sessionStorage.removeItem('pendingChar');
         }
+
         console.log('✅ 深网档案已加载');
         console.log('💡 前三个帖子完全开放，点击即可查看，密码藏在里面。');
         console.log('🔑 集齐三个字符后，在登录框输入密码 XJ7。');
+        console.log('📜 登录后可查看「玄姬残卷」和「李慈安留言」。');
     });
 
     window.collectChar = collectChar;
