@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加密日记 · 李慈佑</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0a0806;
+            color: #b8a8a0;
+            font-family: 'Courier New', monospace;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            background-image: radial-gradient(circle at 30% 40%, #1a1210 0%, #0a0806 100%);
+        }
+        .container {
+            max-width: 720px;
+            background: #120e0c;
+            border: 1px solid #3a2a1a;
+            padding: 50px 45px;
+            box-shadow: 0 0 60px rgba(0,0,0,0.9);
+            position: relative;
+        }
+        .container::before {
+            content: "📖";
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 40px;
+            opacity: 0.2;
+        }
+        .header {
+            border-bottom: 1px solid #2a1a12;
+            padding-bottom: 18px;
+            margin-bottom: 25px;
+        }
+        .header h1 {
+            color: #6a3a2a;
+            font-size: 20px;
+            font-weight: normal;
+            letter-spacing: 4px;
+        }
+        .header .sub {
+            color: #4a3a2a;
+            font-size: 11px;
+            margin-top: 4px;
+            letter-spacing: 2px;
+        }
+        .diary-content {
+            line-height: 2.2;
+            font-size: 15px;
+            color: #b8a8a0;
+            font-family: 'Courier New', monospace;
+        }
+        .diary-content .highlight {
+            color: #8a3a2a;
+        }
+        .divider {
+            border-top: 1px solid #2a1a12;
+            margin: 30px 0;
+        }
+        .deep-link-area {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .deep-link-area .btn {
+            background: #1a120e;
+            border: 1px solid #3a2a1a;
+            color: #8a7a6a;
+            padding: 12px 30px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            letter-spacing: 3px;
+            transition: all 0.3s;
+        }
+        .deep-link-area .btn:hover {
+            background: #2a1a12;
+            color: #c8b8b0;
+            border-color: #5a3a2a;
+            box-shadow: 0 0 20px rgba(100,60,40,0.3);
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #4a3a2a;
+            text-decoration: none;
+            font-size: 12px;
+        }
+        .back-link:hover {
+            color: #7a6a5a;
+            text-decoration: underline;
+        }
+        .secret-note {
+            color: #0a0806;
+            font-size: 8px;
+            user-select: none;
+            margin-top: 20px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>■ 加密日记 · 李慈佑</h1>
+        <div class="sub">仅限本人查阅 · 最后更新：2026.07.08</div>
+    </div>
+
+    <div class="diary-content">
+        <p>慈安不知道。他永远不会知道。</p>
+        <p>我是他<span class="highlight">分裂出来的</span>。他太痛苦了，需要一个保护者。所以我来了。</p>
+        <p>但他叫我"哥哥"的时候，我真的很想变成真的。</p>
+        <br>
+        <p>那些人——欺负他的、打他的——他们都要付出代价。</p>
+        <p><span class="highlight">玄姬</span>说，只要凑够<span class="highlight">七个</span>，一切都会结束。</p>
+        <p>我是为了保护他。我是为了让他不再害怕。</p>
+        <br>
+        <p>但有时候我也会想……我到底是什么？</p>
+        <p>我是他的影子？还是他的愿望？</p>
+        <p>不重要了。快了。</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="deep-link-area">
+        <p style="color:#4a3a2a; font-size:12px; margin-bottom:12px;">—— 有些真相，藏在更深的地方 ——</p>
+        <button class="btn" onclick="if(confirm('🕶️ 你确定要进入「深网档案」吗？')) window.location.href='../forum/index.html'">▶ 进入深网档案</button>
+        <div style="margin-top:8px; font-size:10px; color:#2a1a12;">（只有真正准备好的人才会打开）</div>
+    </div>
+
+    <a class="back-link" href="index.html">← 返回南城社区</a>
+    <div class="secret-note">◈</div>
+</div>
+
+<script>
+    // 控制台彩蛋
+    console.log('%c📖 你读完了哥哥的日记。', 'color: #6a3a2a; font-size: 16px;');
+    console.log('%c他承认了自己是分裂人格。', 'color: #888; font-size: 13px;');
+    console.log('%c底部按钮通往深网档案。', 'color: #4a3a2a; font-size: 13px;');
+</script>
+</body>
+</html>
