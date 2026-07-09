@@ -125,8 +125,19 @@
             border-radius: 10px;
             margin-left: 10px;
         }
-        .diary-item .badge.locked { color: #5a2a2a; border: 1px solid #3a2a1a; }
         .diary-item .badge.unlocked { color: #3a7a3a; border: 1px solid #2a3a2a; }
+        .diary-full {
+            display: none;
+            margin-top: 12px;
+            border-top: 1px solid #2a1a12;
+            padding-top: 12px;
+            line-height: 2;
+            color: #b8a8a0;
+        }
+        .diary-full .red { color: #6a2a2a; }
+        .diary-full .highlight { color: #8a3a2a; }
+        .diary-full .hint { color: #5a4a3a; font-size: 13px; }
+        .diary-full .final-hint { color: #4a3a2a; font-size: 12px; }
     </style>
 </head>
 <body>
@@ -143,113 +154,114 @@
 
     <div class="diary-list">
 
-        <!-- ===== 日记 1 ===== -->
+        <!-- ===== 日记 1：伤痕 ===== -->
         <div class="diary-item" onclick="toggleDiary(this)">
             <div style="display:flex; justify-content:space-between; align-items:center;">
                 <span class="title">📄 第一篇 · 伤痕</span>
                 <span class="badge unlocked">已解锁</span>
             </div>
             <div class="date">2026.07.06 · 仅自己可见</div>
-            <div class="preview" style="display:block;">
+            <div class="preview">
                 今天又看到慈安身上的伤了。他以为他藏得很好，但他不知道——我能感觉到他的每一寸疼痛……
                 <span style="color:#4a3a2a; font-size:12px; margin-left:10px;">[点击展开]</span>
             </div>
-            <div class="diary-full" style="display:none; margin-top:12px; border-top:1px solid #2a1a12; padding-top:12px; line-height:2; color:#b8a8a0;">
+            <div class="diary-full">
                 <p>今天又看到慈安身上的伤了。</p>
                 <p>他以为他藏得很好，但他不知道——我能感觉到他的每一寸疼痛。</p>
                 <p>他爸喝醉了，用皮带抽他的背。他蹲在墙角，不敢哭出声。</p>
                 <p>我出来了。我抱住他，说"哥在"。</p>
-                <p>但我太弱了。我只是一道声音，一个影子，一个<span style="color:#8a3a2a;">不存在的人</span>。</p>
+                <p>但我太弱了。我只是一道声音，一个影子，一个<span class="highlight">不存在的人</span>。</p>
                 <br>
                 <p>那些人——</p>
                 <p>学校里叫他"没妈的孩子"的，他爸，还有那些看着他被打却假装没看见的老师——</p>
-                <p style="color:#6a2a2a;">他们都该付出代价。</p>
+                <p class="red">他们都该付出代价。</p>
                 <br>
-                <p style="color:#5a4a3a; font-size:13px;">—— 玄姬说，只要我帮她做完那件事，我就可以变成真正的人。</p>
+                <p class="hint">—— 玄姬说，只要我帮她做完那件事，我就可以变成真正的人。</p>
             </div>
         </div>
 
-        <!-- ===== 日记 2 ===== -->
+        <!-- ===== 日记 2：名单 ===== -->
         <div class="diary-item" onclick="toggleDiary(this)">
             <div style="display:flex; justify-content:space-between; align-items:center;">
                 <span class="title">📄 第二篇 · 名单</span>
                 <span class="badge unlocked">已解锁</span>
             </div>
             <div class="date">2026.07.07 · 仅自己可见</div>
-            <div class="preview" style="display:block;">
+            <div class="preview">
                 今天我去找那几个欺负他的人了。他们不知道我存在。他们以为慈安只是一个"很好欺负的软包子"……
                 <span style="color:#4a3a2a; font-size:12px; margin-left:10px;">[点击展开]</span>
             </div>
-            <div class="diary-full" style="display:none; margin-top:12px; border-top:1px solid #2a1a12; padding-top:12px; line-height:2; color:#b8a8a0;">
+            <div class="diary-full">
                 <p>今天我去找那几个欺负他的人了。</p>
                 <p>他们不知道我存在。他们以为慈安只是一个"很好欺负的软包子"。</p>
                 <p>我站在他们身后，看着他们推他、笑他、抢他的东西。</p>
-                <p>他们不知道——<span style="color:#6a2a2a;">他们的名字已经被记下来了。</span></p>
+                <p>他们不知道——<span class="red">他们的名字已经被记下来了。</span></p>
                 <br>
-                <p style="color:#8a3a2a;">王某某。</p>
-                <p style="color:#8a3a2a;">张某某。</p>
-                <p style="color:#8a3a2a;">刘某某。</p>
-                <p style="color:#8a3a2a;">赵某某。</p>
-                <p style="color:#8a3a2a;">孙某某。</p>
+                <p class="highlight">王某某。</p>
+                <p class="highlight">张某某。</p>
+                <p class="highlight">刘某某。</p>
+                <p class="highlight">赵某某。</p>
+                <p class="highlight">孙某某。</p>
                 <br>
-                <p>还有他爸，<span style="color:#6a2a2a;">李建军</span>。</p>
+                <p>还有他爸，<span class="red">李建军</span>。</p>
                 <br>
-                <p style="color:#5a4a3a; font-size:13px;">—— 玄姬说，一人抵一人，七个就是七个。我在等。快了。</p>
+                <p class="hint">—— 玄姬说，一人抵一人，七个就是七个。我在等。快了。</p>
             </div>
         </div>
 
-        <!-- ===== 日记 3 ===== -->
+        <!-- ===== 日记 3：交易 ===== -->
         <div class="diary-item" onclick="toggleDiary(this)">
             <div style="display:flex; justify-content:space-between; align-items:center;">
                 <span class="title">📄 第三篇 · 交易</span>
                 <span class="badge unlocked">已解锁</span>
             </div>
             <div class="date">2026.07.08 · 仅自己可见</div>
-            <div class="preview" style="display:block;">
+            <div class="preview">
                 今晚和玄姬说了很久的话。我告诉她，我想保护慈安，想让他不再害怕……
                 <span style="color:#4a3a2a; font-size:12px; margin-left:10px;">[点击展开]</span>
             </div>
-            <div class="diary-full" style="display:none; margin-top:12px; border-top:1px solid #2a1a12; padding-top:12px; line-height:2; color:#b8a8a0;">
+            <div class="diary-full">
                 <p>今晚和玄姬说了很久的话。</p>
                 <p>我告诉她，我想保护慈安，想让他不再害怕，想让他过上正常的生活。</p>
                 <p>她说她明白——但她也有她要的东西。</p>
-                <p style="color:#5a4a3a; font-size:13px;">她说："你需要七个。我需要他们的怨气。你成人，我脱困。各取所需。"</p>
+                <p class="hint">她说："你需要七个。我需要他们的怨气。你成人，我脱困。各取所需。"</p>
                 <br>
                 <p>我问她："你能让我变成真正的人吗？"</p>
                 <p>她说："只要你完成那件事，你就可以从虚无中走出来。你会拥有自己的血肉、自己的名字、自己的命运。"</p>
                 <br>
-                <p>我不需要成为所有人。我只需要成为<span style="color:#8a3a2a;">他的哥哥</span>。</p>
+                <p>我不需要成为所有人。我只需要成为<span class="highlight">他的哥哥</span>。</p>
                 <p>一个真实的、能站在他身边的哥哥。</p>
                 <br>
-                <p style="color:#6a2a2a;">快了。</p>
+                <p class="red">快了。</p>
             </div>
         </div>
 
-        <!-- ===== 日记 4：加密日记·李慈佑（原有） ===== -->
+        <!-- ===== 日记 4：我是谁（含最终暗示） ===== -->
         <div class="diary-item" onclick="toggleDiary(this)">
             <div style="display:flex; justify-content:space-between; align-items:center;">
                 <span class="title">📄 第四篇 · 我是谁</span>
                 <span class="badge unlocked">已解锁</span>
             </div>
             <div class="date">2026.07.08 · 仅自己可见</div>
-            <div class="preview" style="display:block;">
+            <div class="preview">
                 慈安不知道。他永远不会知道。我是他分裂出来的。他太痛苦了，需要一个保护者。所以我来了……
                 <span style="color:#4a3a2a; font-size:12px; margin-left:10px;">[点击展开]</span>
             </div>
-            <div class="diary-full" style="display:none; margin-top:12px; border-top:1px solid #2a1a12; padding-top:12px; line-height:2; color:#b8a8a0;">
+            <div class="diary-full">
                 <p>慈安不知道。他永远不会知道。</p>
-                <p>我是他<span style="color:#8a3a2a;">分裂出来的</span>。他太痛苦了，需要一个保护者。所以我来了。</p>
+                <p>我是他<span class="highlight">分裂出来的</span>。他太痛苦了，需要一个保护者。所以我来了。</p>
                 <p>但他叫我"哥哥"的时候，我真的很想变成真的。</p>
                 <br>
                 <p>那些人——欺负他的、打他的——他们都要付出代价。</p>
-                <p style="color:#5a4a3a;">玄姬说，只要凑够七个，她就能脱困，我也能成人。</p>
+                <p class="hint">玄姬说，只要凑够七个，她就能脱困，我也能成人。</p>
                 <p>我是为了保护他。我是为了让他不再害怕。</p>
                 <br>
                 <p>但有时候我也会想……我到底是什么？</p>
                 <p>我是他的影子？还是他的愿望？</p>
                 <p>不重要了。快了。</p>
                 <br>
-                <p style="color:#4a3a2a; font-size:12px;">—— 我不在乎玄姬想要什么。我只要他安全。</p>
+                <p class="final-hint">—— 他不该有朋友。但他有。那就只能是他了。</p>
+                <p style="color:#3a2a1a; font-size:11px; margin-top:8px;">（我早就在看着你了。）</p>
             </div>
         </div>
 
@@ -282,6 +294,8 @@
 
     console.log('%c📖 4篇加密日记已解锁', 'color: #6a3a2a; font-size: 16px;');
     console.log('%c💡 点击日记展开阅读。底部通往深网档案。', 'color: #4a3a2a; font-size: 13px;');
+    console.log('%c👁️ 最后一句……他在看着谁？', 'color: #3a2a1a; font-size: 13px;');
 </script>
+
 </body>
 </html>
