@@ -8,79 +8,110 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: #e8ecf0; font-family: "PingFang SC", "Microsoft YaHei", sans-serif; }
         
-        /* ===== 顶部栏 ===== */
         .top-bar { background: #1a3a5c; color: #fff; padding: 6px 0; font-size: 12px; text-align: center; letter-spacing: 1px; }
-        
-        /* ===== 头部 ===== */
         .header { background: #fff; padding: 15px 0; border-bottom: 2px solid #1a3a5c; }
         .header .container { max-width: 1100px; margin: auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
         .header h1 { color: #1a3a5c; font-size: 24px; letter-spacing: 2px; }
         .header h1 span { color: #888; font-size: 13px; font-weight: normal; }
         .header .user-area { font-size: 13px; color: #666; }
-        .header .user-area a { color: #1a5a8a; text-decoration: none; }
-        
-        /* ===== 导航 ===== */
+        .header .user-area a { color: #1a5a8a; text-decoration: none; cursor: pointer; }
+        .header .user-area a:hover { text-decoration: underline; }
         .nav { background: #2a5a7a; }
         .nav .container { max-width: 1100px; margin: auto; padding: 8px 20px; display: flex; gap: 25px; }
         .nav a { color: #fff; text-decoration: none; font-size: 14px; }
         .nav a:hover { text-decoration: underline; }
-        
-        /* ===== 主体容器 ===== */
         .container { max-width: 1100px; margin: auto; padding: 20px; }
-        
-        /* ===== 搜索栏 ===== */
         .search-box { background: #fff; padding: 15px 20px; border-radius: 6px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); display: flex; gap: 12px; margin-bottom: 20px; align-items: center; }
         .search-box input { flex: 1; padding: 10px 14px; border: 1px solid #d0d4d8; border-radius: 4px; font-size: 14px; outline: none; }
         .search-box input:focus { border-color: #1a5a8a; }
         .search-box button { padding: 10px 30px; background: #1a5a8a; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; }
         .search-box button:hover { background: #2a6a9a; }
-        
-        /* ===== 版块 ===== */
         .section { background: #fff; border-radius: 6px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); margin-bottom: 20px; }
         .section-title { padding: 12px 20px; border-bottom: 2px solid #1a3a5c; font-size: 16px; font-weight: bold; color: #1a3a5c; }
         .thread-item { padding: 12px 20px; border-bottom: 1px solid #f0f2f5; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
         .thread-item:hover { background: #f8fafc; }
         .thread-item .title { color: #1a2a3a; font-size: 14px; }
         .thread-item .title .tag { background: #e8ecf0; color: #888; font-size: 11px; padding: 1px 8px; border-radius: 3px; margin-right: 6px; }
+        .thread-item .title .tag.hot { background: #f0d0d0; color: #8a2a2a; }
+        .thread-item .title .tag.new { background: #d0e8d0; color: #2a6a2a; }
         .thread-item .meta { font-size: 12px; color: #999; }
         .thread-item .meta .author { color: #1a5a8a; }
-        
-        /* ===== 侧边栏 ===== */
+        .thread-item .meta .author.self { color: #8a2a2a; font-weight: bold; }
+        .two-col { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
         .sidebar { background: #fff; border-radius: 6px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); padding: 16px 20px; }
         .sidebar h3 { font-size: 14px; color: #1a3a5c; border-bottom: 1px solid #e8ecf0; padding-bottom: 10px; margin-bottom: 12px; }
         .sidebar .item { font-size: 13px; color: #444; padding: 6px 0; border-bottom: 1px solid #f4f6f8; }
         .sidebar .item .highlight { color: #8a2a2a; }
-        
-        /* ===== 底部 ===== */
         .footer { background: #1a2a3a; color: #888; padding: 20px 0; text-align: center; font-size: 12px; margin-top: 30px; }
         .footer a { color: #6a8aaa; text-decoration: none; }
         
-        /* ===== 版块双栏 ===== */
-        .two-col { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+        /* 登录后的专属区域 */
+        .diary-entry {
+            background: #1a0e0a;
+            border: 2px solid #4a2a1a;
+            padding: 16px 20px;
+            margin: 16px 0;
+            border-radius: 6px;
+            display: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .diary-entry:hover { background: #2a1a12; border-color: #6a3a2a; }
+        .diary-entry .title { color: #8a6a5a; font-size: 16px; letter-spacing: 2px; font-weight: bold; }
+        .diary-entry .sub { color: #5a4a3a; font-size: 12px; margin-top: 4px; }
+        .diary-entry .icon { font-size: 20px; margin-right: 10px; }
         
-        /* ===== 隐藏入口（藏深网论坛链接） ===== */
+        /* 隐藏入口（深网链接） */
         .hidden-deep-link { color: #e8ecf0; font-size: 10px; user-select: none; cursor: pointer; }
         .hidden-deep-link:hover { color: #666; text-decoration: underline; }
-        .hidden-deep-link.active { color: #1a3a5c; }
+        
+        /* 模态框 */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-box {
+            background: #fff;
+            padding: 35px 40px;
+            width: 400px;
+            max-width: 92%;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+        }
+        .modal-box h2 { color: #1a3a5c; font-size: 20px; border-bottom: 2px solid #1a3a5c; padding-bottom: 12px; margin-bottom: 18px; }
+        .modal-box label { display: block; font-size: 13px; color: #666; margin: 10px 0 4px 0; }
+        .modal-box input { width: 100%; padding: 10px 12px; border: 1px solid #d0d4d8; border-radius: 4px; font-size: 14px; }
+        .modal-box input:focus { border-color: #1a5a8a; outline: none; }
+        .modal-box .btn { width: 100%; padding: 10px; background: #1a3a5c; color: #fff; border: none; border-radius: 4px; font-size: 14px; cursor: pointer; margin-top: 14px; }
+        .modal-box .btn:hover { background: #2a5a7a; }
+        .modal-box .close { float: right; background: none; border: none; font-size: 22px; cursor: pointer; color: #999; }
+        .modal-box .close:hover { color: #333; }
+        .modal-box .error { color: #8a2a2a; font-size: 13px; margin-top: 10px; }
+        .modal-box .success { color: #2a6a2a; font-size: 13px; margin-top: 10px; }
+        .modal-box .hint { color: #999; font-size: 12px; margin-top: 12px; border-top: 1px solid #eee; padding-top: 12px; }
     </style>
 </head>
 <body>
 
-<!-- ===== 顶部 ===== -->
 <div class="top-bar">南城社区 · 南城人自己的论坛 · 今日: 223 | 昨日: 187 | 帖子: 28471 | 会员: 6321</div>
 
-<!-- ===== 头部 ===== -->
 <div class="header">
     <div class="container">
         <h1>🏠 南城社区 <span>NANCHENG COMMUNITY</span></h1>
-        <div class="user-area">
-            <span style="color:#1a5a8a;font-weight:bold;">游客</span>
-            <a href="#">登录</a> | <a href="#">注册</a>
+        <div class="user-area" id="userArea">
+            <span style="color:#1a5a8a;font-weight:bold;" id="userDisplay">游客</span>
+            <a id="loginLink" onclick="openLoginModal()">登录</a> | <a id="registerLink" onclick="alert('注册功能已关闭。\n提示：试试用"LiCian"登录')">注册</a>
+            <a id="logoutLink" style="display:none; color:#8a2a2a;" onclick="doLogout()">退出</a>
         </div>
     </div>
 </div>
 
-<!-- ===== 导航 ===== -->
 <div class="nav">
     <div class="container">
         <a href="index.html">首页</a>
@@ -92,31 +123,40 @@
     </div>
 </div>
 
-<!-- ===== 主体 ===== -->
 <div class="container">
-    <!-- 搜索 -->
     <div class="search-box">
         <input type="text" id="searchInput" placeholder="搜索帖子、用户..." onkeydown="if(event.key=='Enter') doSearch()">
         <button onclick="doSearch()">🔍 搜索</button>
     </div>
 
+    <!-- 登录后显示：加密日记入口 -->
+    <div class="diary-entry" id="diaryEntry" onclick="window.location.href='../forum/index.html'">
+        <span class="icon">📖</span>
+        <span class="title">■ 加密日记 · 李慈佑</span>
+        <div class="sub">🔒 点击查看 · 只有你才能看到</div>
+    </div>
+
     <div class="two-col">
-        <!-- ===== 左侧：帖子列表 ===== -->
+        <!-- 左侧 -->
         <div>
             <!-- 南城茶馆 -->
             <div class="section">
                 <div class="section-title">☕ 南城茶馆</div>
                 <div class="thread-item" onclick="location.href='posts/1.html'">
-                    <span class="title">【求助】有谁知道南城一中的事吗？</span>
-                    <span class="meta"><span class="author">LiCian</span> · 2026-07-08 · 回复 23</span>
+                    <span class="title"><span class="tag new">新</span> 【求助】有谁知道南城一中的事吗？</span>
+                    <span class="meta"><span class="author self">LiCian</span> · 2026-07-08 · 回复 23</span>
                 </div>
                 <div class="thread-item" onclick="location.href='posts/2.html'">
                     <span class="title">【树洞】最近总是失眠，有人一样吗？</span>
-                    <span class="meta"><span class="author">失眠的人</span> · 2026-07-07 · 回复 14</span>
+                    <span class="meta"><span class="author self">LiCian</span> · 2026-07-07 · 回复 14</span>
                 </div>
                 <div class="thread-item" onclick="location.href='posts/3.html'">
-                    <span class="title">【日常】今天看到一个很奇怪的符号</span>
+                    <span class="title"><span class="tag hot">热</span> 【日常】今天看到一个很奇怪的符号</span>
                     <span class="meta"><span class="author">南城路人</span> · 2026-07-06 · 回复 9</span>
+                </div>
+                <div class="thread-item" onclick="location.href='posts/9.html'">
+                    <span class="title">【日常】你们听说过"深网"吗？</span>
+                    <span class="meta"><span class="author">匿名</span> · 2026-07-05 · 回复 6</span>
                 </div>
             </div>
 
@@ -124,16 +164,20 @@
             <div class="section">
                 <div class="section-title">🆘 求助中心</div>
                 <div class="thread-item" onclick="location.href='posts/4.html'">
-                    <span class="title"><span class="tag">求助</span> 有人能帮我吗？我快撑不下去了</span>
-                    <span class="meta"><span class="author">LiCian</span> · 2026-07-05 · 回复 47</span>
+                    <span class="title"><span class="tag hot">热</span> 【求助】有人能帮我吗？我快撑不下去了</span>
+                    <span class="meta"><span class="author self">LiCian</span> · 2026-07-05 · 回复 47</span>
                 </div>
                 <div class="thread-item" onclick="location.href='posts/5.html'">
                     <span class="title"><span class="tag">求助</span> 被欺负了该怎么办？</span>
-                    <span class="meta"><span class="author">匿名</span> · 2026-07-04 · 回复 31</span>
+                    <span class="meta"><span class="author self">LiCian</span> · 2026-07-04 · 回复 31</span>
                 </div>
                 <div class="thread-item" onclick="location.href='posts/6.html'">
-                    <span class="title"><span class="tag">求助</span> 我哥最近变得很奇怪……</span>
-                    <span class="meta"><span class="author">LiCian</span> · 2026-07-03 · 回复 19</span>
+                    <span class="title"><span class="tag new">新</span> 【求助】我哥最近变得很奇怪……</span>
+                    <span class="meta"><span class="author self">LiCian</span> · 2026-07-03 · 回复 19</span>
+                </div>
+                <div class="thread-item" onclick="location.href='posts/10.html'">
+                    <span class="title">【求助】我好像听到了不该听到的声音</span>
+                    <span class="meta"><span class="author self">LiCian</span> · 2026-07-02 · 回复 12</span>
                 </div>
             </div>
 
@@ -141,22 +185,25 @@
             <div class="section">
                 <div class="section-title">💌 情感树洞</div>
                 <div class="thread-item" onclick="location.href='posts/7.html'">
-                    <span class="title">【树洞】他是我哥，但我不知道他是谁</span>
-                    <span class="meta"><span class="author">LiCian</span> · 2026-07-02 · 回复 36</span>
+                    <span class="title"><span class="tag hot">热</span> 【树洞】他是我哥，但我不知道他是谁</span>
+                    <span class="meta"><span class="author self">LiCian</span> · 2026-07-02 · 回复 36</span>
                 </div>
                 <div class="thread-item" onclick="location.href='posts/8.html'">
                     <span class="title">【日常】今天爸又喝酒了，哥让我躲起来</span>
-                    <span class="meta"><span class="author">LiCian</span> · 2026-07-01 · 回复 42</span>
+                    <span class="meta"><span class="author self">LiCian</span> · 2026-07-01 · 回复 42</span>
+                </div>
+                <div class="thread-item" onclick="location.href='posts/11.html'">
+                    <span class="title">【树洞】我哥说"快了"……是什么意思？</span>
+                    <span class="meta"><span class="author self">LiCian</span> · 2026-06-30 · 回复 28</span>
                 </div>
             </div>
 
-            <!-- ===== 🕶️ 被屏蔽的帖子（通往深网论坛的入口） ===== -->
+            <!-- 被屏蔽的帖子 -->
             <div class="section" style="border-left:3px solid #8a2a2a; opacity:0.7;">
                 <div class="section-title" style="color:#8a2a2a;">🚫 已屏蔽 · 待审核</div>
                 <div class="thread-item" id="hiddenEntry" style="background:#faf6f6; position:relative;">
                     <span class="title" style="color:#888;">【已屏蔽】该帖子因违反版规已被屏蔽</span>
                     <span class="meta">审核中 · 点击查看详情</span>
-                    <!-- 藏入口：右键点击或双击才会显示链接 -->
                     <div style="position:absolute; right:10px; top:50%; transform:translateY(-50%);">
                         <span class="hidden-deep-link" id="deepLinkTrigger" title="管理员可见">🔒</span>
                     </div>
@@ -166,10 +213,9 @@
                     <span id="deepLinkHint" style="color:#ddd; cursor:default;">—— 管理员入口</span>
                 </div>
             </div>
-
         </div>
 
-        <!-- ===== 右侧：侧边栏 ===== -->
+        <!-- 右侧边栏 -->
         <div>
             <div class="sidebar">
                 <h3>📌 热门话题</h3>
@@ -178,55 +224,189 @@
                 <div class="item">🔹 有人知道那个符号 ◈ 是什么意思吗？</div>
                 <div class="item">🔹 求助：有人认识一个叫"玄姬"的人吗？</div>
                 <div class="item">🔹 南城最近好多怪事……</div>
+                <div class="item">🔹 "哥哥"到底是什么人？</div>
             </div>
 
             <div class="sidebar" style="margin-top:16px;">
                 <h3>👤 活跃用户</h3>
-                <div class="item"><b>LiCian</b> · 最近发帖 7</div>
+                <div class="item"><b style="color:#8a2a2a;">LiCian</b> · 最近发帖 9</div>
                 <div class="item"><b>失眠的人</b> · 最近发帖 3</div>
                 <div class="item"><b>南城路人</b> · 最近发帖 2</div>
                 <div class="item" style="color:#8a2a2a; border-bottom:none;"><b>系统管理员</b> · 在线</div>
             </div>
 
             <div class="sidebar" style="margin-top:16px; border-left:3px solid #aaa; background:#f8f6f4;">
-                <h3 style="color:#666;">🔍 正在搜索</h3>
-                <div class="item" style="font-size:12px; color:#888;">"<b>哥哥</b>" · 共 2 条结果</div>
-                <div class="item" style="font-size:12px; color:#888;">"<b>玄姬</b>" · 共 1 条结果</div>
-                <div class="item" style="font-size:12px; color:#888; border-bottom:none;">"<b>李慈安</b>" · 共 8 条结果</div>
+                <h3 style="color:#666;">🔍 热门搜索</h3>
+                <div class="item" style="font-size:12px; color:#888;">"<b>李慈安</b>" · 共 9 条结果</div>
+                <div class="item" style="font-size:12px; color:#888;">"<b>哥哥</b>" · 共 5 条结果</div>
+                <div class="item" style="font-size:12px; color:#888;">"<b>玄姬</b>" · 共 2 条结果</div>
+                <div class="item" style="font-size:12px; color:#888; border-bottom:none;">"<b>第七个</b>" · 共 1 条结果</div>
+            </div>
+
+            <div class="sidebar" style="margin-top:16px; border:1px dashed #ccc; background:#fcfcfc;">
+                <h3 style="color:#888;">💡 小提示</h3>
+                <div class="item" style="font-size:12px; color:#999; border-bottom:none;">
+                    试试搜索 <span style="color:#1a5a8a;cursor:pointer;" onclick="document.getElementById('searchInput').value='李慈安';doSearch();">"李慈安"</span> · 
+                    <span style="color:#1a5a8a;cursor:pointer;" onclick="document.getElementById('searchInput').value='哥哥';doSearch();">"哥哥"</span> · 
+                    <span style="color:#1a5a8a;cursor:pointer;" onclick="document.getElementById('searchInput').value='玄姬';doSearch();">"玄姬"</span>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- ===== 底部 ===== -->
 <div class="footer">
     <p>南城社区 · 南城人自己的论坛 · 始于2006年</p>
-    <p style="margin-top:4px; font-size:11px;">
-        <a href="#">联系我们</a> · <a href="#">关于我们</a> · <a href="#">隐私政策</a>
-    </p>
+    <p style="margin-top:4px; font-size:11px;"><a href="#">联系我们</a> · <a href="#">关于我们</a> · <a href="#">隐私政策</a></p>
+</div>
+
+<!-- ===== 登录模态框 ===== -->
+<div class="modal-overlay" id="loginModal">
+    <div class="modal-box">
+        <button class="close" onclick="closeLoginModal()">✕</button>
+        <h2>登录南城社区</h2>
+        <label>用户名</label>
+        <input type="text" id="loginUsername" placeholder="请输入用户名" value="">
+        <label>密码</label>
+        <input type="password" id="loginPassword" placeholder="请输入密码" onkeydown="if(event.key=='Enter') doLogin()">
+        <button class="btn" onclick="doLogin()">登录</button>
+        <div id="loginFeedback" class="error"></div>
+        <div class="hint">💡 提示：试试用 "LiCian" 登录<br>密码是 4 位数字，和"春天"有关</div>
+    </div>
 </div>
 
 <script>
-    // ===== 搜索功能：跳转到独立搜索页面 =====
+    // ============================================================
+    // 登录状态管理
+    // ============================================================
+    var isLoggedIn = localStorage.getItem('forumLoggedIn') === 'true';
+    var currentUser = localStorage.getItem('forumUser') || '';
+
+    function updateUI() {
+        var display = document.getElementById('userDisplay');
+        var loginLink = document.getElementById('loginLink');
+        var registerLink = document.getElementById('registerLink');
+        var logoutLink = document.getElementById('logoutLink');
+        var diaryEntry = document.getElementById('diaryEntry');
+
+        if (isLoggedIn && currentUser) {
+            display.textContent = currentUser;
+            display.style.color = '#8a2a2a';
+            loginLink.style.display = 'none';
+            registerLink.style.display = 'none';
+            logoutLink.style.display = 'inline-block';
+            diaryEntry.style.display = 'block';
+            // 修改页脚提示
+            document.querySelector('.footer p:first-child').innerHTML = 
+                '南城社区 · 欢迎回来，<span style="color:#8a2a2a;font-weight:bold;">' + currentUser + '</span> · 你有 1 条未读私信';
+        } else {
+            display.textContent = '游客';
+            display.style.color = '#1a5a8a';
+            loginLink.style.display = 'inline-block';
+            registerLink.style.display = 'inline-block';
+            logoutLink.style.display = 'none';
+            diaryEntry.style.display = 'none';
+            document.querySelector('.footer p:first-child').innerHTML = 
+                '南城社区 · 南城人自己的论坛 · 始于2006年';
+        }
+    }
+
+    // ===== 登录 =====
+    function doLogin() {
+        var username = document.getElementById('loginUsername').value.trim();
+        var password = document.getElementById('loginPassword').value.trim();
+        var feedback = document.getElementById('loginFeedback');
+
+        feedback.textContent = '';
+        feedback.className = 'error';
+
+        if (username === '' || password === '') {
+            feedback.textContent = '❌ 请输入用户名和密码';
+            return;
+        }
+
+        // 正确账号：LiCian / 0317（弟弟生日3月17日）
+        if (username === 'LiCian' && password === '0317') {
+            localStorage.setItem('forumLoggedIn', 'true');
+            localStorage.setItem('forumUser', 'LiCian');
+            isLoggedIn = true;
+            currentUser = 'LiCian';
+            feedback.className = 'success';
+            feedback.textContent = '✅ 登录成功！欢迎回来，LiCian。';
+            updateUI();
+            // 关闭模态框
+            setTimeout(function() {
+                closeLoginModal();
+                // 刷新页面状态
+                updateUI();
+                // 显示加密日记入口
+                document.getElementById('diaryEntry').style.display = 'block';
+                // 提示
+                setTimeout(function() {
+                    alert('📖 你发现了一个加密日记入口。\n点击查看李慈佑的日记。');
+                }, 500);
+            }, 800);
+            return;
+        }
+
+        // 错误反馈（分层提示）
+        if (username === 'LiCian' && password !== '0317') {
+            feedback.textContent = '❌ 密码错误。提示：密码是 4 位数字，和"春天"有关。';
+        } else if (username !== 'LiCian' && password === '0317') {
+            feedback.textContent = '❌ 用户名错误。试试 "LiCian"。';
+        } else {
+            feedback.textContent = '❌ 用户名或密码错误。\n提示：试试 "LiCian" / "0317"';
+        }
+    }
+
+    // ===== 退出 =====
+    function doLogout() {
+        localStorage.removeItem('forumLoggedIn');
+        localStorage.removeItem('forumUser');
+        isLoggedIn = false;
+        currentUser = '';
+        updateUI();
+        alert('已退出登录。');
+    }
+
+    // ===== 模态框 =====
+    function openLoginModal() {
+        document.getElementById('loginModal').classList.add('active');
+        document.getElementById('loginUsername').value = '';
+        document.getElementById('loginPassword').value = '';
+        document.getElementById('loginFeedback').textContent = '';
+        document.getElementById('loginFeedback').className = 'error';
+        setTimeout(function() {
+            document.getElementById('loginUsername').focus();
+        }, 200);
+    }
+
+    function closeLoginModal() {
+        document.getElementById('loginModal').classList.remove('active');
+    }
+
+    // 点击模态框外部关闭
+    document.getElementById('loginModal').addEventListener('click', function(e) {
+        if (e.target === this) closeLoginModal();
+    });
+
+    // ===== 搜索 =====
     function doSearch() {
         var keyword = document.getElementById('searchInput').value.trim();
         if (!keyword) { alert('请输入搜索关键词'); return; }
         window.location.href = 'search.html?q=' + encodeURIComponent(keyword);
     }
 
-    // ===== 深网论坛入口：隐藏在"已屏蔽"帖子中 =====
+    // ===== 深网入口（双击🔒图标） =====
     document.addEventListener('DOMContentLoaded', function() {
         var trigger = document.getElementById('deepLinkTrigger');
         var hint = document.getElementById('deepLinkHint');
-
-        // 双击触发显示链接
         var clickCount = 0;
+
         trigger.addEventListener('click', function(e) {
             clickCount++;
             if (clickCount === 2) {
-                // 双击后显示真正的入口
-                var msg = '🕶️ 你发现了隐藏入口。\n\n是否前往「深网档案」？\n（点击确定跳转）';
-                if (confirm(msg)) {
+                if (confirm('🕶️ 你发现了隐藏入口。\n是否前往「深网档案」？')) {
                     window.location.href = '../forum/index.html';
                 }
                 clickCount = 0;
@@ -240,7 +420,6 @@
             }
         });
 
-        // 或者，通过右键菜单触发
         trigger.addEventListener('contextmenu', function(e) {
             e.preventDefault();
             if (confirm('🕶️ 你正在尝试访问受限区域。\n确定要继续吗？')) {
@@ -248,20 +427,30 @@
             }
         });
 
-        console.log('🕶️ 提示：双击"🔒"图标可访问隐藏论坛。');
-    });
-
-    // 键盘快捷键：按下 Ctrl+Shift+D 直接跳转深网
-    document.addEventListener('keydown', function(e) {
-        if (e.ctrlKey && e.shiftKey && e.key === 'D') {
-            e.preventDefault();
-            if (confirm('🕶️ 检测到管理员密钥。\n是否跳转至深网档案？')) {
-                window.location.href = '../forum/index.html';
+        // 键盘快捷键：Ctrl+Shift+D
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.shiftKey && e.key === 'D') {
+                e.preventDefault();
+                if (confirm('🕶️ 检测到管理员密钥。\n是否跳转至深网档案？')) {
+                    window.location.href = '../forum/index.html';
+                }
             }
-        }
+        });
+
+        console.log('🕶️ 提示：双击"🔒"图标可访问隐藏论坛。');
+        console.log('💡 快捷键：Ctrl+Shift+D 访问深网档案');
+        console.log('🔑 论坛登录：LiCian / 0317');
+
+        // 初始加载UI
+        updateUI();
     });
 
-    console.log('💡 快捷键：Ctrl+Shift+D 访问深网档案');
+    // 暴露登录函数给HTML调用
+    window.doLogin = doLogin;
+    window.doLogout = doLogout;
+    window.openLoginModal = openLoginModal;
+    window.closeLoginModal = closeLoginModal;
+    window.doSearch = doSearch;
 </script>
 
 </body>
