@@ -2,70 +2,278 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>登录 · 加密节点</title>
     <style>
-        body { background: #0d0a08; color: #b8a8a0; font-family: 'Courier New', monospace; display: flex; justify-content: center; align-items: center; height: 100vh; }
-        .box { border: 1px solid #2a1a12; padding: 40px; background: #120e0c; width: 380px; text-align: center; }
-        .box h2 { color: #6a3a2a; font-weight: normal; letter-spacing: 3px; font-size: 16px; }
-        .box input { display: block; width: 100%; background: #0a0806; border: 1px solid #2a1a12; padding: 10px; margin: 10px 0; color: #b8a8a0; }
-        .box button { background: #1a120e; border: 1px solid #2a1a12; color: #7a6a5a; padding: 10px; width: 100%; cursor: pointer; }
-        .box button:hover { background: #2a1a12; }
-        .feedback { margin-top: 12px; font-size: 12px; min-height: 20px; }
-        .hint { color: #3a2a1a; font-size: 11px; margin-top: 15px; border-top: 1px solid #1a120e; padding-top: 15px; }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            background: #0d0a08;
+            color: #b8a8a0;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .box {
+            border: 1px solid #2a1a12;
+            padding: 40px 35px;
+            background: #120e0c;
+            width: 420px;
+            max-width: 100%;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+        }
+        .box h2 {
+            color: #6a3a2a;
+            font-weight: normal;
+            letter-spacing: 4px;
+            font-size: 18px;
+            border-bottom: 1px solid #2a1a12;
+            padding-bottom: 15px;
+            margin-bottom: 18px;
+        }
+        .box .sub-title {
+            color: #4a3a2a;
+            font-size: 12px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+        .box label {
+            display: block;
+            text-align: left;
+            font-size: 11px;
+            color: #5a4a3a;
+            margin: 12px 0 4px 0;
+            letter-spacing: 1px;
+        }
+        .box input {
+            display: block;
+            width: 100%;
+            background: #0a0806;
+            border: 1px solid #2a1a12;
+            padding: 12px 14px;
+            margin: 4px 0 6px 0;
+            color: #d0c8c0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .box input:focus {
+            border-color: #5a3a2a;
+        }
+        .box button {
+            background: #1a120e;
+            border: 1px solid #2a1a12;
+            color: #b8a8a0;
+            padding: 12px;
+            width: 100%;
+            margin-top: 18px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            letter-spacing: 3px;
+            transition: all 0.3s;
+        }
+        .box button:hover {
+            background: #2a1a12;
+            color: #e8d8d0;
+            border-color: #4a3a2a;
+        }
+        .box button:active {
+            transform: scale(0.97);
+        }
+        #feedback {
+            margin-top: 14px;
+            font-size: 12px;
+            min-height: 22px;
+            color: #6a3a2a;
+        }
+        .hint {
+            color: #3a2a1a;
+            font-size: 11px;
+            margin-top: 20px;
+            border-top: 1px solid #1a120e;
+            padding-top: 16px;
+            line-height: 1.7;
+            text-align: left;
+        }
+        .hint strong {
+            color: #5a4a3a;
+        }
+        .hidden-ghost {
+            color: #120e0c;
+            font-size: 8px;
+            user-select: none;
+            margin-top: 10px;
+        }
+        /* 错误闪动 */
+        .shake {
+            animation: shake 0.4s ease-in-out;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
     </style>
 </head>
 <body>
-<div class="box">
+
+<div class="box" id="loginBox">
     <h2>■ 深网档案 · 身份验证</h2>
-    <p style="color:#4a3a2a; font-size:12px;">请输入您的凭证以解锁加密内容</p >
-    <input type="text" id="username" placeholder="用户名（任意）">
-    <input type="password" id="password" placeholder="密码">
-    <button onclick="doLogin()">验证身份</button>
-    <div id="feedback" class="feedback"></div>
+    <div class="sub-title">请输入凭证以解锁加密内容</div>
+
+    <label for="username">代号（任意填写）</label>
+    <input type="text" id="username" placeholder="例如：调查者" value="">
+
+    <label for="password">密码</label>
+    <input type="password" id="password" placeholder="请输入密码" value="">
+
+    <button id="loginBtn">▸ 验证身份 ◂</button>
+
+    <div id="feedback"></div>
+
     <div class="hint">
-        💡 提示：<br>
+        💡 <strong>提示：</strong><br>
         · 用户名随意填写，它会成为你的代号<br>
         · 密码藏在五个帖子里，每个帖子给出一个字符<br>
-        · 五个帖子分别是：符号、梦、记录、慈安留言、还有一个在……<br>
-        · 拼起来就是密码（区分大小写）
+        · 五个帖子分别是：符号、梦、记录、慈安留言、还有……<br>
+        · 拼起来就是密码（区分大小写，共3位）
     </div>
+
+    <div class="hidden-ghost">· 他在看着你输入 ·</div>
 </div>
 
 <script>
-    var attempts = [];
-    function doLogin() {
-        var u = document.getElementById('username').value.trim();
-        var p = document.getElementById('password').value.trim();
-        var fb = document.getElementById('feedback');
-        if (u === '') { fb.innerHTML = '❌ 请输入你的代号'; fb.style.color = '#6a2a1a'; return; }
-        attempts.push({ u, p, time: new Date().toLocaleString() });
-        // 正确密码：XJ7（不区分大小写，但建议大写）
-        if (p.toUpperCase() === 'XJ7') {
-            localStorage.setItem('argPlayerName', u);
-            fb.innerHTML = '✅ <span style="color:#3a7a3a;">验证通过。欢迎回来。</span>';
-            fb.style.color = '#3a7a3a';
-            setTimeout(function() { window.location.href = 'revelation.html'; }, 1200);
-            return;
-        }
-        // 错误反馈
-        if (p.length === 1) {
-            fb.innerHTML = '❌ 只找到一个字符？继续找，还有四个。';
-            fb.style.color = '#6a3a2a';
-        } else if (p.length === 2) {
-            fb.innerHTML = '❌ 还差一个。想想数字几？';
-            fb.style.color = '#6a3a2a';
-        } else if (p.toUpperCase().includes('X') || p.toUpperCase().includes('J')) {
-            fb.innerHTML = '❌ 顺序不对，或者缺了数字。重新拼一下。';
-            fb.style.color = '#6a3a2a';
-        } else if (attempts.length >= 5) {
-            fb.innerHTML = '⚠️ 多次尝试失败。你已被记录。';
-            fb.style.color = '#8a2a1a';
-            document.querySelector('.hint').innerHTML += '<br><span style="color:#4a1a0a;">·· 她在看着你 ··</span>';
-        } else {
-            fb.innerHTML = '❌ 密码错误。去帖子列表里找找线索。';
-            fb.style.color = '#6a2a1a';
-        }
-    }
+    (function() {
+        // 确保 DOM 完全加载后再绑定事件
+        window.addEventListener('DOMContentLoaded', function() {
+            var usernameInput = document.getElementById('username');
+            var passwordInput = document.getElementById('password');
+            var loginBtn = document.getElementById('loginBtn');
+            var feedback = document.getElementById('feedback');
+            var box = document.getElementById('loginBox');
+
+            // 尝试次数
+            var attempts = [];
+
+            // 核心登录函数
+            function doLogin() {
+                var u = usernameInput.value.trim();
+                var p = passwordInput.value.trim();
+                var fb = feedback;
+
+                // 清空旧反馈
+                fb.innerHTML = '';
+                fb.style.color = '#6a3a2a';
+
+                // 用户名不能为空
+                if (u === '') {
+                    fb.innerHTML = '❌ 请输入你的代号';
+                    fb.style.color = '#8a3a2a';
+                    box.classList.add('shake');
+                    setTimeout(function() { box.classList.remove('shake'); }, 400);
+                    usernameInput.focus();
+                    return;
+                }
+
+                // 密码不能为空
+                if (p === '') {
+                    fb.innerHTML = '❌ 请输入密码';
+                    fb.style.color = '#8a3a2a';
+                    box.classList.add('shake');
+                    setTimeout(function() { box.classList.remove('shake'); }, 400);
+                    passwordInput.focus();
+                    return;
+                }
+
+                // 记录尝试
+                attempts.push({ u: u, p: p, time: new Date().toLocaleString() });
+
+                // ------- 正确密码：XJ7（不区分大小写） -------
+                if (p.toUpperCase() === 'XJ7') {
+                    // 存储用户名，用于揭示页
+                    localStorage.setItem('argPlayerName', u);
+                    fb.innerHTML = '✅ 验证通过。欢迎回来，' + u + '。';
+                    fb.style.color = '#3a7a3a';
+                    // 禁用按钮防止重复点击
+                    loginBtn.disabled = true;
+                    loginBtn.style.opacity = '0.5';
+                    // 1.5秒后跳转
+                    setTimeout(function() {
+                        window.location.href = 'revelation.html';
+                    }, 1500);
+                    return;
+                }
+
+                // ------- 错误反馈（分层提示，不直接给答案） -------
+                var upperP = p.toUpperCase();
+
+                if (upperP === 'X' || upperP === 'J' || upperP === '7') {
+                    fb.innerHTML = '❌ 只找到一个字符？继续找，还有两个。';
+                    fb.style.color = '#8a6a2a';
+                } else if (upperP === 'XJ' || upperP === 'JX' || upperP === 'X7' || upperP === '7X' || upperP === 'J7' || upperP === '7J') {
+                    fb.innerHTML = '❌ 还差一个。想想数字几？顺序对吗？';
+                    fb.style.color = '#8a6a2a';
+                } else if (upperP.includes('X') || upperP.includes('J')) {
+                    fb.innerHTML = '❌ 顺序不对，或者缺了数字。重新拼一下。';
+                    fb.style.color = '#8a6a2a';
+                } else if (p.includes('玄') || p.includes('姬')) {
+                    fb.innerHTML = '❌ 密码只接受英文字母和数字。试试用拼音。';
+                    fb.style.color = '#8a6a2a';
+                } else if (attempts.length >= 5) {
+                    fb.innerHTML = '⚠️ 多次尝试失败。你已被记录。';
+                    fb.style.color = '#8a2a1a';
+                    // 额外彩蛋：显示一句隐藏信息
+                    document.querySelector('.hint').innerHTML += '<br><span style="color:#4a1a0a;">·· 她在看着你 ··</span>';
+                } else {
+                    fb.innerHTML = '❌ 密码错误。去帖子列表里找找线索。';
+                    fb.style.color = '#8a2a1a';
+                }
+
+                // 晃动反馈
+                box.classList.add('shake');
+                setTimeout(function() { box.classList.remove('shake'); }, 400);
+
+                // 清空密码框，方便重新输入
+                passwordInput.value = '';
+                passwordInput.focus();
+            }
+
+            // 绑定按钮点击
+            loginBtn.addEventListener('click', doLogin);
+
+            // 绑定回车键（在密码框按回车触发登录）
+            passwordInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    doLogin();
+                }
+            });
+
+            // 用户名框按回车跳到密码框
+            usernameInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    passwordInput.focus();
+                }
+            });
+
+            // 如果用户已经登录过，自动填充用户名（方便测试）
+            var savedName = localStorage.getItem('argPlayerName');
+            if (savedName) {
+                usernameInput.value = savedName;
+            }
+
+            // 控制台彩蛋（提示玩家）
+            console.log('%c◈ 你来到了登录节点。', 'color: #4a2a1a; font-size: 16px; font-weight: bold;');
+            console.log('%c密码藏在五个帖子里。拼起来是3个字符。', 'color: #888; font-size: 13px;');
+        });
+    })();
 </script>
+
 </body>
 </html>
