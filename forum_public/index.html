@@ -122,7 +122,7 @@
         <button onclick="doSearch()">🔍 搜索</button>
     </div>
 
-    <!-- 加密日记入口（登录后显示，点击跳转 diary.html） -->
+    <!-- 加密日记入口 -->
     <div class="diary-entry" id="diaryEntry" onclick="window.location.href='diary.html'">
         <span class="icon">📖</span>
         <span class="title">■ 加密日记 · 李慈佑</span>
@@ -142,7 +142,6 @@
                     <span class="title">【树洞】最近总是失眠，有人一样吗？</span>
                     <span class="meta"><span class="author self">LiCian</span> · 2026-07-07 · 回复 14</span>
                 </div>
-                <!-- 3号帖子被隐藏（符号帖） -->
                 <div class="thread-item" onclick="location.href='posts/12.html'">
                     <span class="title">【日常】南城一中门口又出事了</span>
                     <span class="meta"><span class="author">南城路人乙</span> · 2026-07-04 · 回复 8</span>
@@ -169,7 +168,6 @@
             <!-- 情感树洞 -->
             <div class="section">
                 <div class="section-title">💌 情感树洞</div>
-                <!-- 7号被隐藏（他是我哥） -->
                 <div class="thread-item" onclick="location.href='posts/8.html'">
                     <span class="title">【日常】今天爸又喝酒了，哥让我躲起来</span>
                     <span class="meta"><span class="author self">LiCian</span> · 2026-07-01 · 回复 42</span>
@@ -178,7 +176,6 @@
                     <span class="title">【日常】你们听说过"深网"吗？</span>
                     <span class="meta"><span class="author">匿名</span> · 2026-07-05 · 回复 6</span>
                 </div>
-                <!-- 10号、11号被隐藏 -->
             </div>
 
             <!-- 被屏蔽的帖子 -->
@@ -230,7 +227,8 @@
                     试试搜索 <span style="color:#1a5a8a;cursor:pointer;" onclick="document.getElementById('searchInput').value='李慈安';doSearch();">"李慈安"</span> · 
                     <span style="color:#1a5a8a;cursor:pointer;" onclick="document.getElementById('searchInput').value='哥哥';doSearch();">"哥哥"</span> · 
                     <span style="color:#1a5a8a;cursor:pointer;" onclick="document.getElementById('searchInput').value='玄姬';doSearch();">"玄姬"</span> · 
-                    <span style="color:#1a5a8a;cursor:pointer;" onclick="document.getElementById('searchInput').value='生日';doSearch();">"生日"</span>
+                    <span style="color:#1a5a8a;cursor:pointer;" onclick="document.getElementById('searchInput').value='生日';doSearch();">"生日"</span> · 
+                    <span style="color:#1a5a8a;cursor:pointer;" onclick="document.getElementById('searchInput').value='哥哥日记';doSearch();">"哥哥日记"</span>
                 </div>
             </div>
         </div>
@@ -416,5 +414,6 @@
     window.closeLoginModal = closeLoginModal;
     window.doSearch = doSearch;
 </script>
+
 </body>
 </html>
