@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>档案解锁</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            background: #000;
+            color: #b00;
+            font-family: 'Courier New', monospace;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: relative;
+        }
+        .flash-overlay {
+            position: fixed;
+            top:0; left:0; width:100%; height:100%;
+            pointer-events: none;
+            background: rgba(255,0,0,0.15);
+            animation: flash 3s infinite alternate;
+            z-index: 0;
+        }
+        @keyframes flash {
+            0% { opacity: 0.1; }
+            100% { opacity: 0.6; }
+        }
+        .strobe {
+            position: fixed;
+            top:0; left:0; width:100%; height:100%;
+            pointer-events: none;
+            background: rgba(255,0,0,0.2);
+            animation: strobe 0.5s infinite;
+            z-index: 1;
+            opacity: 0.5;
+        }
+        @keyframes strobe {
+            0% { opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { opacity: 0; }
+        }
+        .container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 700px;
+            padding: 20px;
+            border: 1px solid #600;
+            background: rgba(0,0,0,0.8);
+            box-shadow: 0 0 50px rgba(255,0,0,0.3);
+        }
+        h1 {
+            font-size: 28px;
+            color: #d00;
+            text-shadow: 0 0 20px #f00;
+            letter-spacing: 6px;
+            margin-bottom: 20px;
+            animation: flicker 4s infinite;
+        }
+        @keyframes flicker {
+            0%,19%,21%,23%,25%,54%,56%,100% { opacity: 1; }
+            20%,24%,55% { opacity: 0.2; }
+        }
+        .list { text-align: left; font-size: 18px; line-height: 2; color: #a00; margin: 20px 0; padding-left: 30px; }
+        .list .done { color: #500; text-decoration: line-through; }
+        .list .you { color: #f00; font-weight: bold; text-shadow: 0 0 15px #f00; animation: pulse 1.5s infinite alternate; }
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+        .big-reveal {
+            font-size: 48px;
+            color: #f00;
+            text-shadow: 0 0 30px #f00, 0 0 60px #f00;
+            margin: 20px 0;
+            letter-spacing: 4px;
+            animation: flicker 2s infinite;
+        }
+        .sub { color: #800; font-size: 14px; margin-top: 20px; letter-spacing: 2px; }
+        .eyes-container {
+            position: fixed;
+            top:0; left:0; width:100%; height:100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .eye {
+            position: absolute;
+            font-size: 60px;
+            color: #600;
+            opacity: 0.6;
+            animation: float 6s infinite alternate, blink 4s infinite;
+            filter: drop-shadow(0 0 10px #f00);
+        }
+        .eye:nth-child(1) { top: 10%; left: 8%; animation-delay: 0s; }
+        .eye:nth-child(2) { top: 20%; right: 12%; animation-delay: 1s; }
+        .eye:nth-child(3) { bottom: 25%; left: 5%; animation-delay: 2s; }
+        .eye:nth-child(4) { bottom: 15%; right: 8%; animation-delay: 3s; }
+        .eye:nth-child(5) { top: 45%; left: 50%; transform: translateX(-50%); font-size: 80px; animation-delay: 0.5s; }
+        .eye:nth-child(6) { top: 5%; left: 45%; font-size: 40px; animation-delay: 1.5s; }
+        .eye:nth-child(7) { bottom: 5%; left: 40%; font-size: 50px; animation-delay: 2.5s; }
+        @keyframes float {
+            0% { transform: translate(0,0) scale(1); }
+            100% { transform: translate(20px,-20px) scale(1.2); }
+        }
+        @keyframes blink {
+            0%,100% { opacity: 0.6; }
+            95% { opacity: 0.6; }
+            97% { opacity: 0.1; }
+            99% { opacity: 0.6; }
+        }
+        .glitch-text {
+            color: #600;
+            font-size: 12px;
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            animation: glitch 5s infinite;
+        }
+        @keyframes glitch {
+            0%,90%,100% { opacity: 0.3; }
+            92% { opacity: 0; }
+            94% { opacity: 0.8; color: #f00; }
+            96% { opacity: 0.2; }
+        }
+    </style>
+</head>
+<body>
+    <div class="flash-overlay"></div>
+    <div class="strobe"></div>
+    <div class="eyes-container">
+        <div class="eye">👁️</div><div class="eye">👁️</div><div class="eye">👁️</div>
+        <div class="eye">👁️</div><div class="eye">👁️</div><div class="eye">👁️</div><div class="eye">👁️</div>
+    </div>
+    <div class="container">
+        <h1>■ 献 祭 名 单 ■</h1>
+        <div class="list" id="sacrificeList"></div>
+        <div class="big-reveal" id="revealText">你 是 第 七 个</div>
+        <div class="sub">玄姬 · 已阅</div>
+        <div style="margin-top:15px; font-size:12px; color:#300; letter-spacing:2px;">⚠ 你无法离开这里</div>
+    </div>
+    <div class="glitch-text">> 系统日志: 档案已解锁 · 目标已确认</div>
+    <script>
+        if (!localStorage.getItem('argPlayerName')) window.location.href = 'login.html';
+        var playerName = localStorage.getItem('argPlayerName');
+        var victims = ['王某某', '张某某', '刘某某', '赵某某', '孙某某', '李父'];
+        var listDiv = document.getElementById('sacrificeList');
+        var html = '';
+        victims.forEach(function(name) { html += '<div class="done">✕ ' + name + '</div>'; });
+        html += '<div class="you">◈ ' + playerName + ' （你）</div>';
+        listDiv.innerHTML = html;
+        document.body.addEventListener('click', function() {
+            var overlay = document.querySelector('.flash-overlay');
+            overlay.style.background = 'rgba(255,0,0,0.8)';
+            setTimeout(function() { overlay.style.background = 'rgba(255,0,0,0.15)'; }, 300);
+        });
+    </script>
+</body>
+</html>
