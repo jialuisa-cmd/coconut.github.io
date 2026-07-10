@@ -1,319 +1,110 @@
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>搜索结果 · 南城社区</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #e8ecf0; font-family: "PingFang SC", "Microsoft YaHei", sans-serif; padding: 20px; }
-        .container { max-width: 900px; margin: auto; background: #fff; padding: 30px; border-radius: 6px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
-        .back { margin-bottom: 20px; }
-        .back a { color: #1a5a8a; text-decoration: none; font-size: 14px; }
-        .back a:hover { text-decoration: underline; }
-        .result-title { font-size: 20px; color: #1a2a3a; border-bottom: 2px solid #1a3a5c; padding-bottom: 12px; margin-bottom: 20px; }
-        .result-title .keyword { color: #8a2a2a; }
-        .result-item { padding: 14px 0; border-bottom: 1px solid #f0f2f5; }
-        .result-item .title { font-size: 15px; color: #1a5a8a; cursor: pointer; }
-        .result-item .title:hover { text-decoration: underline; }
-        .result-item .snippet { font-size: 13px; color: #666; margin-top: 4px; }
-        .result-item .meta { font-size: 12px; color: #999; margin-top: 4px; }
-        .result-item .meta .highlight { color: #8a2a2a; font-weight: bold; }
-        .no-result { color: #999; font-size: 15px; text-align: center; padding: 40px 0; }
-        .suggestion { color: #888; font-size: 13px; margin-top: 20px; border-top: 1px solid #eee; padding-top: 16px; }
-        .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-        .tag-cloud .tag { background: #e8ecf0; padding: 4px 12px; border-radius: 12px; font-size: 12px; cursor: pointer; color: #1a5a8a; }
-        .tag-cloud .tag:hover { background: #d0d8e0; }
-        .tag-cloud .tag.special { background: #8a2a2a; color: #fff; }
-        .tag-cloud .tag.special:hover { background: #6a1a1a; }
-    </style>
-</head>
-<body>
-<div class="container">
-    <div class="back"><a href="index.html">← 返回首页</a></div>
+// ===== 完整搜索数据（加深版） =====
+var searchData = {
 
-    <div class="result-title">
-        搜索结果：<span class="keyword" id="keywordDisplay">"加载中..."</span>
-    </div>
+    // ===== 李慈安：10条结果，覆盖所有帖子 =====
+    '李慈安': [
+        { title: '【求助】有谁知道南城一中的事吗？', url: 'posts/1.html', snippet: '李慈安这个名字你们听说过吗？我好像在哪儿见过……' },
+        { title: '【树洞】最近总是失眠，有人一样吗？', url: 'posts/2.html', snippet: '我叫李慈安，最近总是睡不着，脑子里一直有声音。' },
+        { title: '【日常】今天看到一个很奇怪的符号', url: 'posts/3.html', snippet: '李慈安提到他哥叫李慈佑，好像知道玄姬的事情……' },
+        { title: '【求助】有人能帮我吗？我快撑不下去了', url: 'posts/4.html', snippet: '李慈安发帖求助，说自己被家暴和霸凌。' },
+        { title: '【求助】被欺负了该怎么办？', url: 'posts/5.html', snippet: '李慈安在学校被霸凌，被人叫“没妈的孩子”。' },
+        { title: '【求助】我哥最近变得很奇怪……', url: 'posts/6.html', snippet: '李慈安发现哥哥的行为越来越奇怪。' },
+        { title: '【树洞】他是我哥，但我不知道他是谁', url: 'posts/7.html', snippet: '李慈安开始怀疑哥哥是否真实存在。' },
+        { title: '【日常】今天爸又喝酒了，哥让我躲起来', url: 'posts/8.html', snippet: '李慈安记录父亲家暴的日常，哥哥让他躲起来。' },
+        { title: '【树洞】我哥说"快了"……是什么意思？', url: 'posts/11.html', snippet: '李慈安听到哥哥说“献祭”和“七个”的可怕话语。' },
+        { title: '【树洞】弟弟，生日快乐', url: 'posts/13.html', snippet: '李慈安哥哥发的生日帖，里面提到了3月17日。' }
+    ],
 
-    <div id="resultsContainer"></div>
+    // ===== 哥哥：精准指向哥哥相关帖子 =====
+    '哥哥': [
+        { title: '【求助】我哥最近变得很奇怪……', url: 'posts/6.html', snippet: '李慈安发现哥哥行为异常。' },
+        { title: '【树洞】他是我哥，但我不知道他是谁', url: 'posts/7.html', snippet: '李慈安怀疑哥哥是否是真实存在的人。' },
+        { title: '【日常】今天爸又喝酒了，哥让我躲起来', url: 'posts/8.html', snippet: '哥哥让李慈安躲起来保护他。' },
+        { title: '【树洞】我哥说"快了"……是什么意思？', url: 'posts/11.html', snippet: '哥哥提到“献祭”和“七个”，李慈安很害怕。' },
+        { title: '【树洞】弟弟，生日快乐', url: 'posts/13.html', snippet: '李慈佑发的生日帖，署名LiCiyou。' }
+    ],
 
-    <div class="suggestion">
-        💡 试试搜索这些关键词：
-        <div class="tag-cloud">
-            <span class="tag" onclick="location.href='search.html?q=李慈安'">李慈安</span>
-            <span class="tag" onclick="location.href='search.html?q=哥哥'">哥哥</span>
-            <span class="tag" onclick="location.href='search.html?q=玄姬'">玄姬</span>
-            <span class="tag special" onclick="location.href='search.html?q=生日'">生日</span>
-            <span class="tag" onclick="location.href='search.html?q=第七个'">第七个</span>
-            <span class="tag" onclick="location.href='search.html?q=哥哥日记'">哥哥日记</span>
-            <span class="tag" onclick="location.href='search.html?q=霸凌'">霸凌</span>
-            <span class="tag" onclick="location.href='search.html?q=家暴'">家暴</span>
-            <span class="tag" onclick="location.href='search.html?q=南城一中'">南城一中</span>
-            <span class="tag" onclick="location.href='search.html?q=献祭'">献祭</span>
-            <span class="tag" onclick="location.href='search.html?q=交易'">交易</span>
-            <span class="tag" onclick="location.href='search.html?q=LCA-0327'">LCA-0327</span>
-        </div>
-    </div>
-</div>
+    // ===== 李慈佑：直接找到名字和生日帖 =====
+    '李慈佑': [
+        { title: '【树洞】弟弟，生日快乐', url: 'posts/13.html', snippet: '李慈佑发的生日帖，署名LiCiyou，内容提到3月17日。' },
+        { title: '【日常】今天看到一个很奇怪的符号', url: 'posts/3.html', snippet: '路人提到“你哥是不是叫李慈佑？”' }
+    ],
 
-<script>
-    // ============================================================
-    // 完整搜索数据（包含所有帖子 1~16 + 加密日记 + 玄姬残卷）
-    // ============================================================
-    var searchData = {
+    // ===== 玄姬：2条结果 =====
+    '玄姬': [
+        { title: '【日常】今天看到一个很奇怪的符号', url: 'posts/3.html', snippet: '李慈安说梦里有个女人叫玄姬。' },
+        { title: '【树洞】我哥说"快了"……是什么意思？', url: 'posts/11.html', snippet: '哥哥提到玄姬，说“她快来了”。' }
+    ],
 
-        // ----- 李慈安相关（10条） -----
-        '李慈安': [
-            { title: '【求助】有谁知道南城一中的事吗？', url: 'posts/1.html', snippet: '李慈安这个名字你们听说过吗？我好像在哪儿见过……' },
-            { title: '【树洞】最近总是失眠，有人一样吗？', url: 'posts/2.html', snippet: '我叫李慈安，最近总是睡不着，脑子里一直有声音。' },
-            { title: '【日常】今天看到一个很奇怪的符号', url: 'posts/3.html', snippet: '有人认识这个符号吗？我总觉得它和一个人有关……' },
-            { title: '【求助】有人能帮我吗？我快撑不下去了', url: 'posts/4.html', snippet: '我是李慈安。我快撑不下去了。有人能帮我吗？' },
-            { title: '【求助】被欺负了该怎么办？', url: 'posts/5.html', snippet: '李慈安：他们又来了……我真的不知道该怎么办。' },
-            { title: '【求助】我哥最近变得很奇怪……', url: 'posts/6.html', snippet: '我是李慈安。我哥最近变得很奇怪，他说他听到了什么。' },
-            { title: '【树洞】他是我哥，但我不知道他是谁', url: 'posts/7.html', snippet: '李慈安：他是我哥，但我不知道他到底是谁……' },
-            { title: '【日常】今天爸又喝酒了，哥让我躲起来', url: 'posts/8.html', snippet: '李慈安：爸又喝酒了，哥让我躲起来。他说会好的。' },
-            { title: '【树洞】我哥说"快了"……是什么意思？', url: 'posts/11.html', snippet: '李慈安：我哥说"快了"，我不知道是什么意思……' },
-            { title: '【求助】我好像听到了不该听到的声音', url: 'posts/10.html', snippet: '李慈安：我听到我哥说"第七个已经来了"……' }
-        ],
-        '慈安': [
-            { title: '【求助】有谁知道南城一中的事吗？', url: 'posts/1.html', snippet: '李慈安这个名字你们听说过吗？' },
-            { title: '【树洞】最近总是失眠，有人一样吗？', url: 'posts/2.html', snippet: '我叫李慈安……' },
-            { title: '【求助】有人能帮我吗？我快撑不下去了', url: 'posts/4.html', snippet: '我是李慈安……' }
-        ],
+    // ===== 生日：1条结果（密码线索） =====
+    '生日': [
+        { title: '【树洞】弟弟，生日快乐', url: 'posts/13.html', snippet: '3月17日，慈安十七岁了。发帖人：LiCiyou' }
+    ],
+    '3月17日': [
+        { title: '【树洞】弟弟，生日快乐', url: 'posts/13.html', snippet: '3月17日，慈安十七岁了。' }
+    ],
 
-        // ----- 哥哥 / 李慈佑（含日记） -----
-        '哥哥': [
-            { title: '【求助】我哥最近变得很奇怪……', url: 'posts/6.html', snippet: '我是李慈安。我哥最近变得很奇怪，他说他听到了什么。' },
-            { title: '【树洞】他是我哥，但我不知道他是谁', url: 'posts/7.html', snippet: '李慈安：他是我哥，但我不知道他到底是谁……' },
-            { title: '【日常】今天爸又喝酒了，哥让我躲起来', url: 'posts/8.html', snippet: '李慈安：爸又喝酒了，哥让我躲起来。他说会好的。' },
-            { title: '【树洞】我哥说"快了"……是什么意思？', url: 'posts/11.html', snippet: '李慈安：我哥说"快了"，我不知道是什么意思……' },
-            { title: '【求助】我好像听到了不该听到的声音', url: 'posts/10.html', snippet: '李慈安：他说他叫"哥哥"，但他好像不是人……' }
-        ],
-        '李慈佑': [
-            { title: '【树洞】弟弟，生日快乐', url: 'posts/13.html', snippet: '李慈佑发的帖子：3月17日，慈安十七岁了。' },
-            { title: '【树洞】他是我哥，但我不知道他是谁', url: 'posts/7.html', snippet: '李慈佑……' },
-            { title: '【加密日记】· 第一篇 · 伤痕', url: 'diary.html', snippet: '李慈佑的加密日记：今天又看到慈安身上的伤了……' },
-            { title: '【加密日记】· 第二篇 · 名单', url: 'diary.html', snippet: '李慈佑的加密日记：五个霸凌者的名字……' },
-            { title: '【加密日记】· 第三篇 · 交易', url: 'diary.html', snippet: '李慈佑的加密日记：玄姬说，我需要他们的怨气……' },
-            { title: '【加密日记】· 第四篇 · 我是谁', url: 'diary.html', snippet: '李慈佑的加密日记：我是他分裂出来的……' }
-        ],
+    // ===== 密码相关：间接指向 =====
+    '密码': [
+        { title: '【树洞】弟弟，生日快乐', url: 'posts/13.html', snippet: '密码藏在发帖人名字和日期里……' }
+    ],
 
-        // ----- 哥哥日记（4篇）-----
-        '哥哥日记': [
-            { title: '【加密日记】· 第一篇 · 伤痕', url: 'diary.html', snippet: '今天又看到慈安身上的伤了……玄姬说可以让我成为真正的人。' },
-            { title: '【加密日记】· 第二篇 · 名单', url: 'diary.html', snippet: '五个霸凌者的名字，还有他爸。一人抵一人，七个就是七个。' },
-            { title: '【加密日记】· 第三篇 · 交易', url: 'diary.html', snippet: '玄姬说：我需要他们的怨气。你成人，我脱困。各取所需。' },
-            { title: '【加密日记】· 第四篇 · 我是谁', url: 'diary.html', snippet: '我是他分裂出来的。他太痛苦了，需要一个保护者。' }
-        ],
-        '加密日记': [
-            { title: '【加密日记】· 第一篇 · 伤痕', url: 'diary.html', snippet: '仅自己可见……' },
-            { title: '【加密日记】· 第二篇 · 名单', url: 'diary.html', snippet: '仅自己可见……' },
-            { title: '【加密日记】· 第三篇 · 交易', url: 'diary.html', snippet: '仅自己可见……' },
-            { title: '【加密日记】· 第四篇 · 我是谁', url: 'diary.html', snippet: '仅自己可见……' }
-        ],
+    // ===== 霸凌：2条 =====
+    '霸凌': [
+        { title: '【求助】被欺负了该怎么办？', url: 'posts/5.html', snippet: '李慈安被霸凌的详细描述。' },
+        { title: '【求助】有人能帮我吗？我快撑不下去了', url: 'posts/4.html', snippet: '李慈安同时遭遇霸凌和家暴。' }
+    ],
 
-        // ----- 玄姬相关（含残卷） -----
-        '玄姬': [
-            { title: '【日常】今天看到一个很奇怪的符号', url: 'posts/3.html', snippet: '有人认识这个符号吗？我总觉得它和一个人有关——那个人好像叫"玄姬"……' },
-            { title: '【树洞】我哥说"快了"……是什么意思？', url: 'posts/11.html', snippet: '李慈安：我哥提到过一个名字——"玄姬"。他说她快来了。' },
-            { title: '【残卷】玄姬 · 南城古卷', url: '../forum/玄姬残卷.html', snippet: '玄姬者，上古怨灵也……其前身乃一对孪生姐妹。' }
-        ],
+    // ===== 家暴：2条 =====
+    '家暴': [
+        { title: '【日常】今天爸又喝酒了，哥让我躲起来', url: 'posts/8.html', snippet: '李慈安记录父亲家暴日常。' },
+        { title: '【求助】有人能帮我吗？我快撑不下去了', url: 'posts/4.html', snippet: '李慈安被父亲家暴的求助帖。' }
+    ],
 
-        // ----- 生日相关（登录密码线索） -----
-        '生日': [
-            { title: '【树洞】弟弟，生日快乐', url: 'posts/13.html', snippet: '3月17日，慈安十七岁了。' }
-        ],
-        '3月17日': [
-            { title: '【树洞】弟弟，生日快乐', url: 'posts/13.html', snippet: '3月17日，慈安十七岁了。' }
-        ],
-        '0317': [
-            { title: '【树洞】弟弟，生日快乐', url: 'posts/13.html', snippet: '3月17日，慈安十七岁了。' }
-        ],
+    // ===== 南城一中：3条 =====
+    '南城一中': [
+        { title: '【求助】有谁知道南城一中的事吗？', url: 'posts/1.html', snippet: '南城一中学生失踪的讨论。' },
+        { title: '【日常】今天看到一个很奇怪的符号', url: 'posts/3.html', snippet: '符号出现在南城一中后门墙上。' },
+        { title: '【日常】南城一中门口又出事了', url: 'posts/12.html', snippet: '南城一中门口又围了一堆人。' }
+    ],
 
-        // ----- 霸凌 / 家暴 -----
-        '霸凌': [
-            { title: '【求助】被欺负了该怎么办？', url: 'posts/5.html', snippet: '李慈安：他们又来了……在学校里，他们叫我"没妈的孩子"。' },
-            { title: '【求助】有人能帮我吗？我快撑不下去了', url: 'posts/4.html', snippet: '李慈安：在学校被欺负，在家里被打……我快撑不下去了。' }
-        ],
-        '家暴': [
-            { title: '【日常】今天爸又喝酒了，哥让我躲起来', url: 'posts/8.html', snippet: '李慈安：爸又喝酒了，打了我一巴掌。哥让我躲起来。' },
-            { title: '【求助】有人能帮我吗？我快撑不下去了', url: 'posts/4.html', snippet: '李慈安：我爸打我的时候，我哥就会出现。' }
-        ],
+    // ===== 第七个：2条 =====
+    '第七个': [
+        { title: '【树洞】我哥说"快了"……是什么意思？', url: 'posts/11.html', snippet: '哥哥说“还差七个”。' },
+        { title: '【求助】我好像听到了不该听到的声音', url: 'posts/10.html', snippet: '哥哥说“第七个已经来了”。' }
+    ],
 
-        // ----- 南城一中 -----
-        '南城一中': [
-            { title: '【求助】有谁知道南城一中的事吗？', url: 'posts/1.html', snippet: '南城一中最近好像出了什么事，有人知道吗？' },
-            { title: '【日常】今天看到一个很奇怪的符号', url: 'posts/3.html', snippet: '那个符号我在南城一中的墙上见过……' },
-            { title: '【日常】南城一中门口又出事了', url: 'posts/12.html', snippet: '南城一中门口又围了一堆人……' }
-        ],
+    // ===== 献祭：1条 =====
+    '献祭': [
+        { title: '【树洞】我哥说"快了"……是什么意思？', url: 'posts/11.html', snippet: '哥哥提到“献祭”这个词。' }
+    ],
 
-        // ----- 第七个 / 献祭 -----
-        '第七个': [
-            { title: '【树洞】我哥说"快了"……是什么意思？', url: 'posts/11.html', snippet: '李慈安：他说"还差七个"，然后又说"快了"……' },
-            { title: '【求助】我好像听到了不该听到的声音', url: 'posts/10.html', snippet: '李慈安：我听到我哥说"第七个已经来了"……' },
-            { title: '【残卷】玄姬 · 南城古卷', url: '../forum/玄姬残卷.html', snippet: '「第七者，当为观卷之人。」' }
-        ],
-        '第七': [
-            { title: '【树洞】我哥说"快了"……是什么意思？', url: 'posts/11.html', snippet: '……还差七个……' },
-            { title: '【求助】我好像听到了不该听到的声音', url: 'posts/10.html', snippet: '第七个已经来了……' },
-            { title: '【残卷】玄姬 · 南城古卷', url: '../forum/玄姬残卷.html', snippet: '第七者，当为观卷之人。' }
-        ],
-        '献祭': [
-            { title: '【树洞】我哥说"快了"……是什么意思？', url: 'posts/11.html', snippet: '李慈安：我哥说"献祭"这个词的时候，声音变得很怪……' },
-            { title: '【残卷】玄姬 · 南城古卷', url: '../forum/玄姬残卷.html', snippet: '「七道怨魂」以补自身之缺……' }
-        ],
+    // ===== 符号：1条 =====
+    '符号': [
+        { title: '【日常】今天看到一个很奇怪的符号', url: 'posts/3.html', snippet: '南城一中后门墙上的神秘符号。' }
+    ],
 
-        // ----- 符号 -----
-        '符号': [
-            { title: '【日常】今天看到一个很奇怪的符号', url: 'posts/3.html', snippet: '有人认识这个符号吗？◈ 我总觉得在哪见过……' }
-        ],
+    // ===== 深网：2条 =====
+    '深网': [
+        { title: '【日常】你们听说过"深网"吗？', url: 'posts/9.html', snippet: '有人提到深网档案的存在。' },
+        { title: '【日常】今天看到一个很奇怪的符号', url: 'posts/3.html', snippet: '符号和玄姬可能和深网有关。' }
+    ],
 
-        // ----- 人格 / 分裂 -----
-        '人格': [
-            { title: '【树洞】他是我哥，但我不知道他是谁', url: 'posts/7.html', snippet: '有人说我哥可能是我分裂出来的人格……但我不知道是什么意思。' },
-            { title: '【加密日记】· 第四篇 · 我是谁', url: 'diary.html', snippet: '我是他分裂出来的……' }
-        ],
-        '分裂': [
-            { title: '【树洞】他是我哥，但我不知道他是谁', url: 'posts/7.html', snippet: '有人说我哥可能是我分裂出来的人格……但他明明就在我身边。' },
-            { title: '【加密日记】· 第四篇 · 我是谁', url: 'diary.html', snippet: '我是他分裂出来的……' }
-        ],
+    // ===== 失眠：1条 =====
+    '失眠': [
+        { title: '【树洞】最近总是失眠，有人一样吗？', url: 'posts/2.html', snippet: '李慈安失眠的记录。' }
+    ],
 
-        // ----- 失眠 -----
-        '失眠': [
-            { title: '【树洞】最近总是失眠，有人一样吗？', url: 'posts/2.html', snippet: '我叫李慈安，最近总是睡不着……' }
-        ],
+    // ===== 人格 / 分裂：各1条 =====
+    '人格': [
+        { title: '【树洞】他是我哥，但我不知道他是谁', url: 'posts/7.html', snippet: '李慈安怀疑哥哥可能是分裂出的人格。' }
+    ],
+    '分裂': [
+        { title: '【树洞】他是我哥，但我不知道他是谁', url: 'posts/7.html', snippet: '李慈安怀疑哥哥可能是分裂出的人格。' }
+    ],
 
-        // ----- 深网 -----
-        '深网': [
-            { title: '【日常】你们听说过"深网"吗？', url: 'posts/9.html', snippet: '我哥提过这个地方……那里面的人知道一些"不该知道的事"。' },
-            { title: '【残卷】玄姬 · 南城古卷', url: '../forum/玄姬残卷.html', snippet: '深网档案 · 编号 XJ-001' }
-        ],
-
-        // ----- 路人 -----
-        '路人': [
-            { title: '【日常】南城一中门口又出事了', url: 'posts/12.html', snippet: '最近南城一中门口总是出事……' }
-        ],
-
-        // ----- 交易 / 执念 -----
-        '交易': [
-            { title: '【加密日记】· 第三篇 · 交易', url: 'diary.html', snippet: '玄姬说：我需要他们的怨气。你成人，我脱困。各取所需。' },
-            { title: '【残卷】玄姬 · 南城古卷', url: '../forum/玄姬残卷.html', snippet: '「你之执念，正是我之饵料。」' }
-        ],
-        '执念': [
-            { title: '【加密日记】· 第三篇 · 交易', url: 'diary.html', snippet: '我执念够深，也因为我足够恨。' },
-            { title: '【残卷】玄姬 · 南城古卷', url: '../forum/玄姬残卷.html', snippet: '「你之执念，正是我之饵料。」' }
-        ],
-
-        // ----- LCA-0327（查询码） -----
-        'LCA-0327': [
-            { title: '【加密】最后的记录 · 李慈安', url: '../forum/posts/li.html', snippet: '查询码 LCA-0327' }
-        ],
-        'LCA0327': [
-            { title: '【加密】最后的记录 · 李慈安', url: '../forum/posts/li.html', snippet: '查询码 LCA-0327' }
-        ],
-
-        // ----- 祭祀 / 古卷 -----
-        '祭祀': [
-            { title: '【残卷】玄姬 · 南城古卷', url: '../forum/玄姬残卷.html', snippet: '沉河以祀，双生女祭……' }
-        ],
-        '古卷': [
-            { title: '【残卷】玄姬 · 南城古卷', url: '../forum/玄姬残卷.html', snippet: '南城古卷 · 玄姬残卷' }
-        ],
-
-        // ----- 南城渡口 -----
-        '南城渡口': [
-            { title: '【残卷】玄姬 · 南城古卷', url: '../forum/玄姬残卷.html', snippet: '南城渡口 · 双生女沉河之地……' }
-        ],
-
-        // ----- 爸爸 / 喝酒 -----
-        '爸爸': [
-            { title: '【日常】今天爸又喝酒了，哥让我躲起来', url: 'posts/8.html', snippet: '爸又喝酒了……' }
-        ],
-        '喝酒': [
-            { title: '【日常】今天爸又喝酒了，哥让我躲起来', url: 'posts/8.html', snippet: '爸又喝酒了……' }
-        ]
-    };
-
-    // ============================================================
-    // 渲染函数
-    // ============================================================
-    function renderResults(keyword) {
-        var container = document.getElementById('resultsContainer');
-        var keywordDisplay = document.getElementById('keywordDisplay');
-        keywordDisplay.textContent = '"' + keyword + '"';
-
-        var results = searchData[keyword];
-        if (!results) {
-            var matched = false;
-            for (var key in searchData) {
-                if (keyword.includes(key)) { results = searchData[key]; matched = true; break; }
-                if (key.includes(keyword)) { results = searchData[key]; matched = true; break; }
-            }
-            if (!matched) results = [];
-        }
-
-        if (!results || results.length === 0) {
-            container.innerHTML = `
-                <div class="no-result">🔍 未找到与 "<span style="color:#8a2a2a;">${keyword}</span>" 相关的内容</div>
-                <div style="text-align:center; font-size:13px; color:#888; margin-top:10px;">
-                    试试下面的关键词：
-                    <div class="tag-cloud" style="justify-content:center;">
-                        <span class="tag" onclick="location.href='search.html?q=李慈安'">李慈安</span>
-                        <span class="tag" onclick="location.href='search.html?q=哥哥'">哥哥</span>
-                        <span class="tag special" onclick="location.href='search.html?q=生日'">生日</span>
-                        <span class="tag" onclick="location.href='search.html?q=玄姬'">玄姬</span>
-                        <span class="tag" onclick="location.href='search.html?q=第七个'">第七个</span>
-                        <span class="tag" onclick="location.href='search.html?q=哥哥日记'">哥哥日记</span>
-                    </div>
-                </div>
-            `;
-            return;
-        }
-
-        var html = '';
-        results.forEach(function(item) {
-            html += `
-                <div class="result-item">
-                    <div class="title" onclick="location.href='${item.url}'">📄 ${item.title}</div>
-                    <div class="snippet">${item.snippet}</div>
-                    <div class="meta">来自：南城社区 · <span class="highlight">${keyword}</span> 相关</div>
-                </div>
-            `;
-        });
-        container.innerHTML = html + `<div style="margin-top:16px; color:#999; font-size:12px;">共 ${results.length} 条结果</div>`;
-    }
-
-    // ============================================================
-    // 从URL获取关键词并渲染
-    // ============================================================
-    var params = new URLSearchParams(window.location.search);
-    var keyword = params.get('q');
-    if (!keyword) {
-        keyword = '请输入搜索词';
-        document.getElementById('keywordDisplay').textContent = '"请搜索"';
-        document.getElementById('resultsContainer').innerHTML = `
-            <div class="no-result">🔍 请输入搜索关键词</div>
-            <div class="tag-cloud" style="justify-content:center; margin-top:12px;">
-                <span class="tag" onclick="location.href='search.html?q=李慈安'">李慈安</span>
-                <span class="tag" onclick="location.href='search.html?q=哥哥'">哥哥</span>
-                <span class="tag special" onclick="location.href='search.html?q=生日'">生日</span>
-                <span class="tag" onclick="location.href='search.html?q=玄姬'">玄姬</span>
-                <span class="tag" onclick="location.href='search.html?q=第七个'">第七个</span>
-                <span class="tag" onclick="location.href='search.html?q=霸凌'">霸凌</span>
-                <span class="tag" onclick="location.href='search.html?q=家暴'">家暴</span>
-                <span class="tag" onclick="location.href='search.html?q=南城一中'">南城一中</span>
-                <span class="tag" onclick="location.href='search.html?q=哥哥日记'">哥哥日记</span>
-                <span class="tag" onclick="location.href='search.html?q=交易'">交易</span>
-                <span class="tag" onclick="location.href='search.html?q=LCA-0327'">LCA-0327</span>
-            </div>
-        `;
-    } else {
-        renderResults(decodeURIComponent(keyword));
-    }
-
-    console.log('🔍 搜索页面已加载，关键词:', decodeURIComponent(keyword || '（空）'));
-    console.log('💡 共 ' + Object.keys(searchData).length + ' 个预设关键词，覆盖所有帖子线索。');
-</script>
-</body>
-</html>
+    // ===== 南城渡口：1条（关联学校官网） =====
+    '南城渡口': [
+        { title: '【求助】谁知道南城渡口怎么走？', url: 'posts/daily4.html', snippet: '有人问路南城渡口，一个废弃的河边渡口。' }
+    ]
+};
