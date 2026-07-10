@@ -33,9 +33,11 @@
         .thread-item .title .tag { background: #e8ecf0; color: #888; font-size: 11px; padding: 1px 8px; border-radius: 3px; margin-right: 6px; }
         .thread-item .title .tag.hot { background: #f0d0d0; color: #8a2a2a; }
         .thread-item .title .tag.new { background: #d0e8d0; color: #2a6a2a; }
+        .thread-item .title .tag.locked { background: #d0d0d0; color: #888; }
         .thread-item .meta { font-size: 12px; color: #999; }
         .thread-item .meta .author { color: #1a5a8a; }
         .thread-item .meta .author.self { color: #8a2a2a; font-weight: bold; }
+        .thread-item .meta .author.locked { color: #999; }
         .two-col { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
         .sidebar { background: #fff; border-radius: 6px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); padding: 16px 20px; }
         .sidebar h3 { font-size: 14px; color: #1a3a5c; border-bottom: 1px solid #e8ecf0; padding-bottom: 10px; margin-bottom: 12px; }
@@ -59,18 +61,6 @@
         .diary-entry .icon { font-size: 20px; margin-right: 10px; }
         .hidden-deep-link { color: #e8ecf0; font-size: 10px; user-select: none; cursor: pointer; }
         .hidden-deep-link:hover { color: #666; text-decoration: underline; }
-        .guide-banner {
-            background: #1a2a3a;
-            color: #b8a8a0;
-            padding: 10px 20px;
-            border-radius: 6px;
-            margin-bottom: 16px;
-            font-size: 13px;
-            text-align: center;
-            border-left: 3px solid #6a5a4a;
-        }
-        .guide-banner .highlight { color: #c8b8a0; font-weight: bold; }
-        .guide-banner .step { color: #8a7a6a; }
         .modal-overlay {
             display: none;
             position: fixed;
@@ -100,6 +90,7 @@
         .modal-box .error { color: #8a2a2a; font-size: 13px; margin-top: 10px; }
         .modal-box .success { color: #2a6a2a; font-size: 13px; margin-top: 10px; }
         .modal-box .hint { color: #999; font-size: 12px; margin-top: 12px; border-top: 1px solid #eee; padding-top: 12px; }
+        .modal-box .hint .clue { color: #8a2a2a; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -132,17 +123,13 @@
 
 <div class="container">
 
-    <div class="guide-banner">
-        <span class="step">▸ 目标：找到用户 <span class="highlight">「LiCian」</span> 的帖子</span>
-        &nbsp;·&nbsp;
-        <span style="color:#7a6a5a;">💡 试试在搜索框输入 <span class="highlight">「李慈安」</span> 或 <span class="highlight">「生日」</span></span>
-    </div>
-
+    <!-- ===== 搜索框（无任何提示） ===== -->
     <div class="search-box">
-        <input type="text" id="searchInput" placeholder="搜索帖子、用户（试试「李慈安」或「生日」）..." onkeydown="if(event.key=='Enter') doSearch()">
+        <input type="text" id="searchInput" placeholder="搜索..." onkeydown="if(event.key=='Enter') doSearch()">
         <button onclick="doSearch()">🔍 搜索</button>
     </div>
 
+    <!-- 加密日记入口（登录后显示） -->
     <div class="diary-entry" id="diaryEntry" onclick="window.location.href='diary.html'">
         <span class="icon">📖</span>
         <span class="title">■ 加密日记 · 李慈佑（共4篇）</span>
@@ -151,10 +138,11 @@
 
     <div class="two-col">
         <div>
-            <!-- 南城茶馆 -->
+
+            <!-- ===== 南城茶馆 ===== -->
             <div class="section">
                 <div class="section-title">☕ 南城茶馆</div>
-                <!-- 日常帖 -->
+                <!-- 开放帖 -->
                 <div class="thread-item" onclick="location.href='posts/daily1.html'">
                     <span class="title"><span class="tag new">新</span> 【闲聊】南城最近下雨下得人心烦</span>
                     <span class="meta"><span class="author">南城老居民</span> · 2026-07-09 · 回复 18</span>
@@ -175,13 +163,23 @@
                     <span class="title">【拼车】每天早上7点南城一中方向，有顺路的吗？</span>
                     <span class="meta"><span class="author">上班族小张</span> · 2026-07-06 · 回复 6</span>
                 </div>
+                <!-- ===== 帖子3（开放，埋密码线索） ===== -->
+                <div class="thread-item" onclick="location.href='posts/3.html'">
+                    <span class="title"><span class="tag hot">热</span> 【日常】今天看到一个很奇怪的符号</span>
+                    <span class="meta"><span class="author">南城路人</span> · 2026-07-06 · 回复 9</span>
+                </div>
                 <div class="thread-item" onclick="location.href='posts/12.html'">
                     <span class="title">【日常】南城一中门口又出事了</span>
                     <span class="meta"><span class="author">南城路人乙</span> · 2026-07-04 · 回复 8</span>
                 </div>
+                <!-- ===== 帖子13（开放，生日帖，密码线索） ===== -->
+                <div class="thread-item" onclick="location.href='posts/13.html'">
+                    <span class="title"><span class="tag">树洞</span> 弟弟，生日快乐</span>
+                    <span class="meta"><span class="author" style="color:#8a2a2a;">LiCiyou</span> · 2026-03-17 · 回复 3</span>
+                </div>
             </div>
 
-            <!-- 求助中心 -->
+            <!-- ===== 求助中心 ===== -->
             <div class="section">
                 <div class="section-title">🆘 求助中心</div>
                 <div class="thread-item" onclick="location.href='posts/4.html'">
@@ -192,8 +190,9 @@
                     <span class="title"><span class="tag">求助</span> 被欺负了该怎么办？</span>
                     <span class="meta"><span class="author self">LiCian</span> · 2026-07-04 · 回复 31</span>
                 </div>
-                <div class="thread-item" onclick="location.href='posts/6.html'">
-                    <span class="title"><span class="tag new">新</span> 【求助】我哥最近变得很奇怪……</span>
+                <!-- ===== 帖子6（锁定，哥哥帖） ===== -->
+                <div class="thread-item locked" onclick="alert('🔒 该帖子需要登录才能查看。')">
+                    <span class="title"><span class="tag new">🔒</span> 【求助】我哥最近变得很奇怪……</span>
                     <span class="meta"><span class="author self">LiCian</span> · 2026-07-03 · 回复 19</span>
                 </div>
                 <div class="thread-item" onclick="location.href='posts/daily4.html'">
@@ -202,16 +201,32 @@
                 </div>
             </div>
 
-            <!-- 情感树洞 -->
+            <!-- ===== 情感树洞 ===== -->
             <div class="section">
                 <div class="section-title">💌 情感树洞</div>
-                <div class="thread-item" onclick="location.href='posts/8.html'">
-                    <span class="title">【日常】今天爸又喝酒了，哥让我躲起来</span>
+                <!-- ===== 帖子7（锁定，哥哥帖） ===== -->
+                <div class="thread-item locked" onclick="alert('🔒 该帖子需要登录才能查看。')">
+                    <span class="title"><span class="tag hot">🔒</span> 【树洞】他是我哥，但我不知道他是谁</span>
+                    <span class="meta"><span class="author self">LiCian</span> · 2026-07-02 · 回复 36</span>
+                </div>
+                <!-- ===== 帖子8（锁定，哥哥帖） ===== -->
+                <div class="thread-item locked" onclick="alert('🔒 该帖子需要登录才能查看。')">
+                    <span class="title">【日常】🔒 今天爸又喝酒了，哥让我躲起来</span>
                     <span class="meta"><span class="author self">LiCian</span> · 2026-07-01 · 回复 42</span>
                 </div>
                 <div class="thread-item" onclick="location.href='posts/9.html'">
                     <span class="title">【日常】你们听说过"深网"吗？</span>
                     <span class="meta"><span class="author">匿名</span> · 2026-07-05 · 回复 6</span>
+                </div>
+                <!-- ===== 帖子10（锁定，哥哥帖） ===== -->
+                <div class="thread-item locked" onclick="alert('🔒 该帖子需要登录才能查看。')">
+                    <span class="title">【求助】🔒 我好像听到了不该听到的声音</span>
+                    <span class="meta"><span class="author self">LiCian</span> · 2026-07-02 · 回复 12</span>
+                </div>
+                <!-- ===== 帖子11（锁定，哥哥帖） ===== -->
+                <div class="thread-item locked" onclick="alert('🔒 该帖子需要登录才能查看。')">
+                    <span class="title"><span class="tag">🔒</span> 【树洞】我哥说"快了"……是什么意思？</span>
+                    <span class="meta"><span class="author self">LiCian</span> · 2026-06-30 · 回复 28</span>
                 </div>
                 <div class="thread-item" onclick="location.href='posts/daily5.html'">
                     <span class="title">【二手】出一辆九成新自行车，价格优惠</span>
@@ -219,7 +234,7 @@
                 </div>
             </div>
 
-            <!-- 被屏蔽的帖子（深网入口） -->
+            <!-- ===== 被屏蔽的帖子（深网入口） ===== -->
             <div class="section" style="border-left:3px solid #8a2a2a; opacity:0.7;">
                 <div class="section-title" style="color:#8a2a2a;">🚫 已屏蔽 · 待审核</div>
                 <div class="thread-item" id="hiddenEntry" style="background:#faf6f6; position:relative;">
@@ -234,17 +249,17 @@
                     <span id="deepLinkHint" style="color:#ddd; cursor:default;">—— 管理员入口</span>
                 </div>
             </div>
+
         </div>
 
-        <!-- 右侧边栏 -->
+        <!-- ===== 右侧边栏（无搜索提示） ===== -->
         <div>
             <div class="sidebar">
                 <h3>📌 热门话题</h3>
-                <div class="item">🔹 <span class="highlight">李慈安</span> 到底是谁？</div>
-                <div class="item">🔹 南城一中那个学生找到了吗？</div>
-                <div class="item">🔹 南城最近好多怪事……</div>
-                <div class="item">🔹 "哥哥"到底是什么人？</div>
-                <div class="item">🔹 阳光花园的流浪猫求领养</div>
+                <div class="item">🔹 南城一中失踪案最新进展</div>
+                <div class="item">🔹 阳光花园流浪猫求领养</div>
+                <div class="item">🔹 南城最近下雨下得人心烦</div>
+                <div class="item">🔹 南城一中门口又出事了</div>
             </div>
 
             <div class="sidebar" style="margin-top:16px;">
@@ -259,16 +274,17 @@
                 <h3 style="color:#666;">🔍 热门搜索</h3>
                 <div class="item" style="font-size:12px; color:#888;">"<b>李慈安</b>" · 共 10 条结果</div>
                 <div class="item" style="font-size:12px; color:#888;">"<b>哥哥</b>" · 共 5 条结果</div>
-                <div class="item" style="font-size:12px; color:#888;">"<b>生日</b>" · 共 1 条结果</div>
-                <div class="item" style="font-size:12px; color:#888; border-bottom:none;">"<b>哥哥日记</b>" · 共 4 条结果</div>
+                <div class="item" style="font-size:12px; color:#888; border-bottom:none;">"<b>生日</b>" · 共 1 条结果</div>
             </div>
 
+            <!-- ===== 无任何搜索提示 ===== -->
             <div class="sidebar" style="margin-top:16px; border:1px dashed #ccc; background:#fcfcfc;">
-                <h3 style="color:#888;">💡 下一步指引</h3>
+                <h3 style="color:#888;">📌 最新回复</h3>
                 <div class="item" style="font-size:12px; color:#999; border-bottom:none; line-height:1.7;">
-                    1. 搜索 <span style="color:#1a5a8a;cursor:pointer;" onclick="document.getElementById('searchInput').value='李慈安';doSearch();">「李慈安」</span> 了解故事<br>
-                    2. 搜索 <span style="color:#1a5a8a;cursor:pointer;" onclick="document.getElementById('searchInput').value='生日';doSearch();">「生日」</span> 获取登录密码<br>
-                    3. 登录后查看 <span style="color:#8a2a2a;">加密日记</span>
+                    <div>▸ 南城老居民 回复了 <b>南城最近下雨</b></div>
+                    <div style="color:#aaa;font-size:11px;">“渡口那边水位涨了不少…”</div>
+                    <div style="margin-top:4px;">▸ 爱猫人士 回复了 <b>流浪猫</b></div>
+                    <div style="color:#aaa;font-size:11px;">“有人愿意领养吗？”</div>
                 </div>
             </div>
         </div>
@@ -291,12 +307,14 @@
         <input type="password" id="loginPassword" placeholder="请输入密码" onkeydown="if(event.key=='Enter') doLogin()">
         <button class="btn" onclick="doLogin()">登录</button>
         <div id="loginFeedback" class="error"></div>
-        <div class="hint">💡 提示：试试用 <strong>"LiCian"</strong> 登录<br>密码藏在 <strong>「生日」</strong> 相关的帖子里（4位数字）</div>
+        <div class="hint">💡 提示：<br>密码藏在 <span class="clue">「符号帖」</span> 和 <span class="clue">「生日帖」</span> 里<br>—— 仔细观察发帖人</div>
     </div>
 </div>
 
 <script>
-    // 登录状态管理（与之前相同，略作精简）
+    // ============================================================
+    // 登录状态管理（新密码：liciyou0317）
+    // ============================================================
     var isLoggedIn = localStorage.getItem('forumLoggedIn') === 'true';
     var currentUser = localStorage.getItem('forumUser') || '';
 
@@ -306,6 +324,7 @@
         var registerLink = document.getElementById('registerLink');
         var logoutLink = document.getElementById('logoutLink');
         var diaryEntry = document.getElementById('diaryEntry');
+
         if (isLoggedIn && currentUser) {
             display.textContent = currentUser;
             display.style.color = '#8a2a2a';
@@ -313,8 +332,23 @@
             registerLink.style.display = 'none';
             logoutLink.style.display = 'inline-block';
             diaryEntry.style.display = 'block';
-            document.querySelector('.guide-banner').innerHTML =
-                '📖 已登录 · <span style="color:#c8b8a0;font-weight:bold;">加密日记已解锁</span> · 点击下方「加密日记」查看李慈佑的4篇日记';
+            document.querySelector('.footer p:first-child').innerHTML =
+                '南城社区 · 欢迎回来，<span style="color:#8a2a2a;font-weight:bold;">' + currentUser + '</span> · 你有 1 条未读私信';
+            // 解锁锁定帖子
+            document.querySelectorAll('.thread-item.locked').forEach(function(el) {
+                el.classList.remove('locked');
+                el.style.opacity = '1';
+                el.style.cursor = 'pointer';
+                el.onclick = function() {
+                    var href = el.getAttribute('data-href');
+                    if (href) location.href = href;
+                };
+                // 移除 🔒 标记
+                var title = el.querySelector('.title');
+                if (title) {
+                    title.textContent = title.textContent.replace('🔒', '').trim();
+                }
+            });
         } else {
             display.textContent = '游客';
             display.style.color = '#1a5a8a';
@@ -322,8 +356,14 @@
             registerLink.style.display = 'inline-block';
             logoutLink.style.display = 'none';
             diaryEntry.style.display = 'none';
-            document.querySelector('.guide-banner').innerHTML =
-                '▸ 目标：找到用户 <span class="highlight">「LiCian」</span> 的帖子 · 💡 搜索 <span class="highlight">「李慈安」</span> 或 <span class="highlight">「生日」</span>';
+            document.querySelector('.footer p:first-child').innerHTML =
+                '南城社区 · 南城人自己的论坛 · 始于2006年';
+            // 锁定帖子
+            document.querySelectorAll('.thread-item.locked').forEach(function(el) {
+                el.style.opacity = '0.5';
+                el.style.cursor = 'not-allowed';
+                el.onclick = function() { alert('🔒 该帖子需要登录才能查看。'); };
+            });
         }
     }
 
@@ -333,11 +373,14 @@
         var feedback = document.getElementById('loginFeedback');
         feedback.textContent = '';
         feedback.className = 'error';
+
         if (username === '' || password === '') {
             feedback.textContent = '❌ 请输入用户名和密码';
             return;
         }
-        if (username === 'LiCian' && password === '0317') {
+
+        // ===== 新密码：liciyou0317 =====
+        if (username === 'LiCian' && password === 'liciyou0317') {
             localStorage.setItem('forumLoggedIn', 'true');
             localStorage.setItem('forumUser', 'LiCian');
             isLoggedIn = true;
@@ -355,12 +398,14 @@
             }, 800);
             return;
         }
-        if (username === 'LiCian' && password !== '0317') {
-            feedback.textContent = '❌ 密码错误。提示：密码是 4 位数字，藏在「生日」帖子里。';
-        } else if (username !== 'LiCian' && password === '0317') {
+
+        // 错误反馈（不直接提示密码）
+        if (username === 'LiCian' && password !== 'liciyou0317') {
+            feedback.textContent = '❌ 密码错误。\n提示：密码藏在「符号帖」和「生日帖」里。';
+        } else if (username !== 'LiCian' && password === 'liciyou0317') {
             feedback.textContent = '❌ 用户名错误。试试 "LiCian"。';
         } else {
-            feedback.textContent = '❌ 用户名或密码错误。\n提示：试试 "LiCian" / 生日四位数字';
+            feedback.textContent = '❌ 用户名或密码错误。';
         }
     }
 
@@ -385,6 +430,7 @@
     function closeLoginModal() {
         document.getElementById('loginModal').classList.remove('active');
     }
+
     document.getElementById('loginModal').addEventListener('click', function(e) {
         if (e.target === this) closeLoginModal();
     });
@@ -395,11 +441,12 @@
         window.location.href = 'search.html?q=' + encodeURIComponent(keyword);
     }
 
-    // 深网入口（双击🔒）
+    // ===== 深网入口（双击🔒） =====
     document.addEventListener('DOMContentLoaded', function() {
         var trigger = document.getElementById('deepLinkTrigger');
         var hint = document.getElementById('deepLinkHint');
         var clickCount = 0;
+
         trigger.addEventListener('click', function(e) {
             clickCount++;
             if (clickCount === 2) {
@@ -416,12 +463,14 @@
                 }, 2000);
             }
         });
+
         trigger.addEventListener('contextmenu', function(e) {
             e.preventDefault();
             if (confirm('🕶️ 你正在尝试访问受限区域。\n确定要继续吗？')) {
                 window.location.href = '../forum/index.html';
             }
         });
+
         document.addEventListener('keydown', function(e) {
             if (e.ctrlKey && e.shiftKey && e.key === 'D') {
                 e.preventDefault();
@@ -430,10 +479,19 @@
                 }
             }
         });
+
+        // 预存锁定帖子的真实链接
+        document.querySelectorAll('.thread-item.locked').forEach(function(el, index) {
+            var hrefs = ['posts/6.html', 'posts/7.html', 'posts/8.html', 'posts/10.html', 'posts/11.html'];
+            if (index < hrefs.length) {
+                el.setAttribute('data-href', hrefs[index]);
+            }
+        });
+
         updateUI();
         console.log('🕶️ 提示：双击"🔒"图标可访问隐藏论坛。');
         console.log('💡 快捷键：Ctrl+Shift+D 访问深网档案');
-        console.log('🔑 论坛登录：LiCian / 0317（慈安生日）');
+        console.log('🔑 论坛登录：LiCian / 密码藏在帖子里');
     });
 
     window.doLogin = doLogin;
