@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加密日记</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #0a0806;
+            color: #b8a8a0;
+            font-family: 'Courier New', monospace;
+            min-height: 100vh;
+            padding: 30px;
+            background-image: radial-gradient(circle at 30% 40%, #1a1210 0%, #0a0806 100%);
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #120e0c;
+            border: 1px solid #3a2a1a;
+            padding: 40px 45px;
+            box-shadow: 0 0 60px rgba(0, 0, 0, 0.9);
+        }
+        .header {
+            border-bottom: 1px solid #2a1a12;
+            padding-bottom: 18px;
+            margin-bottom: 25px;
+        }
+        .header h1 {
+            color: #6a3a2a;
+            font-size: 22px;
+            font-weight: normal;
+            letter-spacing: 4px;
+        }
+        .header .sub {
+            color: #4a3a2a;
+            font-size: 11px;
+            margin-top: 4px;
+            letter-spacing: 2px;
+        }
+        .diary-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .diary-item {
+            border: 1px solid #2a1a12;
+            padding: 20px 24px;
+            background: #0a0806;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .diary-item:hover {
+            border-color: #4a3a2a;
+            background: #120e0c;
+        }
+        .diary-item .title {
+            color: #8a7a6a;
+            font-size: 16px;
+            letter-spacing: 2px;
+        }
+        .diary-item .date {
+            color: #4a3a2a;
+            font-size: 11px;
+            margin-top: 4px;
+        }
+        .diary-item .preview {
+            color: #6a5a4a;
+            font-size: 13px;
+            margin-top: 8px;
+            border-top: 1px solid #1a120e;
+            padding-top: 8px;
+        }
+        .divider {
+            border-top: 1px solid #2a1a12;
+            margin: 30px 0;
+        }
+        .deep-link-area {
+            text-align: center;
+            margin-top: 10px;
+            padding: 20px;
+            border: 1px solid #2a1a12;
+            background: #0a0806;
+        }
+        .deep-link-area .title {
+            color: #5a4a3a;
+            font-size: 13px;
+            letter-spacing: 2px;
+        }
+        .deep-link-area .btn {
+            background: #1a120e;
+            border: 1px solid #3a2a1a;
+            color: #8a7a6a;
+            padding: 12px 30px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            letter-spacing: 3px;
+            transition: all 0.3s;
+            margin-top: 12px;
+        }
+        .deep-link-area .btn:hover {
+            background: #2a1a12;
+            color: #c8b8b0;
+            border-color: #5a3a2a;
+            box-shadow: 0 0 20px rgba(100, 60, 40, 0.3);
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #4a3a2a;
+            text-decoration: none;
+            font-size: 12px;
+        }
+        .back-link:hover {
+            color: #7a6a5a;
+            text-decoration: underline;
+        }
+        .diary-full {
+            display: none;
+            margin-top: 12px;
+            border-top: 1px solid #2a1a12;
+            padding-top: 12px;
+            line-height: 2;
+            color: #b8a8a0;
+        }
+        .diary-full .red {
+            color: #6a2a2a;
+        }
+        .diary-full .highlight {
+            color: #8a3a2a;
+        }
+        .diary-full .hint {
+            color: #5a4a3a;
+            font-size: 13px;
+        }
+        .diary-full .final-hint {
+            color: #4a3a2a;
+            font-size: 12px;
+        }
+        .diary-item .badge {
+            font-size: 10px;
+            color: #4a3a2a;
+            background: #1a120e;
+            padding: 1px 10px;
+            border-radius: 10px;
+            margin-left: 10px;
+        }
+        .diary-item .badge.unlocked {
+            color: #3a7a3a;
+            border: 1px solid #2a3a2a;
+        }
+        .back {
+            margin-top: 25px;
+        }
+        .back a {
+            color: #5a4a3a;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <div class="header">
+            <h1>■ 加密日记 ■</h1>
+            <div class="sub">共 4 篇 · 仅限本人查阅</div>
+        </div>
+
+        <div style="margin-bottom:16px; font-size:12px; color:#4a3a2a;">
+            <span>🔓 点击任意日记展开阅读</span>
+        </div>
+
+        <div class="diary-list">
+
+            <!-- ===== 日记 1 ===== -->
+            <div class="diary-item" onclick="toggleDiary(this)">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span class="title">📄 第一篇 · 他睡着了</span>
+                    <span class="badge unlocked">已解锁</span>
+                </div>
+                <div class="date">2026.06.15 · 仅自己可见</div>
+                <div class="preview">
+                    他睡着的样子很安静。我坐在他床边，看了很久……
+                    <span style="color:#4a3a2a; font-size:12px; margin-left:10px;">[点击展开]</span>
+                </div>
+                <div class="diary-full">
+                    <p>他睡着的样子很安静。</p>
+                    <p>我坐在他床边，看了很久。他的呼吸很轻，轻到我听不见。我不敢伸手去碰他，因为我怕碰到的是冰的。</p>
+                    <p>但他还是暖的。他的手指还有温度。</p>
+                    <p>我坐在那里，坐了一整夜。天亮的时候我站起来，去关了他房间的窗户。然后我站在门口，回头看了他一眼。</p>
+                    <p>他还在睡。他不会醒了。</p>
+                    <p>—— 他走了之后，我连"哥哥"都不是了。</p>
+                </div>
+            </div>
+
+            <!-- ===== 日记 2 ===== -->
+            <div class="diary-item" onclick="toggleDiary(this)">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span class="title">📄 第二篇 · 那些人</span>
+                    <span class="badge unlocked">已解锁</span>
+                </div>
+                <div class="date">2026.07.03 · 仅自己可见</div>
+                <div class="preview">
+                    我去查了他的日记。他不在了，但他留下了一本东西……
+                    <span style="color:#4a3a2a; font-size:12px; margin-left:10px;">[点击展开]</span>
+                </div>
+                <div class="diary-full">
+                    <p>我去查了他的日记。</p>
+                    <p>他不在了，但他留下了一本东西。他说——</p>
+                    <p>"哥，我今天又被他们堵在厕所里了。李耀祖带头，王鹏把门关上，张远在外面笑着数数。我不知道他们在数什么。可能是在数我什么时候会哭。"</p>
+                    <p>他写了很多。每一个名字，每一个日期。</p>
+                    <p><span class="red">李耀祖。</span></p>
+                    <p><span class="red">王鹏。</span></p>
+                    <p><span class="red">张远。</span></p>
+                    <p><span class="red">陈浩。</span></p>
+                    <p><span class="red">赵明志。</span></p>
+                    <p>我记下来了。每一个。</p>
+                    <p>还有我爸。那个喝了酒就打他的男人。</p>
+                    <p>他们都会付出代价。</p>
+                    <p class="hint">—— 我已经开始做了。</p>
+                </div>
+            </div>
+
+            <!-- ===== 日记 3 ===== -->
+            <div class="diary-item" onclick="toggleDiary(this)">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span class="title">📄 第三篇 · 底下那位</span>
+                    <span class="badge unlocked">已解锁</span>
+                </div>
+                <div class="date">2026.07.10 · 仅自己可见</div>
+                <div class="preview">
+                    我去了渡口。那里有一片水，很黑很深……
+                    <span style="color:#4a3a2a; font-size:12px; margin-left:10px;">[点击展开]</span>
+                </div>
+                <div class="diary-full">
+                    <p>我去了渡口。那里有一片水，很黑很深。</p>
+                    <p>我知道她在底下。我在梦里见过她——人形的上半身，下半身是蛇尾，脸很模糊，像两张脸叠在一起。</p>
+                    <p>她没有说话，但我听到了她的声音。</p>
+                    <p>"我可以把他还给你。"</p>
+                    <p>我问她："你要什么。"</p>
+                    <p>她说："七个。我要七个。"</p>
+                    <p class="hint">—— 我不在乎她是什么。我也不在乎她要什么。我只需要她做到她说的。</p>
+                </div>
+            </div>
+
+            <!-- ===== 日记 4 ===== -->
+            <div class="diary-item" onclick="toggleDiary(this)">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span class="title">📄 第四篇 · 我是谁</span>
+                    <span class="badge unlocked">已解锁</span>
+                </div>
+                <div class="date">2026.11.30 · 仅自己可见</div>
+                <div class="preview">
+                    他们已经死了。五个。只剩下最后一个了……
+                    <span style="color:#4a3a2a; font-size:12px; margin-left:10px;">[点击展开]</span>
+                </div>
+                <div class="diary-full">
+                    <p>他们已经死了。五个。</p>
+                    <p>只剩下最后一个了。</p>
+                    <p>我告诉自己——我做这些事，是为了让他回来。</p>
+                    <p>但我不确定我还能不能认出他。如果他回来了，他看到我现在的样子——他还会叫我哥吗？</p>
+                    <p>我不知道。</p>
+                    <p>但我已经回不去了。</p>
+                    <p>—— 我叫李慈佑。我是他哥。</p>
+                    <p class="final-hint" style="margin-top:8px; color:#3a2a1a; font-size:11px;">（第七个是唯一不能杀的人，因为那个人是他唯一还在乎的。）</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- ===== 深网入口 ===== -->
+        <div class="deep-link-area">
+            <div class="title">—— 有些东西，在水底下 ——</div>
+            <button class="btn" onclick="if(confirm('🕶️ 你确定要进入「深网档案」吗？')) window.location.href='../forum/index.html'">▶ 进入深网档案</button>
+            <div style="margin-top:8px; font-size:10px; color:#2a1a12;">（你确定吗？）</div>
+        </div>
+
+        <a class="back-link" href="index.html">← 返回南城社区</a>
+    </div>
+
+    <script>
+        function toggleDiary(el) {
+            var full = el.querySelector('.diary-full');
+            var preview = el.querySelector('.preview');
+            if (full.style.display === 'block') {
+                full.style.display = 'none';
+                preview.style.display = 'block';
+            } else {
+                full.style.display = 'block';
+                preview.style.display = 'none';
+            }
+        }
+
+        console.log('%c📖 4篇加密日记已解锁', 'color: #6a3a2a; font-size: 16px;');
+        console.log('%c💡 点击日记展开阅读。底部通往深网档案。', 'color: #4a3a2a; font-size: 13px;');
+        console.log('%c👁️ 第四篇最后一句话……他是谁？', 'color: #3a2a1a; font-size: 13px;');
+    </script>
+
+</body>
+</html>
