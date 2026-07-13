@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>南城旧事 · 寻找李慈安</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #0d0a08;
+            color: #b8a8a0;
+            font-family: 'Courier New', monospace;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            background-image: radial-gradient(circle at 30% 20%, #1a1210 0%, #0a0806 100%);
+        }
+        .container {
+            max-width: 720px;
+            background: #120e0c;
+            border: 1px solid #3a2a1a;
+            padding: 50px 45px;
+            box-shadow: 0 0 80px rgba(20, 10, 0, 0.5);
+            position: relative;
+        }
+        .container::before {
+            content: "◈";
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 40px;
+            color: #2a1a12;
+            opacity: 0.2;
+        }
+        .header {
+            border-bottom: 1px solid #2a1a12;
+            padding-bottom: 18px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .header h1 {
+            color: #6a3a2a;
+            font-size: 22px;
+            font-weight: normal;
+            letter-spacing: 6px;
+        }
+        .header .sub {
+            color: #4a3a2a;
+            font-size: 11px;
+            margin-top: 6px;
+            letter-spacing: 2px;
+        }
+        .content {
+            line-height: 2.2;
+            font-size: 14px;
+            color: #b8a8a0;
+        }
+        .content .highlight {
+            color: #8a3a2a;
+            font-weight: bold;
+        }
+        .content .red {
+            color: #6a2a2a;
+        }
+        .content .fade {
+            color: #5a4a3a;
+        }
+        .divider {
+            border-top: 1px solid #1a120e;
+            margin: 25px 0;
+        }
+        .role-box {
+            background: #0a0806;
+            border: 1px solid #2a1a12;
+            padding: 16px 20px;
+            margin: 15px 0;
+            border-radius: 4px;
+            border-left: 3px solid #6a3a2a;
+        }
+        .role-box .label {
+            color: #4a3a2a;
+            font-size: 11px;
+            letter-spacing: 2px;
+        }
+        .role-box .text {
+            color: #c8b8a0;
+            font-size: 15px;
+            margin-top: 4px;
+        }
+        .role-box .text .name {
+            color: #8a3a2a;
+            font-weight: bold;
+        }
+        .start-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: #1a120e;
+            border: 1px solid #4a3a2a;
+            color: #c8b8b0;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            letter-spacing: 4px;
+            cursor: pointer;
+            transition: all 0.4s;
+            margin-top: 25px;
+            text-align: center;
+            text-decoration: none;
+        }
+        .start-btn:hover {
+            background: #2a1a12;
+            border-color: #6a4a3a;
+            color: #e8d8d0;
+            box-shadow: 0 0 30px rgba(60, 40, 20, 0.2);
+        }
+        .start-btn:active {
+            transform: scale(0.97);
+        }
+        .warning-note {
+            color: #2a1a12;
+            font-size: 9px;
+            text-align: center;
+            margin-top: 16px;
+            letter-spacing: 1px;
+        }
+        .ghost-whisper {
+            color: #120e0c;
+            font-size: 8px;
+            user-select: none;
+            text-align: right;
+            margin-top: 8px;
+            transition: color 0.5s;
+        }
+        .ghost-whisper:hover {
+            color: #3a2a1a;
+        }
+        .footer-note {
+            color: #2a1a12;
+            font-size: 10px;
+            text-align: center;
+            margin-top: 18px;
+            letter-spacing: 2px;
+        }
+        .step-hint {
+            color: #4a3a2a;
+            font-size: 11px;
+            margin-top: 12px;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+        .step-hint .key {
+            color: #6a4a3a;
+            border: 1px solid #2a1a12;
+            padding: 0 8px;
+            border-radius: 3px;
+        }
+        /* 隐藏的哥哥痕迹 */
+        .trace {
+            color: #120e0c;
+            font-size: 9px;
+            user-select: none;
+            text-align: right;
+            margin-top: 10px;
+            transition: color 0.5s;
+            cursor: default;
+        }
+        .trace:hover {
+            color: #2a1a12;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <h1>■ 南城旧事 ■</h1>
+            <div class="sub">—— 一段尘封的回忆 ——</div>
+        </div>
+
+        <div class="content">
+
+            <div class="role-box">
+                <div class="label">▸ 你是谁</div>
+                <div class="text">
+                    你是 <span class="name">李慈安</span> 小学时唯一的朋友。<br>
+                    你们曾在南城实验小学一起度过了三年时光。<br>
+                    那时你们形影不离，是彼此最信任的人。
+                </div>
+            </div>
+
+            <p>后来，你因为家庭原因转学离开了南城。</p>
+            <p>你们再也没有见过面。</p>
+
+            <div class="divider"></div>
+
+            <div class="role-box" style="border-left-color: #6a2a2a;">
+                <div class="label">▸ 发生了什么</div>
+                <div class="text">
+                    多年后的今天，你偶然看到一个帖子：<br>
+                    <span class="red">有人在找李慈安。</span><br>
+                    有人说他失踪了，有人说他已经不在了。<br>
+                    你不知道哪个是真的。
+                </div>
+            </div>
+
+            <p>你想起了那个安静的孩子。</p>
+            <p>你决定——<span class="highlight">找到他。</span></p>
+
+            <div class="divider"></div>
+
+            <div style="font-size:13px; color:#6a5a4a; line-height:1.9;">
+                <p>💡 你听说他在一个叫 <span class="highlight">「南城社区」</span> 的本地论坛里发过帖子。</p>
+                <p>💡 他在那里的用户名是 <span class="highlight">「LiCian」</span>。</p>
+                <p style="color:#4a3a2a; font-size:12px; margin-top:6px;">
+                    —— 那是他留下痕迹的地方。
+                </p>
+            </div>
+
+            <div class="divider"></div>
+
+            <a class="start-btn" href="forum_public/index.html">
+                ▸ 进入南城社区 · 开始调查
+            </a>
+
+            <div class="step-hint">
+                💡 进入论坛后，搜索 <span class="key">「李慈安」</span> 或 <span class="key">「霸凌」</span>
+            </div>
+
+            <div class="footer-note">◈ 南城档案馆 · 2026 ◈</div>
+            <div class="ghost-whisper">· 有人在等你 ·</div>
+            <div class="trace">· 他还在南城 ·</div>
+
+        </div>
+
+    </div>
+
+    <script>
+        console.log('%c■ 南城旧事 ■', 'color: #6a3a2a; font-size: 18px; font-weight: bold;');
+        console.log('%c🎯 你是谁：李慈安的小学同学，他唯一的朋友', 'color: #b8a8a0; font-size: 14px;');
+        console.log('%c🔍 目标：找到李慈安', 'color: #b8a8a0; font-size: 14px;');
+        console.log('%c💡 第一步：进入「南城社区」，搜索关键词', 'color: #4a3a2a; font-size: 13px;');
+
+        document.querySelector('.trace').addEventListener('dblclick', function() {
+            alert('🕶️ 有人一直在看着你。\n—— 你确定要查下去吗？');
+        });
+
+        document.querySelector('.ghost-whisper').addEventListener('dblclick', function() {
+            alert('🕶️ 有人在等你。\n—— 他等了很久。');
+        });
+    </script>
+
+</body>
+</html>
